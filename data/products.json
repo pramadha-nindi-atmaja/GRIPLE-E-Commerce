@@ -1,0 +1,469 @@
+[
+  {
+    "id": "prod_001",
+    "name": "Essential Fleece Hoodie",
+    "slug": "essential-fleece-hoodie",
+    "category": "hoodies",
+    "gender": "men",
+    "price": 79.99,
+    "originalPrice": null,
+    "badge": "Best Seller",
+    "description": "Designed for post-workout comfort and everyday wear. Crafted from heavyweight French terry fabric with a relaxed silhouette.",
+    "fabric": "80% Cotton, 20% Polyester",
+    "care": "Machine wash cold, tumble dry low",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/essential-fleece-hoodie/black-1.jpg",
+          "/images/products/essential-fleece-hoodie/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Stone Grey",
+        "hex": "#9E9E9E",
+        "images": ["/images/products/_pool/grey.jpg", "/images/products/_pool/grey.jpg"]
+      },
+      {
+        "name": "Off White",
+        "hex": "#F5F5F0",
+        "images": [
+          "/images/products/essential-fleece-hoodie/cream-1.jpg",
+          "/images/products/essential-fleece-hoodie/cream-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 10, "S": 25, "M": 30, "L": 20, "XL": 15, "XXL": 8 },
+    "isPublished": true,
+    "isFeatured": true,
+    "isNewArrival": false,
+    "createdAt": "2025-01-15"
+  },
+  {
+    "id": "prod_002",
+    "name": "Tapered Training Jogger",
+    "slug": "tapered-training-jogger",
+    "category": "joggers",
+    "gender": "men",
+    "price": 64.99,
+    "originalPrice": null,
+    "badge": "Best Seller",
+    "description": "Technical fabric, tapered fit. Built for training sessions and commutes alike.",
+    "fabric": "92% Polyester, 8% Elastane",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/tapered-training-jogger/black-1.jpg",
+          "/images/products/tapered-training-jogger/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Olive",
+        "hex": "#6B7B4A",
+        "images": [
+          "/images/products/tapered-training-jogger/olive-1.jpg",
+          "/images/products/tapered-training-jogger/olive-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 5, "S": 20, "M": 35, "L": 25, "XL": 10, "XXL": 5 },
+    "isPublished": true,
+    "isFeatured": true,
+    "isNewArrival": false,
+    "createdAt": "2025-01-20"
+  },
+  {
+    "id": "prod_003",
+    "name": "Compression Base Layer Top",
+    "slug": "compression-base-layer-top",
+    "category": "base-layers",
+    "gender": "men",
+    "price": 49.99,
+    "originalPrice": null,
+    "badge": "New",
+    "description": "4-way stretch compression fabric for maximum performance. Moisture-wicking, odour-resistant.",
+    "fabric": "88% Nylon, 12% Spandex",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/compression-base-layer-top/black-1.jpg",
+          "/images/products/compression-base-layer-top/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Navy",
+        "hex": "#1B2A4A",
+        "images": [
+          "/images/products/compression-base-layer-top/navy-1.jpg",
+          "/images/products/compression-base-layer-top/navy-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 15, "S": 30, "M": 40, "L": 30, "XL": 20, "XXL": 10 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": true,
+    "createdAt": "2025-03-01"
+  },
+  {
+    "id": "prod_004",
+    "name": "Oversized Training Tee",
+    "slug": "oversized-training-tee",
+    "category": "t-shirts",
+    "gender": "men",
+    "price": 39.99,
+    "originalPrice": null,
+    "badge": null,
+    "description": "Drop-shoulder silhouette with garment-washed finish. Relaxed enough for rest days, breathable enough for training.",
+    "fabric": "100% Heavyweight Cotton",
+    "care": "Machine wash cold, line dry",
+    "colors": [
+      {
+        "name": "Washed White",
+        "hex": "#F0EDE8",
+        "images": [
+          "/images/products/oversized-training-tee/cream-1.jpg",
+          "/images/products/oversized-training-tee/cream-2.jpg"
+        ]
+      },
+      {
+        "name": "Washed Black",
+        "hex": "#2A2A2A",
+        "images": [
+          "/images/products/oversized-training-tee/black-1.jpg",
+          "/images/products/oversized-training-tee/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Washed Brown",
+        "hex": "#7A5C4A",
+        "images": [
+          "/images/products/_pool/cream-design.jpg",
+          "/images/products/_pool/cream-design.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 20, "S": 35, "M": 45, "L": 35, "XL": 20, "XXL": 10 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": true,
+    "createdAt": "2025-03-10"
+  },
+  {
+    "id": "prod_005",
+    "name": "Zip Training Jacket",
+    "slug": "zip-training-jacket",
+    "category": "jackets",
+    "gender": "men",
+    "price": 99.99,
+    "originalPrice": 119.99,
+    "badge": "Sale",
+    "description": "Lightweight full-zip training jacket. Moisture-wicking shell with stretch panels under the arms.",
+    "fabric": "95% Polyester, 5% Elastane",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/zip-training-jacket/black-1.jpg",
+          "/images/products/zip-training-jacket/black-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["S", "M", "L", "XL", "XXL"],
+    "stock": { "S": 10, "M": 20, "L": 15, "XL": 10, "XXL": 5 },
+    "isPublished": true,
+    "isFeatured": true,
+    "isNewArrival": false,
+    "createdAt": "2025-02-01"
+  },
+  {
+    "id": "prod_006",
+    "name": "Training Short 7\"",
+    "slug": "training-short-7in",
+    "category": "shorts",
+    "gender": "men",
+    "price": 44.99,
+    "originalPrice": null,
+    "badge": null,
+    "description": "7-inch inseam training short with built-in liner and side pockets. Built for high-rep training.",
+    "fabric": "90% Polyester, 10% Spandex",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/training-short-7in/black-1.jpg",
+          "/images/products/training-short-7in/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Stone Grey",
+        "hex": "#9E9E9E",
+        "images": [
+          "/images/products/training-short-7in/grey-1.jpg",
+          "/images/products/training-short-7in/grey-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 12, "S": 25, "M": 30, "L": 22, "XL": 12, "XXL": 5 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": false,
+    "createdAt": "2025-01-25"
+  },
+  {
+    "id": "prod_007",
+    "name": "High-Waist Sculpt Legging",
+    "slug": "high-waist-sculpt-legging",
+    "category": "leggings",
+    "gender": "women",
+    "price": 69.99,
+    "originalPrice": null,
+    "badge": "Best Seller",
+    "description": "High-waist legging with sculpting waistband and seamless construction. 4-way stretch for unrestricted movement.",
+    "fabric": "72% Nylon, 28% Elastane",
+    "care": "Machine wash cold, do not tumble dry",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/high-waist-sculpt-legging/black-1.jpg",
+          "/images/products/high-waist-sculpt-legging/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Dusty Mauve",
+        "hex": "#C4A89A",
+        "images": ["/images/products/_pool/rose.jpg", "/images/products/_pool/rose.jpg"]
+      },
+      {
+        "name": "Slate Blue",
+        "hex": "#7A8FA6",
+        "images": [
+          "/images/products/high-waist-sculpt-legging/blue-1.jpg",
+          "/images/products/high-waist-sculpt-legging/blue-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "stock": { "XS": 20, "S": 35, "M": 40, "L": 25, "XL": 15 },
+    "isPublished": true,
+    "isFeatured": true,
+    "isNewArrival": false,
+    "createdAt": "2025-01-15"
+  },
+  {
+    "id": "prod_008",
+    "name": "Crop Training Hoodie",
+    "slug": "crop-training-hoodie",
+    "category": "hoodies",
+    "gender": "women",
+    "price": 69.99,
+    "originalPrice": null,
+    "badge": "New",
+    "description": "Cropped silhouette hoodie in heavyweight French terry. Designed for the gym, made for everywhere else.",
+    "fabric": "80% Cotton, 20% Polyester",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Off White",
+        "hex": "#F5F5F0",
+        "images": [
+          "/images/products/crop-training-hoodie/cream-1.jpg",
+          "/images/products/crop-training-hoodie/cream-2.jpg"
+        ]
+      },
+      {
+        "name": "Dusty Rose",
+        "hex": "#D4A5A5",
+        "images": [
+          "/images/products/crop-training-hoodie/rose-1.jpg",
+          "/images/products/crop-training-hoodie/rose-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "stock": { "XS": 18, "S": 30, "M": 35, "L": 20, "XL": 10 },
+    "isPublished": true,
+    "isFeatured": true,
+    "isNewArrival": true,
+    "createdAt": "2025-03-15"
+  },
+  {
+    "id": "prod_009",
+    "name": "Seamless Sports Bra",
+    "slug": "seamless-sports-bra",
+    "category": "tops",
+    "gender": "women",
+    "price": 44.99,
+    "originalPrice": null,
+    "badge": null,
+    "description": "Medium-support seamless sports bra with removable pads. Minimal seams for maximum comfort.",
+    "fabric": "76% Nylon, 24% Spandex",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/seamless-sports-bra/black-1.jpg",
+          "/images/products/seamless-sports-bra/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Sage Green",
+        "hex": "#8FA88A",
+        "images": [
+          "/images/products/seamless-sports-bra/sage-1.jpg",
+          "/images/products/seamless-sports-bra/sage-2.jpg"
+        ]
+      },
+      {
+        "name": "Dusty Mauve",
+        "hex": "#C4A89A",
+        "images": ["/images/products/_pool/rose.jpg", "/images/products/_pool/rose.jpg"]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "stock": { "XS": 25, "S": 40, "M": 35, "L": 20, "XL": 10 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": true,
+    "createdAt": "2025-03-20"
+  },
+  {
+    "id": "prod_010",
+    "name": "Flare Training Pant",
+    "slug": "flare-training-pant",
+    "category": "pants",
+    "gender": "women",
+    "price": 59.99,
+    "originalPrice": null,
+    "badge": "New",
+    "description": "Wide-leg flare silhouette in buttery-soft fabric. Studio-to-street style with a high-rise waistband.",
+    "fabric": "80% Nylon, 20% Spandex",
+    "care": "Machine wash cold",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/flare-training-pant/black-1.jpg",
+          "/images/products/flare-training-pant/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Slate Blue",
+        "hex": "#7A8FA6",
+        "images": [
+          "/images/products/flare-training-pant/blue-1.jpg",
+          "/images/products/flare-training-pant/blue-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL"],
+    "stock": { "XS": 15, "S": 28, "M": 32, "L": 18, "XL": 8 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": true,
+    "createdAt": "2025-03-25"
+  },
+  {
+    "id": "prod_011",
+    "name": "Lightweight Windbreaker",
+    "slug": "lightweight-windbreaker",
+    "category": "jackets",
+    "gender": "unisex",
+    "price": 89.99,
+    "originalPrice": null,
+    "badge": null,
+    "description": "Packable windbreaker with DWR coating. Blocks wind and light rain without sacrificing breathability.",
+    "fabric": "100% Recycled Nylon with DWR coating",
+    "care": "Machine wash cold, do not iron",
+    "colors": [
+      {
+        "name": "Midnight Black",
+        "hex": "#1A1A1A",
+        "images": [
+          "/images/products/lightweight-windbreaker/black-1.jpg",
+          "/images/products/lightweight-windbreaker/black-2.jpg"
+        ]
+      },
+      {
+        "name": "Olive",
+        "hex": "#6B7B4A",
+        "images": [
+          "/images/products/lightweight-windbreaker/olive-1.jpg",
+          "/images/products/lightweight-windbreaker/olive-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 10, "S": 20, "M": 25, "L": 20, "XL": 12, "XXL": 6 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": false,
+    "createdAt": "2025-02-10"
+  },
+  {
+    "id": "prod_012",
+    "name": "Everyday Crew Sweatshirt",
+    "slug": "everyday-crew-sweatshirt",
+    "category": "hoodies",
+    "gender": "unisex",
+    "price": 69.99,
+    "originalPrice": 84.99,
+    "badge": "Sale",
+    "description": "Classic crewneck sweatshirt in garment-dyed heavyweight fleece. A wardrobe essential.",
+    "fabric": "100% Heavyweight Cotton Fleece",
+    "care": "Machine wash cold, tumble dry low",
+    "colors": [
+      {
+        "name": "Washed Cream",
+        "hex": "#E8E2D8",
+        "images": [
+          "/images/products/everyday-crew-sweatshirt/cream-1.jpg",
+          "/images/products/everyday-crew-sweatshirt/cream-2.jpg"
+        ]
+      },
+      {
+        "name": "Washed Brown",
+        "hex": "#7A5C4A",
+        "images": [
+          "/images/products/_pool/cream-design.jpg",
+          "/images/products/_pool/cream-design.jpg"
+        ]
+      },
+      {
+        "name": "Washed Black",
+        "hex": "#2A2A2A",
+        "images": [
+          "/images/products/everyday-crew-sweatshirt/black-1.jpg",
+          "/images/products/everyday-crew-sweatshirt/black-2.jpg"
+        ]
+      }
+    ],
+    "sizes": ["XS", "S", "M", "L", "XL", "XXL"],
+    "stock": { "XS": 12, "S": 25, "M": 35, "L": 30, "XL": 18, "XXL": 8 },
+    "isPublished": true,
+    "isFeatured": false,
+    "isNewArrival": false,
+    "createdAt": "2025-02-15"
+  }
+]
