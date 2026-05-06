@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Guest Checkout - Griple</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary": "#ffffff",
+                        "secondary": "#5d5f5d",
+                        "surface-container-low": "#f5f3f3",
+                        "inverse-primary": "#c8c6c5",
+                        "surface-variant": "#e4e2e2",
+                        "on-primary-fixed": "#1c1b1b",
+                        "secondary-container": "#e2e3e1",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "tertiary-container": "#1a1c1c",
+                        "on-primary-fixed-variant": "#474746",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#e5e2e1",
+                        "secondary-fixed": "#e2e3e1",
+                        "tertiary": "#000000",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed-dim": "#c6c7c5",
+                        "on-background": "#1b1c1c",
+                        "outline": "#747878",
+                        "on-secondary-fixed-variant": "#454746",
+                        "surface-bright": "#fbf9f8",
+                        "on-tertiary-container": "#838484",
+                        "surface-container-highest": "#e4e2e2",
+                        "inverse-on-surface": "#f2f0f0",
+                        "error-container": "#ffdad6",
+                        "surface-container": "#efeded",
+                        "surface": "#fbf9f8",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "outline-variant": "#c4c7c7",
+                        "tertiary-fixed": "#e2e2e2",
+                        "on-primary-container": "#858383",
+                        "on-surface-variant": "#444748",
+                        "on-secondary-container": "#636563",
+                        "inverse-surface": "#303031",
+                        "on-tertiary": "#ffffff",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-high": "#e9e8e7",
+                        "surface-container-lowest": "#ffffff",
+                        "background": "#fbf9f8",
+                        "surface-dim": "#dbdad9",
+                        "primary-container": "#1c1b1b",
+                        "on-surface": "#1b1c1c",
+                        "on-secondary": "#ffffff",
+                        "primary": "#000000",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-secondary-fixed": "#1a1c1b"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "margin-edge": "48px",
+                        "section-gap": "120px",
+                        "gutter": "24px",
+                        "base": "8px"
+                    },
+                    "fontFamily": {
+                        "body-md": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "headline-lg": ["Inter"],
+                        "display": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "display": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Form specific reset for minimal styling */
+        input:focus, select:focus, textarea:focus {
+            outline: none;
+            border-color: #1A1A1A;
+            box-shadow: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface antialiased font-body-md selection:bg-primary selection:text-on-primary min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-edge h-16 bg-surface/95 dark:bg-surface-container-highest/95 backdrop-blur-md border-b border-outline-variant dark:border-outline docked full-width top-0 rounded-none flat no shadows">
+<div class="flex items-center gap-8">
+<a class="font-headline-lg text-headline-lg font-black tracking-tighter text-primary dark:text-on-surface" href="#">GRIPLE</a>
+<div class="hidden md:flex gap-6">
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Men</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Women</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Sale</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button aria-label="shopping_bag" class="text-primary dark:text-on-surface hover:text-primary dark:hover:text-on-surface transition-colors duration-300">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-edge py-section-gap">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+<!-- Left Column: Checkout Form (60%) -->
+<div class="lg:col-span-7 xl:col-span-7 flex flex-col gap-12">
+<div class="border-b border-outline-variant pb-8">
+<h1 class="font-headline-lg text-headline-lg mb-2">Guest Checkout</h1>
+<p class="font-body-md text-on-surface-variant">Complete your order below.</p>
+</div>
+<!-- Contact Information -->
+<section class="flex flex-col gap-6">
+<h2 class="font-headline-md text-headline-md">Contact Information</h2>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="email">Email Address</label>
+<input aria-invalid="true" class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="email" name="email" placeholder="Enter your email" type="email"/>
+<p class="font-label-caps text-label-caps text-error mt-1 flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">error</span>
+                            Email is required
+                        </p>
+</div>
+</section>
+<!-- Shipping Address -->
+<section class="flex flex-col gap-6">
+<h2 class="font-headline-md text-headline-md">Shipping Address</h2>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="fullName">Full Name</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="fullName" name="fullName" placeholder="Jane Doe" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="address1">Address Line 1</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="address1" name="address1" placeholder="123 Main St" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="address2">Address Line 2 (Optional)</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="address2" name="address2" placeholder="Apt, Suite, Bldg" type="text"/>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="city">City</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="city" name="city" placeholder="City" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="state">State / Province</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="state" name="state" placeholder="State" type="text"/>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="zip">Postal Code</label>
+<input class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl" id="zip" name="zip" placeholder="Zip / Postal Code" type="text"/>
+</div>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface" for="country">Country</label>
+<select class="w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface transition-colors focus:border-[#1A1A1A] focus:ring-0 appearance-none bg-no-repeat bg-[url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2224%22%20height%3D%2224%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M7%2010L12%2015L17%2010%22%20stroke%3D%22%231A1A1A%22%20stroke-width%3D%221.5%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%3C/svg%3E')] bg-[position:right_center] rounded-xl" id="country" name="country">
+<option value="US">United States</option>
+<option value="CA">Canada</option>
+<option value="UK">United Kingdom</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Payment -->
+<section class="flex flex-col gap-6">
+<h2 class="font-headline-md text-headline-md">Payment</h2>
+<div class="flex flex-col gap-2">
+<label class="font-label-caps text-label-caps text-on-surface">Card Details</label>
+<div class="w-full bg-surface-container-low border border-[#E5E5E5] p-4 flex items-center justify-between rounded-xl">
+<span class="font-body-md text-outline">Card number, MM/YY, CVC</span>
+<div class="flex gap-2">
+<span class="material-symbols-outlined text-outline">credit_card</span>
+</div>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface-variant flex items-center gap-1 mt-2">
+<span class="material-symbols-outlined text-[14px]">lock</span>
+                            Payments secured by Stripe
+                        </p>
+</div>
+</section>
+<!-- Action -->
+<div class="pt-6">
+<button class="w-full bg-[#1A1A1A] text-[#FFFFFF] font-label-caps text-label-caps py-6 px-8 hover:bg-tertiary-container transition-colors duration-300 flex items-center justify-center gap-2 rounded-full">
+                        PLACE ORDER
+                        <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Right Column: Order Summary (40%) -->
+<div class="lg:col-span-5 xl:col-span-5 relative mt-12 lg:mt-0">
+<div class="sticky top-24 bg-surface-container-lowest border border-outline-variant p-8 flex flex-col gap-8 rounded-2xl">
+<h2 class="font-headline-md text-headline-md border-b border-outline-variant pb-6">Order Summary</h2>
+<!-- Cart Items -->
+<div class="flex flex-col gap-6 border-b border-outline-variant pb-8">
+<!-- Item 1 -->
+<div class="flex gap-4 items-start">
+<div class="w-[80px] h-[100px] bg-surface-container-high flex-shrink-0 relative overflow-hidden border border-outline-variant">
+<img alt="Apex Tech Hoodie Midnight Black" class="w-full h-full object-cover" data-alt="A premium black technical athletic hoodie displayed against a stark, minimalist white background. The lighting is high-key and editorial, emphasizing the sharp, structured lines and matte texture of the performance fabric. The mood is modern, confident, and slightly industrial, aligning with a high-end activewear aesthetic. No shadows, purely structural composition." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAXTqSxeGq5GN6_YiV6wTzTSQjIuXahLmsEgu9ME2jqI61nBoy7BKmoHU2AvctHkBxwVG12zsxt2UTNvga50I-PzJrOwLTZ4DfLYcEiIIljT8yEi_UXtDm8HgU8aofXVpODDdk1WJZzzzX5NqHOqmsCVs4M6xd7he5taYFt1CrZp8a2Fsz24_CFAgan-Oi4YKm89ErXC42symHN7MwzOLsYFtRlXR1zeMSCmyqNVhaOHZ_-rBQ0j6apEXs2mbKqdFT3Ds9qc8QPl_rI"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-[100px] py-1">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-1">Apex Tech Hoodie</h3>
+<p class="font-body-md text-on-surface-variant text-[14px]">Midnight Black / L</p>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface">$125.00</p>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="flex gap-4 items-start">
+<div class="w-[80px] h-[100px] bg-surface-container-high flex-shrink-0 relative overflow-hidden border border-outline-variant">
+<img alt="Aero Base Layer Optic White" class="w-full h-full object-cover" data-alt="A crisp, optic white athletic base layer shirt shot flat against a warm cream background. The editorial lighting highlights the smooth, technical weave of the fabric and its precise, minimalist construction. The visual style is stark, clean, and luxury-focused, reflecting a high-performance lifestyle brand. The image relies on subtle tonal differences rather than heavy shadows." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdModGlgHnxyfYljT322UwwV3-i0haxggOoK82iev0b4ofcLmJJfyoarWMeeOzz-cnR9ACHRuohfLcM_k8CQHjN0xxPpn-QZ3Iz0IQUMJShNY3ooUvQqe1yLnn0IR4N2tYROAbd8wkWbdI_RYBlPo_BrfH5745jFw5gh4Wml5GT4TFT_8Mt5YjWczBtfirY5DXAs9bi68OhCviV868X7WLPfGPUTV_Wj3hztXjPD0jneWPGYaMfPRGs83i3XlsX917rTLsssXKog-C"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-[100px] py-1">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-1">Aero Base Layer</h3>
+<p class="font-body-md text-on-surface-variant text-[14px]">Optic White / S</p>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface">$65.00</p>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="flex gap-4 items-start">
+<div class="w-[80px] h-[100px] bg-surface-container-high flex-shrink-0 relative overflow-hidden border border-outline-variant">
+<img alt="Foundation Jogger Carbon Grey" class="w-full h-full object-cover" data-alt="Carbon grey athletic performance joggers presented in a sharp, editorial style against a neutral cream studio backdrop. The lighting is diffused but directional, capturing the structured drape and minimalist detailing of the pants. The overall aesthetic is premium, raw, and highly focused on functional luxury, with crisp lines and no distracting background elements." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0Vtk4XNqQE-QVWLeGibA-40VzzrV67ZICnZDSgdVcoVLVyU3Pc4wwyO_l87vMukD0kxMHxMYhLOnuRZwr_50zuRysW5z1aiI6_o1ZQb5D7xeZKGw1MTo8wIzAxxcG6qopY5PD8hE7dIBu9SkCg-FE-7YSyplAJ1J08BPdyVt5PaqHgkwjd5AlU1Tg0ydbCyk_tLsHSrHo4HhYLbKEZGGsZm5zvUiyjrerLxD72Zt_D-RsID6Q97rXyJBtl9Ds8Ffd908sMUVAUcXc"/>
+</div>
+<div class="flex-grow flex flex-col justify-between h-[100px] py-1">
+<div>
+<h3 class="font-label-caps text-label-caps text-on-surface mb-1">Foundation Jogger</h3>
+<p class="font-body-md text-on-surface-variant text-[14px]">Carbon Grey / M</p>
+</div>
+<p class="font-label-caps text-label-caps text-on-surface">$84.99</p>
+</div>
+</div>
+</div>
+<!-- Financials -->
+<div class="flex flex-col gap-4 border-b border-outline-variant pb-8">
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface-variant">Subtotal</span>
+<span class="font-body-md text-on-surface">$274.99</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-md text-on-surface-variant">Shipping</span>
+<span class="font-body-md text-on-surface-variant italic">Calculated next step</span>
+</div>
+</div>
+<!-- Total -->
+<div class="flex justify-between items-end">
+<span class="font-headline-md text-headline-md">Total</span>
+<span class="font-headline-md text-headline-md">$274.99</span>
+</div>
+<!-- Trust Indicator -->
+<div class="flex justify-center items-center gap-2 pt-4">
+<span class="material-symbols-outlined text-outline text-[16px]">lock</span>
+<span class="font-label-caps text-label-caps text-outline">Secure checkout</span>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-edge py-section-gap flex flex-col md:flex-row justify-between items-start gap-gutter bg-surface dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline full-width rounded-none flat no shadows">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-black text-primary dark:text-on-surface">GRIPLE</span>
+<p class="font-label-caps text-label-caps text-primary dark:text-on-surface">© 2024 GRIPLE PERFORMANCE. ENGINEERED FOR STRENGTH.</p>
+</div>
+<div class="flex flex-wrap gap-6 md:gap-8">
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Sustainability</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Shipping &amp; Returns</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Contact</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Size Guide</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>

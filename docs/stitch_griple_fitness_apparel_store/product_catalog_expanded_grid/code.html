@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Store - GRIPLE</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#e5e2e1",
+                        "on-primary-fixed-variant": "#474746",
+                        "inverse-surface": "#303031",
+                        "secondary": "#5d5f5d",
+                        "inverse-primary": "#c8c6c5",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#858383",
+                        "primary-container": "#1c1b1b",
+                        "tertiary-fixed-dim": "#c6c6c6",
+                        "surface-variant": "#e4e2e2",
+                        "surface-container": "#efeded",
+                        "surface-dim": "#dbdad9",
+                        "surface": "#fbf9f8",
+                        "tertiary-container": "#1a1c1c",
+                        "surface-container-high": "#e9e8e7",
+                        "on-secondary": "#ffffff",
+                        "tertiary": "#000000",
+                        "secondary-container": "#e2e3e1",
+                        "on-tertiary-container": "#838484",
+                        "on-tertiary-fixed-variant": "#454747",
+                        "tertiary-fixed": "#e2e2e2",
+                        "primary": "#000000",
+                        "surface-tint": "#5f5e5e",
+                        "surface-container-highest": "#e4e2e2",
+                        "outline": "#747878",
+                        "surface-bright": "#fbf9f8",
+                        "on-secondary-fixed-variant": "#454746",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary-fixed": "#e2e3e1",
+                        "outline-variant": "#c4c7c7",
+                        "on-primary-fixed": "#1c1b1b",
+                        "inverse-on-surface": "#f2f0f0",
+                        "on-background": "#1b1c1c",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-surface": "#1b1c1c",
+                        "on-surface-variant": "#444748",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#1a1c1c",
+                        "on-secondary-container": "#636563",
+                        "secondary-fixed-dim": "#c6c7c5",
+                        "on-secondary-fixed": "#1a1c1b",
+                        "error": "#ba1a1a",
+                        "background": "#fbf9f8",
+                        "surface-container-low": "#f5f3f3",
+                        "on-error-container": "#93000a",
+                        "on-error": "#ffffff"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "section-gap": "120px",
+                        "container-max": "1440px",
+                        "margin-edge": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Inter"],
+                        "body-md": ["Inter"],
+                        "headline-md": ["Inter"],
+                        "display": ["Inter"],
+                        "label-caps": ["Inter"],
+                        "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "display": ["64px", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600" }],
+                        "body-lg": ["18px", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        /* Custom scrollbar for webkit */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #e5e5e5; }
+        ::-webkit-scrollbar-thumb:hover { background: #1A1A1A; }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col antialiased">
+<!-- TopNavBar Component -->
+<nav class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-edge h-16 bg-surface/95 dark:bg-surface-container-highest/95 backdrop-blur-md border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-gutter">
+<a class="font-headline-lg text-headline-lg font-black tracking-tighter text-primary dark:text-on-surface" href="/">GRIPLE</a>
+<div class="hidden md:flex gap-6 ml-8">
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Men</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Women</a>
+<a class="text-primary dark:text-on-surface border-b border-primary dark:border-on-surface pb-1 font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300 opacity-80 transition-opacity" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Sale</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-primary dark:text-on-surface hover:text-primary dark:hover:text-on-surface transition-colors duration-300 rounded-full">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">shopping_bag</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-[1440px] mx-auto px-margin-edge py-8">
+<!-- Breadcrumb -->
+<div class="flex items-center gap-2 mb-12 text-on-surface-variant">
+<a class="font-label-caps text-label-caps hover:text-primary transition-colors" href="#">Home</a>
+<span class="font-label-caps text-label-caps">&gt;</span>
+<span class="font-label-caps text-label-caps text-primary">Store</span>
+</div>
+<div class="flex flex-col md:flex-row gap-gutter">
+<!-- Sidebar Filter (260px fixed) -->
+<aside class="w-full md:w-[260px] shrink-0 border-r border-outline-variant pr-gutter pb-12 hidden md:block">
+<div class="flex justify-between items-center mb-8">
+<h2 class="font-headline-md text-headline-md">Filter</h2>
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary underline underline-offset-4 rounded-full">Clear All</button>
+</div>
+<!-- Gender Accordion -->
+<div class="border-b border-outline-variant py-4">
+<button class="flex justify-between items-center w-full group">
+<span class="font-label-caps text-label-caps text-primary">Gender</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">expand_less</span>
+</button>
+<div class="mt-4 flex flex-col gap-3">
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="form-checkbox h-4 w-4 text-primary border-outline-variant focus:ring-primary focus:ring-offset-0 bg-surface rounded-md" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant">Men</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="form-checkbox h-4 w-4 text-primary border-outline-variant focus:ring-primary focus:ring-offset-0 bg-surface rounded-md" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant">Women</span>
+</label>
+<label class="flex items-center gap-3 cursor-pointer">
+<input class="form-checkbox h-4 w-4 text-primary border-outline-variant focus:ring-primary focus:ring-offset-0 bg-surface rounded-md" type="checkbox"/>
+<span class="font-body-md text-body-md text-on-surface-variant">Unisex</span>
+</label>
+</div>
+</div>
+<!-- Category Accordion -->
+<div class="border-b border-outline-variant py-4">
+<button class="flex justify-between items-center w-full group">
+<span class="font-label-caps text-label-caps text-primary">Category</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">expand_more</span>
+</button>
+</div>
+<!-- Size Accordion -->
+<div class="border-b border-outline-variant py-4">
+<button class="flex justify-between items-center w-full group">
+<span class="font-label-caps text-label-caps text-primary">Size</span>
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">expand_less</span>
+</button>
+<div class="mt-4 flex flex-wrap gap-2">
+<button class="w-10 h-10 border border-outline-variant flex items-center justify-center font-label-caps text-label-caps hover:border-primary hover:bg-surface-container transition-colors rounded-full">XS</button>
+<button class="w-10 h-10 border border-primary bg-primary text-on-primary flex items-center justify-center font-label-caps text-label-caps rounded-full">S</button>
+<button class="w-10 h-10 border border-outline-variant flex items-center justify-center font-label-caps text-label-caps hover:border-primary hover:bg-surface-container transition-colors rounded-full">M</button>
+<button class="w-10 h-10 border border-outline-variant flex items-center justify-center font-label-caps text-label-caps hover:border-primary hover:bg-surface-container transition-colors rounded-full">L</button>
+<button class="w-10 h-10 border border-outline-variant flex items-center justify-center font-label-caps text-label-caps hover:border-primary hover:bg-surface-container transition-colors rounded-full">XL</button>
+</div>
+</div>
+</aside>
+<!-- Product Grid Area -->
+<div class="flex-grow">
+<!-- Sort Bar -->
+<div class="flex justify-between items-center mb-8 pb-4 border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-on-surface-variant">142 Products</span>
+<div class="flex items-center gap-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Sort By</span>
+<select class="form-select border-0 bg-transparent py-0 pl-2 pr-8 font-label-caps text-label-caps focus:ring-0 cursor-pointer rounded-2xl">
+<option>Newest</option>
+<option>Price: Low to High</option>
+<option>Price: High to Low</option>
+<option>Best Selling</option>
+</select>
+</div>
+</div>
+<!-- Grid -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Minimalist product photography of a premium black athletic hoodie on a cream background" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" data-alt="Minimalist product photography of a premium black athletic hoodie suspended against a clean cream studio backdrop. The lighting is harsh and directional, creating strong, sharp shadows that emphasize the architectural cut of the garment. The overall aesthetic is high-fashion performance wear, stripped of all decorative elements to focus on texture and form. The mood is confident, intense, and modern." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOFOd81vb_jkVj-iS0scj3v1kcBO3wbaSWbGB7sfvHCz3D5RLwxq9DPsg6BwUovA0xyklAUDatttAUwmn6prB48c_PNUZpTT04k2xt3tGASSYwcs7OJcQAU8-clCSebKWDYpbbybJH8JMgd6baK-MF3YDVq9Du0KRZw9nXwL_ZivGdZfAvcKgWe3AwF1s_U2wUzz3mc6eSaIQvQUkcEf3ii4iRg85_ZrutK69JuVXMmZX_fCy28lR4rC1zYRlJKkBsLR-E9gjD9_vj"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 font-label-caps text-label-caps">NEW</div>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Apex Tech Hoodie</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$120.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-white border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-secondary border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Minimalist fashion editorial shot of white athletic top" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" data-alt="High-contrast minimalist fashion editorial shot featuring a structured white athletic top on a stark cream background. The lighting is bright and even, highlighting the technical fabric's subtle texture. The composition utilizes significant negative space to create a sense of premium exclusivity. The mood is sterile, disciplined, and focused on pure performance aesthetics." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR3tmsjjD5y-HiMnrfj7kvb5u4ZQEBQS0fUnJdUaHr9__tC1qW8iNaxRJTJnSPquENnelCDLaAO8Dn7P9FdArQD_ykuLrJXhS51i0sCflEsaY-7rqT3f7k7LMCqTLPznqqHLPT3aQBICu0PzangAm4640ZdY804z5uGgyiheTCoEPJ6ffPkABo7aRmfe_kL5Uj50Zuo-HjCu52qghHf46QLv2KQvN4mNg39bR7FEGYsZc-nympy-vboFPG6HICMZXk5HnG5wYQtdlx"/>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Aero Base Layer</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$85.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-white border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Detail shot of premium grey athletic joggers" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" data-alt="A tight detail shot of premium grey athletic joggers, emphasizing the sharp seam construction and dense technical knit. Shot against a neutral, warm cream background with soft, diffused lighting that catches the fabric's subtle sheen. The aesthetic is strictly utilitarian luxury, focusing entirely on material quality and structural integrity. The mood is serious and tactical." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2uNcRXkZ3LGRF6bMJ0t_RBpK2Q6nyPhvuH5lUytFb9TR8hT7hDRhKaEVgzM6wu-tSvl306YjG18uZL4bNrxiaqehYOopaIW3UCN19DObIVu2XmFMbPo0SQSRBO41hUTiooLk6zRLoZl9tu9jlhtkxmVzn-uGt2egK3wypfBf1mPZhHJ6HADEfEXkATKD8tpEJOpq6MRyhUwjhnd-R1habnYVObSnvZ7rIP5I3oXwSMF_xo0o6LiEvF0oC_mI8RaX-MUmGlA1i2V5W"/>
+<div class="absolute top-4 left-4 bg-surface text-primary border border-outline-variant px-3 py-1 font-label-caps text-label-caps">BEST SELLER</div>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Foundation Jogger</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$110.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-secondary border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Technical performance top in olive green" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOFOd81vb_jkVj-iS0scj3v1kcBO3wbaSWbGB7sfvHCz3D5RLwxq9DPsg6BwUovA0xyklAUDatttAUwmn6prB48c_PNUZpTT04k2xt3tGASSYwcs7OJcQAU8-clCSebKWDYpbbybJH8JMgd6baK-MF3YDVq9Du0KRZw9nXwL_ZivGdZfAvcKgWe3AwF1s_U2wUzz3mc6eSaIQvQUkcEf3ii4iRg85_ZrutK69JuVXMmZX_fCy28lR4rC1zYRlJKkBsLR-E9gjD9_vj"/>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Stealth Training Tee</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$65.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-secondary border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 5 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Black compression shorts for high-intensity training" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2uNcRXkZ3LGRF6bMJ0t_RBpK2Q6nyPhvuH5lUytFb9TR8hT7hDRhKaEVgzM6wu-tSvl306YjG18uZL4bNrxiaqehYOopaIW3UCN19DObIVu2XmFMbPo0SQSRBO41hUTiooLk6zRLoZl9tu9jlhtkxmVzn-uGt2egK3wypfBf1mPZhHJ6HADEfEXkATKD8tpEJOpq6MRyhUwjhnd-R1habnYVObSnvZ7rIP5I3oXwSMF_xo0o6LiEvF0oC_mI8RaX-MUmGlA1i2V5W"/>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Pro Compression Shorts</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$55.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 6 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Minimalist white sports bra with clean lines" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR3tmsjjD5y-HiMnrfj7kvb5u4ZQEBQS0fUnJdUaHr9__tC1qW8iNaxRJTJnSPquENnelCDLaAO8Dn7P9FdArQD_ykuLrJXhS51i0sCflEsaY-7rqT3f7k7LMCqTLPznqqHLPT3aQBICu0PzangAm4640ZdY804z5uGgyiheTCoEPJ6ffPkABo7aRmfe_kL5Uj50Zuo-HjCu52qghHf46QLv2KQvN4mNg39bR7FEGYsZc-nympy-vboFPG6HICMZXk5HnG5wYQtdlx"/>
+<div class="absolute top-4 left-4 bg-primary text-on-primary px-3 py-1 font-label-caps text-label-caps">NEW</div>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Flux Sports Bra</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$50.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-white border border-outline-variant"></div>
+<div class="w-4 h-4 rounded-full bg-secondary border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 7 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Dark grey overhead hoodie" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCOFOd81vb_jkVj-iS0scj3v1kcBO3wbaSWbGB7sfvHCz3D5RLwxq9DPsg6BwUovA0xyklAUDatttAUwmn6prB48c_PNUZpTT04k2xt3tGASSYwcs7OJcQAU8-clCSebKWDYpbbybJH8JMgd6baK-MF3YDVq9Du0KRZw9nXwL_ZivGdZfAvcKgWe3AwF1s_U2wUzz3mc6eSaIQvQUkcEf3ii4iRg85_ZrutK69JuVXMmZX_fCy28lR4rC1zYRlJKkBsLR-E9gjD9_vj"/>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Core Pullover</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$95.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-secondary border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 8 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Full-length athletic leggings in black" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB2uNcRXkZ3LGRF6bMJ0t_RBpK2Q6nyPhvuH5lUytFb9TR8hT7hDRhKaEVgzM6wu-tSvl306YjG18uZL4bNrxiaqehYOopaIW3UCN19DObIVu2XmFMbPo0SQSRBO41hUTiooLk6zRLoZl9tu9jlhtkxmVzn-uGt2egK3wypfBf1mPZhHJ6HADEfEXkATKD8tpEJOpq6MRyhUwjhnd-R1habnYVObSnvZ7rIP5I3oXwSMF_xo0o6LiEvF0oC_mI8RaX-MUmGlA1i2V5W"/>
+<div class="absolute top-4 left-4 bg-surface text-primary border border-outline-variant px-3 py-1 font-label-caps text-label-caps">BEST SELLER</div>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Sculpt Leggings</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$80.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-black border border-outline-variant"></div>
+</div>
+</div>
+<!-- Product Card 9 -->
+<div class="group cursor-pointer rounded-2xl border border-outline-variant p-2">
+<div class="relative w-full aspect-[3/4] bg-surface-container mb-4 overflow-hidden rounded-2xl">
+<img alt="Breathable white training tank top" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out mix-blend-multiply" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBR3tmsjjD5y-HiMnrfj7kvb5u4ZQEBQS0fUnJdUaHr9__tC1qW8iNaxRJTJnSPquENnelCDLaAO8Dn7P9FdArQD_ykuLrJXhS51i0sCflEsaY-7rqT3f7k7LMCqTLPznqqHLPT3aQBICu0PzangAm4640ZdY804z5uGgyiheTCoEPJ6ffPkABo7aRmfe_kL5Uj50Zuo-HjCu52qghHf46QLv2KQvN4mNg39bR7FEGYsZc-nympy-vboFPG6HICMZXk5HnG5wYQtdlx"/>
+</div>
+<h3 class="font-label-caps text-label-caps text-primary mb-1">Aero Tank</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-3">$45.00</p>
+<div class="flex gap-2">
+<div class="w-4 h-4 rounded-full bg-white border border-outline-variant"></div>
+</div>
+</div></div>
+<!-- Pagination -->
+<div class="mt-section-gap flex justify-center items-center gap-4">
+<button class="font-label-caps text-label-caps text-on-surface-variant hover:text-primary transition-colors disabled:opacity-50 rounded-full" disabled="">Previous</button>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center font-label-caps text-label-caps bg-primary text-on-primary rounded-full">1</button>
+<button class="w-8 h-8 flex items-center justify-center font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors rounded-full">2</button>
+<button class="w-8 h-8 flex items-center justify-center font-label-caps text-label-caps text-on-surface-variant hover:text-primary hover:bg-surface-container transition-colors rounded-full">3</button>
+</div>
+<button class="font-label-caps text-label-caps text-primary hover:underline underline-offset-4 transition-all rounded-full">Next</button>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<footer class="w-full px-margin-edge py-section-gap flex flex-col md:flex-row justify-between items-start gap-gutter bg-surface dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-black text-primary dark:text-on-surface">GRIPLE</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-outline">© 2024 GRIPLE PERFORMANCE. ENGINEERED FOR STRENGTH.</p>
+</div>
+<div class="flex flex-wrap gap-8">
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Sustainability</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Shipping &amp; Returns</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Contact</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Size Guide</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps text-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>

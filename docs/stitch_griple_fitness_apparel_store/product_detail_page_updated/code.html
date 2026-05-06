@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GRIPLE - Essential Fleece Hoodie</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                            "secondary-fixed-dim": "#c6c7c5",
+                            "surface-container-high": "#e9e8e7",
+                            "on-primary": "#ffffff",
+                            "outline": "#747878",
+                            "on-secondary-container": "#636563",
+                            "on-tertiary-container": "#838484",
+                            "on-surface-variant": "#444748",
+                            "surface-variant": "#e4e2e2",
+                            "primary-fixed-dim": "#c8c6c5",
+                            "surface-container-lowest": "#ffffff",
+                            "tertiary-container": "#1a1c1c",
+                            "on-tertiary-fixed": "#1a1c1c",
+                            "on-background": "#1b1c1c",
+                            "on-secondary-fixed-variant": "#454746",
+                            "surface-container-highest": "#e4e2e2",
+                            "on-tertiary-fixed-variant": "#454747",
+                            "primary": "#000000",
+                            "on-primary-fixed": "#1c1b1b",
+                            "tertiary-fixed-dim": "#c6c6c6",
+                            "primary-container": "#1c1b1b",
+                            "background": "#fbf9f8",
+                            "secondary": "#5d5f5d",
+                            "on-surface": "#1b1c1c",
+                            "on-primary-container": "#858383",
+                            "inverse-surface": "#303031",
+                            "on-secondary": "#ffffff",
+                            "error-container": "#ffdad6",
+                            "primary-fixed": "#e5e2e1",
+                            "on-tertiary": "#ffffff",
+                            "inverse-on-surface": "#f2f0f0",
+                            "surface-tint": "#5f5e5e",
+                            "surface-dim": "#dbdad9",
+                            "on-error-container": "#93000a",
+                            "secondary-fixed": "#e2e3e1",
+                            "on-error": "#ffffff",
+                            "surface-container-low": "#f5f3f3",
+                            "on-primary-fixed-variant": "#474746",
+                            "surface": "#fbf9f8",
+                            "error": "#ba1a1a",
+                            "secondary-container": "#e2e3e1",
+                            "on-secondary-fixed": "#1a1c1b",
+                            "surface-container": "#efeded",
+                            "outline-variant": "#c4c7c7",
+                            "surface-bright": "#fbf9f8",
+                            "inverse-primary": "#c8c6c5",
+                            "tertiary-fixed": "#e2e2e2",
+                            "tertiary": "#000000"
+                    },
+                    "borderRadius": {
+                            "DEFAULT": "0.25rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "full": "9999px"
+                    },
+                    "spacing": {
+                            "gutter": "24px",
+                            "container-max": "1440px",
+                            "base": "8px",
+                            "margin-edge": "48px",
+                            "section-gap": "120px"
+                    },
+                    "fontFamily": {
+                            "headline-md": ["Inter"],
+                            "display": ["Inter"],
+                            "label-caps": ["Inter"],
+                            "body-md": ["Inter"],
+                            "headline-lg": ["Inter"],
+                            "body-lg": ["Inter"]
+                    },
+                    "fontSize": {
+                            "headline-md": ["24px", {"lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                            "display": ["64px", {"lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "900"}],
+                            "label-caps": ["12px", {"lineHeight": "1", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                            "body-md": ["16px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}],
+                            "headline-lg": ["32px", {"lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                            "body-lg": ["18px", {"lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="sticky top-0 z-50 flex justify-between items-center w-full px-margin-edge h-16 bg-surface/95 dark:bg-surface-container-highest/95 backdrop-blur-md border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-gutter">
+<a class="font-headline-lg text-headline-lg font-black tracking-tighter text-primary dark:text-on-surface" href="#">GRIPLE</a>
+<div class="hidden md:flex gap-gutter items-center ml-gutter">
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Men</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Women</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Collections</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface transition-colors duration-300" href="#">Sale</a>
+</div>
+</div>
+<div class="flex items-center gap-base">
+<button class="p-2 text-primary dark:text-on-surface hover:opacity-80 transition-opacity">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-container-max mx-auto px-margin-edge py-gutter">
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-2 mb-8 text-on-surface-variant font-label-caps text-label-caps">
+<a class="hover:text-primary transition-colors" href="#">Home</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<a class="hover:text-primary transition-colors" href="#">Men</a>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-primary">Hoodies</span>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter lg:gap-16">
+<!-- Left Column: Gallery (60%) -->
+<div class="lg:col-span-7 flex flex-col gap-base">
+<!-- Main Image -->
+<div class="w-full aspect-[4/5] bg-surface-container-high border border-outline-variant overflow-hidden rounded-2xl">
+<img alt="Male model wearing a heavy black fleece hoodie facing forward against a minimalist studio background." class="w-full h-full object-cover" data-alt="A high-end editorial product shot of a male model wearing a premium, heavy-weight black fleece hoodie. The model is positioned against a clean, warm off-white studio background, emphasizing the minimalist and luxury aesthetic of the brand. The lighting is crisp and even, casting subtle shadows that highlight the texture and structured fit of the garment. The overall mood is confident, modern, and stripped of unnecessary distractions." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDB3RrJsGlCbWrpTrgbs5UxWSqik3uBKIa4SV9gZYKUxf-PIhs_XoWGW-g9FUNYnjEqpldzecDFRkgx5gvDRZPvMq_EXCIWkaKFAefv5TwUIitmtZlNoJT2Xk0prFveE8J6DeZLdqN2au3EcYTcKWzEnYta5KCm5ANSHqT7tPLL6P-mCTJzb3hCLZL3rHXa1k_SDkdHjyVh0yrZPnRlRpZkMOy-2rcVa7ZFyMu35fedXnX0qlwquk2yGNctTVKXStDCLzv37FlTQ8y3"/>
+</div>
+<!-- Thumbnails -->
+<div class="grid grid-cols-4 gap-base">
+<button class="aspect-square bg-surface-container-high border-2 border-primary overflow-hidden rounded-2xl">
+<img alt="Thumbnail front view" class="w-full h-full object-cover" data-alt="A sharp, minimalist thumbnail product shot showing the front view of a black fleece hoodie on a model against an off-white background. The lighting is studio quality, emphasizing the garment's texture." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDgGU7XCqquxl1paEstM8Mh0fnODF-vRc0bWoef0FWO8_yhBqPmBOOtRJ6dL2FOhtBwxQdT218tssuDJiIBTKOgk9xL5GlCHbMskMHnn4wWiaQqgzMtqdNK7381glIwOil76-oaTMWeckaQdxniQ0pCZVGFrIBdaLT5gLzreaIjM2L6rZmRz_kjIFp2gpp_LMfQgDZ7d5XltSRlKlbb7JdeDuF6Jvdmfp_YdWrHZAosasueJsPQAcMbdROR1A-1msnxI3TcsIYD07nq"/>
+</button>
+<button class="aspect-square bg-surface-container-high border border-outline-variant hover:border-primary transition-colors overflow-hidden rounded-2xl">
+<img alt="Thumbnail detail view" class="w-full h-full object-cover" data-alt="A close-up editorial shot focusing on the hood and drawstrings of a premium black fleece hoodie. The background is a clean off-white. The lighting highlights the fine stitching and fabric weave, maintaining a luxury aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAyjm0uLMS303js2ARszZj5NTmX5Trs9LgqBOx0VN57GBcaOV7WgfpQxXWHLyG1225Piby5RB-OPvSMh6SlQXPYHw7dPMDQbTf5rJynV1jYr60bKT2j-L1wPI3gGYyHb8KOM2ZHVcgkUXNNt_rVUHEVE6NfM_syCaNww6nNp4N7XS55tWooGZkNTnq1H5XdjNWnnxTKhXXPxHVvN5XTn8bQM7g9YN1LbK3nF3VLACuIX_Bxv2MCj_w0nc_4FGkWlXyrRJ7LHwM0EHaV"/>
+</button>
+<button class="aspect-square bg-surface-container-high border border-outline-variant hover:border-primary transition-colors overflow-hidden rounded-2xl">
+<img alt="Thumbnail back view" class="w-full h-full object-cover" data-alt="A clean, minimalist product thumbnail showing the back of a black fleece hoodie. Shot against a warm off-white background with professional studio lighting to convey high-end performance wear." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHvxJb-5TX3Q-FP23Ai-CelYn7It20Tg5hAnHinb0DsHYhbKpGHAC2nJm0tOOnsS2hFUjKuAhyRAhwWqBsZmt8dz0J4Cy3YC42KFIcfag6SiAPV4x4hZP3a7q_CvMMKIFtOB28cMAptmUzvG4vHyIfjfCzRodyWPLKpX8-LvBI_--fu1JDpSP5275lAoh9qV1P3KlIAg-kd9VFcXOk5Af56OuJvtUMd6IPf6ryfoB2PgPWA_toirC12yLasV0AHXhFuRa8zPYvOMhN"/>
+</button>
+<button class="aspect-square bg-surface-container-high border border-outline-variant hover:border-primary transition-colors overflow-hidden rounded-2xl">
+<img alt="Thumbnail lifestyle view" class="w-full h-full object-cover" data-alt="An editorial lifestyle shot of a model adjusting the cuffs of a black fleece hoodie. The setting is a minimalist studio with off-white walls. The image exudes quiet confidence and luxury athletic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzAU_aNG8JmTzEKdLCSpR_aVVUL0B4WPHAEB9vA3ZU81cgVh-9dkHVZizisGtFEws62UE7vmDAkmtiNByiQ5s9Q6rxrFAhqJztIjw2JfjTk5kPUF0sbl6AlCvVPo1kGKn3C79ogMhCyb7E8X400TLtqjm7PcE0Fyp1-X5RJV63xKChsj8DwjsLgFdnlPyzNf5k5odsXncnkVWGVFoqjrrilzvqwYHF1RDzGgIS_CGVMH5mgvwrD6BbjuMJpMLPeF2dL-CRpELzOg96"/>
+</button>
+</div>
+</div>
+<!-- Right Column: Product Details (40%) -->
+<div class="lg:col-span-5 flex flex-col gap-8 lg:sticky lg:top-[calc(64px+32px)] self-start pb-section-gap">
+<!-- Title & Price -->
+<div class="flex flex-col gap-2">
+<h1 class="font-display text-headline-lg font-black tracking-tighter uppercase">Essential Fleece Hoodie</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">$79.99</p>
+</div>
+<hr class="border-t border-outline-variant"/>
+<!-- Color Selector -->
+<div class="flex flex-col gap-4">
+<span class="font-label-caps text-label-caps uppercase">Color: Midnight Black</span>
+<div class="flex gap-4">
+<button aria-label="Select Midnight Black" class="w-8 h-8 rounded-full border-2 border-primary bg-[#1a1c1c]"></button>
+<button aria-label="Select Bone White" class="w-8 h-8 rounded-full border border-outline-variant hover:border-outline bg-[#e9e8e7]"></button>
+<button aria-label="Select Graphite Grey" class="w-8 h-8 rounded-full border border-outline-variant hover:border-outline bg-[#5d5f5d]"></button>
+<button aria-label="Select Concrete" class="w-8 h-8 rounded-full border border-outline-variant hover:border-outline bg-[#858383]"></button>
+</div>
+</div>
+<!-- Size Selector -->
+<div class="flex flex-col gap-4">
+<div class="flex justify-between items-center">
+<span class="font-label-caps text-label-caps uppercase">Size</span>
+<a class="font-label-caps text-label-caps underline underline-offset-4 hover:text-on-surface-variant" href="#">Size Guide</a>
+</div>
+<div class="grid grid-cols-3 sm:grid-cols-6 gap-2">
+<button class="py-3 border border-outline-variant text-center font-label-caps text-label-caps hover:border-primary transition-colors rounded-full">XS</button>
+<button class="py-3 border border-outline-variant text-center font-label-caps text-label-caps hover:border-primary transition-colors rounded-full">S</button>
+<button class="py-3 border-2 border-primary bg-primary text-on-primary text-center font-label-caps text-label-caps rounded-full">M</button>
+<button class="py-3 border border-outline-variant text-center font-label-caps text-label-caps hover:border-primary transition-colors rounded-full">L</button>
+<button class="py-3 border border-outline-variant text-center font-label-caps text-label-caps hover:border-primary transition-colors rounded-full">XL</button>
+<button class="py-3 border border-outline-variant text-center font-label-caps text-label-caps text-outline bg-surface-container-low cursor-not-allowed rounded-full">XXL</button>
+</div>
+</div>
+<!-- Add to Cart Actions -->
+<div class="flex gap-4 mt-4">
+<!-- Quantity -->
+<div class="flex items-center border border-primary h-14 w-32 rounded-full overflow-hidden">
+<button class="w-10 h-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">remove</span>
+</button>
+<span class="flex-grow text-center font-label-caps text-label-caps">1</span>
+<button class="w-10 h-full flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined">add</span>
+</button>
+</div>
+<!-- CTA -->
+<button class="flex-grow h-14 bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-inverse-surface transition-colors flex items-center justify-center gap-2 rounded-full">
+                        Add to Cart
+                    </button>
+</div>
+<!-- Accordions -->
+<div class="mt-8 flex flex-col border-t border-outline-variant">
+<details class="group border-b border-outline-variant rounded-xl overflow-hidden" open="">
+<summary class="flex justify-between items-center py-4 cursor-pointer list-none font-label-caps text-label-caps uppercase">
+                            Description
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="pb-4 font-body-md text-body-md text-on-surface-variant">
+                            Engineered for core warmth and structured fit. The Essential Fleece Hoodie is constructed from heavyweight 400gsm brushed-back cotton, offering a dense, premium feel that holds its shape. Features dropped shoulders, a double-lined hood, and a minimalist aesthetic stripped of unnecessary hardware.
+                        </div>
+</details>
+<details class="group border-b border-outline-variant rounded-xl overflow-hidden">
+<summary class="flex justify-between items-center py-4 cursor-pointer list-none font-label-caps text-label-caps uppercase">
+                            Fabric &amp; Care
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="pb-4 font-body-md text-body-md text-on-surface-variant">
+                            100% Organic Cotton. Machine wash cold with like colors. Lay flat to dry to maintain structured silhouette. Do not bleach.
+                        </div>
+</details>
+<details class="group border-b border-outline-variant rounded-xl overflow-hidden">
+<summary class="flex justify-between items-center py-4 cursor-pointer list-none font-label-caps text-label-caps uppercase">
+                            Shipping &amp; Returns
+                            <span class="material-symbols-outlined group-open:rotate-180 transition-transform">expand_more</span>
+</summary>
+<div class="pb-4 font-body-md text-body-md text-on-surface-variant">
+                            Free standard shipping on orders over $150. Returns accepted within 30 days of delivery in unworn condition with tags attached.
+                        </div>
+</details>
+</div>
+</div>
+</div>
+<!-- You Might Also Like Section -->
+<section class="mt-section-gap pt-16 border-t border-outline-variant">
+<h2 class="font-headline-md text-headline-md font-bold mb-8 uppercase tracking-tighter">You Might Also Like</h2>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer flex flex-col gap-4">
+<div class="w-full aspect-[3/4] bg-surface-container-high border border-outline-variant overflow-hidden relative rounded-2xl">
+<img alt="Female model in structured grey sweatpants" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A minimalist fashion editorial shot of a model wearing structured, premium grey sweatpants. The background is a clean off-white studio setting. The lighting is bright and even, highlighting the clean lines and athletic luxury aesthetic of the brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuABKhnA9OR0BzYYchi-IlnPObwbvHPFPtJlCTXXxHN5OXaB3bMB6XE6lXFnYJ8g2TQIDE6k2QfUz7u1M2fr0Y3lPM9AHXLlLmKOjbYf6QaTAiazkepc5ALQpbvCdY-z4d97ledhimNNGBdmc1JFWAanNkDrG_gbnAPItp8USywqCUwcLCqNZ2Uxsg5QJ7Ga9Q8k-ukq2F8EarJMEDhQ-FGvM9qiok6LAKT0rMjhgAhURHRYv4bGi72bW9GWzcUUZgT1xH77Ec_6eYK1"/>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-caps text-label-caps uppercase">Core Sweatpant</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$65.00</p>
+</div>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer flex flex-col gap-4">
+<div class="w-full aspect-[3/4] bg-surface-container-high border border-outline-variant overflow-hidden relative rounded-2xl">
+<img alt="Male model in oversized white t-shirt" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A high-end editorial image featuring a male model in a heavy-weight, oversized white t-shirt. Shot against a warm cream minimalist background. The lighting emphasizes the garment's drape and premium cotton texture, conveying a modern, confident lifestyle aesthetic." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqXd_I-aJLp6uBjhFIdEoNrmy8wndWYPeP9OK2ZENgJBhPwRblsT8IKHErdgDW23uWGdsrti3kho4QZ4vZeI1FfChODGS3SbWvga6MsR1oXKB24mSfhnXYLFReCVUttwjFRJJvLbWIv2Ec16J5Zd8Gkh150enPxkb8JWAi0XyCBOLrrPz8iQaJ74NaCLnK599XUGPEak7Gb64xZmr9hhnCdLXWkoEPeMepe0tGrPu-7WH77oPjx9Jyj5_JjPbnVv3O27l_6IEfSgGL"/>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-caps text-label-caps uppercase">Heavyweight Box Tee</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$40.00</p>
+</div>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer flex flex-col gap-4">
+<div class="w-full aspect-[3/4] bg-surface-container-high border border-outline-variant overflow-hidden relative rounded-2xl">
+<img alt="Black minimalist technical jacket" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A detailed product shot of a black minimalist technical windbreaker jacket. The jacket is presented on a ghost mannequin or model against an off-white studio background. Sharp lines and matte textures are highlighted by crisp lighting, fitting a luxury athletic brand." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB81xceX4iiCdksgIOxmlgfh5r6uhdL5DeDsc7XAd0WKeH-9GMODlGqyTKZLSTLzB5OlbOHlUAyXK8YhVCDFWqUplwde-i2bX0vWaGyb8fcT490Y75EBn16tvG85-U8yfd1HijQnurms4rXHBvWBGYcRs1uFpzd6Q_uUNkbH5aJhyWyF9hR-R46-esdbhxXvDnQVPigs4jbx4p8LKEymJaJgaMaSlm_34Fquoly3EAlJpL3FyKHA7h7sMfGRdIPfwEPIKj8J345C5ze"/>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-caps text-label-caps uppercase">Tech Shell Jacket</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$120.00</p>
+</div>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer flex flex-col gap-4">
+<div class="w-full aspect-[3/4] bg-surface-container-high border border-outline-variant overflow-hidden relative rounded-2xl">
+<img alt="Minimalist black athletic shorts" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="A premium product photograph of minimalist black athletic shorts with structural paneling. The shorts are shot against a warm off-white background with clear, high-key lighting. The image focuses on the sharp silhouette and performance fabric, maintaining an editorial luxury feel." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDMS50VEOyR8QM4Wi0CEAGp81m_fJ18wgvtCjAb-JUvYwfFyg0dTUjid9Snhr-UomiHxSsiD6tty1BTVNzUlMPE9jj3sELt8rJCONAWY-zW2uH-2G41VakR0-vXbeBCf7_gNw6sqAlZ9laEdkA6uY5yUdfwVEuFmxApxrSRJwGRw5hEPlaoNaoLFLpkLn6bZfP5KKEBPvgNzuygWVNrP9hIpu3jS_-nkP8_703ETCjh2oitO0t9RMhtmtz3Vp1EZorIPhBj4ddxudN_"/>
+</div>
+<div class="flex flex-col">
+<h3 class="font-label-caps text-label-caps uppercase">Performance Short</h3>
+<p class="font-body-md text-body-md text-on-surface-variant">$45.00</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full px-margin-edge py-section-gap flex flex-col md:flex-row justify-between items-start gap-gutter bg-surface dark:bg-surface-container-highest border-t border-outline-variant dark:border-outline">
+<div class="flex flex-col gap-4">
+<span class="font-headline-md text-headline-md font-black text-primary dark:text-on-surface">GRIPLE</span>
+<p class="font-label-caps text-label-caps text-on-surface-variant dark:text-outline">© 2024 GRIPLE PERFORMANCE. ENGINEERED FOR STRENGTH.</p>
+</div>
+<div class="flex flex-wrap gap-x-8 gap-y-4">
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Sustainability</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Shipping &amp; Returns</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Contact</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Size Guide</a>
+<a class="text-on-surface-variant dark:text-outline font-label-caps hover:text-primary dark:hover:text-on-surface underline underline-offset-4 Transition-all duration-200 ease-in-out" href="#">Privacy</a>
+</div>
+</footer>
+</body></html>
