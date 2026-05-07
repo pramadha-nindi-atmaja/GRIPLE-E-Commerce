@@ -3,8 +3,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useEffect, useMemo } from "react";
+import { useForm, useWatch } from "react-hook-form";
 
 import { StripeCardPlaceholder } from "@/components/checkout/StripeCardPlaceholder";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
@@ -34,10 +34,12 @@ export function CheckoutForm() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors, isSubmitting },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
     mode: "onBlur",
+    reValidateMode: "onChange",
     defaultValues: {
       email: "",
       fullName: "",
@@ -49,6 +51,14 @@ export function CheckoutForm() {
       country: "US",
     },
   });
+
+  // Watch all values to derive a `valid` flag without touching the `errors`
+  // object — errors keep their `mode: "onBlur"` UX while submit gating is live.
+  const values = useWatch({ control });
+  const isValid = useMemo(
+    () => checkoutSchema.safeParse(values).success,
+    [values],
+  );
 
   useEffect(() => {
     if (!mounted) return;
@@ -275,8 +285,9 @@ export function CheckoutForm() {
       <div className="pt-6">
         <button
           type="submit"
-          disabled={isSubmitting}
-          className="w-full bg-[#1A1A1A] text-[#FFFFFF] font-label-caps text-label-caps py-6 px-8 hover:bg-primary-container transition-colors duration-300 flex items-center justify-center gap-2 rounded-full uppercase tracking-widest disabled:opacity-60"
+          disabled={!isValid || isSubmitting}
+          aria-disabled={!isValid || isSubmitting}
+          className="w-full bg-[#1A1A1A] text-[#FFFFFF] font-label-caps text-label-caps py-6 px-8 hover:bg-primary-container transition-colors duration-300 flex items-center justify-center gap-2 rounded-full uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
         >
           PLACE ORDER
           <span className="material-symbols-outlined text-[18px]">arrow_forward</span>

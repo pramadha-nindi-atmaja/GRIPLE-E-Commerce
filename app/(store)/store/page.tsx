@@ -2,6 +2,7 @@ import { Suspense } from "react";
 
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { FilterSidebar } from "@/components/store/FilterSidebar";
+import { MobileFilterDrawer } from "@/components/store/MobileFilterDrawer";
 import { Pagination } from "@/components/store/Pagination";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { SortBar } from "@/components/store/SortBar";
@@ -11,10 +12,12 @@ import type { Product } from "@/lib/types";
 import {
   applyFilters,
   applySort,
+  paginate,
   parseStoreSearchParams,
 } from "@/lib/utils/filters";
 
 const SIZES = ["XS", "S", "M", "L", "XL", "XXL"] as const;
+const PAGE_SIZE = 12;
 
 function uniqueColors(products: Product[]) {
   const seen = new Map<string, string>();
@@ -33,7 +36,12 @@ function StoreProducts({
 }) {
   const published = getAllProducts().filter((p) => p.isPublished);
   const q = parseStoreSearchParams(searchParams);
-  const filtered = applySort(applyFilters(published, q), q.sort);
+  const sorted = applySort(applyFilters(published, q), q.sort);
+  const {
+    items: pageItems,
+    page,
+    totalPages,
+  } = paginate(sorted, q.page, PAGE_SIZE);
 
   const categories = getAllCategories().map((c) => ({
     slug: c.slug,
@@ -57,10 +65,21 @@ function StoreProducts({
             <div className="h-12 mb-8 rounded-xl bg-surface-container-high animate-pulse" />
           }
         >
-          <SortBar productCount={filtered.length} />
+          <SortBar
+            productCount={sorted.length}
+            filterSlot={
+              <MobileFilterDrawer
+                categories={categories}
+                colors={colors}
+                sizes={SIZES}
+              />
+            }
+          />
         </Suspense>
-        <ProductGrid products={filtered} />
-        <Pagination />
+        <ProductGrid products={pageItems} />
+        <Suspense fallback={null}>
+          <Pagination page={page} totalPages={totalPages} />
+        </Suspense>
       </div>
     </div>
   );
@@ -69,11 +88,9 @@ function StoreProducts({
 export default async function Page({
   searchParams,
 }: {
-  searchParams:
-    | Record<string, string | string[] | undefined>
-    | Promise<Record<string, string | string[] | undefined>>;
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const sp = await Promise.resolve(searchParams);
+  const sp = await searchParams;
 
   return (
     <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-8">

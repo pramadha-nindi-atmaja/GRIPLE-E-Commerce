@@ -15,6 +15,7 @@ const storeQuerySchema = z.object({
   maxPrice: z.number().optional(),
   badge: badgeSchema.optional(),
   sort: sortSchema.default("newest"),
+  page: z.number().int().min(1).default(1),
 });
 
 export type ParsedStoreQuery = z.infer<typeof storeQuerySchema>;
@@ -76,6 +77,12 @@ export function parseStoreSearchParams(
             : "newest"
       : "newest";
 
+  const pageRaw = parseNum(firstParam(sp.page));
+  const page =
+    pageRaw != null && Number.isFinite(pageRaw) && pageRaw >= 1
+      ? Math.floor(pageRaw)
+      : 1;
+
   const parsed = storeQuerySchema.safeParse({
     gender,
     category,
@@ -85,6 +92,7 @@ export function parseStoreSearchParams(
     maxPrice,
     badge,
     sort,
+    page,
   });
 
   if (parsed.success) return parsed.data;
@@ -95,6 +103,7 @@ export function parseStoreSearchParams(
     size: [],
     color: [],
     sort: "newest",
+    page: 1,
   });
 }
 
@@ -194,7 +203,26 @@ export function serializeStoreQuery(q: ParsedStoreQuery): string {
   if (q.maxPrice != null) p.set("maxPrice", String(q.maxPrice));
   if (q.badge != null) p.set("badge", q.badge);
   if (q.sort !== "newest") p.set("sort", q.sort);
+  if (q.page > 1) p.set("page", String(q.page));
 
   const s = p.toString();
   return s.length > 0 ? `?${s}` : "";
+}
+
+/** Slice a list of items into a single page. */
+export function paginate<T>(
+  items: T[],
+  page: number,
+  pageSize: number,
+): { items: T[]; page: number; totalPages: number; pageSize: number } {
+  const safePageSize = Math.max(1, pageSize);
+  const totalPages = Math.max(1, Math.ceil(items.length / safePageSize));
+  const safePage = Math.min(Math.max(1, Math.floor(page)), totalPages);
+  const start = (safePage - 1) * safePageSize;
+  return {
+    items: items.slice(start, start + safePageSize),
+    page: safePage,
+    totalPages,
+    pageSize: safePageSize,
+  };
 }
