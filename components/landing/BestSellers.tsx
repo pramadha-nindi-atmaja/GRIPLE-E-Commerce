@@ -31,6 +31,13 @@ export function BestSellers() {
                 badge={p.badge}
                 image={p.colors[0]?.images[0] ?? "/images/products/_pool/black.jpg"}
                 hoverImage={p.colors[0]?.images[1]}
+                colors={p.colors.map((c) => ({ name: c.name, hex: c.hex }))}
+                quickAdd={{
+                  productId: p.id,
+                  sizes: p.sizes,
+                  stock: p.stock,
+                  colors: p.colors,
+                }}
               />
             </div>
           ))}

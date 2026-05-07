@@ -1,7 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
 
+import { getCategoriesByGender } from "@/lib/mock/categories";
 import { useCartStore } from "@/lib/stores/cart.store";
 import { cn } from "@/lib/utils/cn";
 
@@ -36,21 +39,62 @@ function LogoMark() {
 }
 
 export function Navbar({ className }: Props) {
+  const pathname = usePathname();
   const itemCount = useCartStore((s) => s.itemCount());
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+
+  const menCats = useMemo(() => getCategoriesByGender("men"), []);
+  const womenCats = useMemo(() => getCategoriesByGender("women"), []);
+
+  const isHome = pathname === "/";
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  useEffect(() => {
+    if (mobileOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileOpen]);
+
+  const barSolid = !isHome || scrolled;
 
   return (
     <div
       className={cn(
-        "sticky top-0 z-40 w-full bg-surface/95 backdrop-blur-md border-b border-outline-variant",
+        "sticky top-0 z-40 w-full border-b transition-colors duration-300",
+        barSolid
+          ? "bg-surface/95 backdrop-blur-md border-outline-variant"
+          : "bg-transparent border-transparent",
         className,
       )}
     >
       <div className="mx-auto w-full max-w-(--container-container-max) px-4 md:px-margin-edge">
         <header className="flex items-center justify-between whitespace-nowrap py-5">
-          <div className="flex items-center gap-8">
+          <div className="flex items-center gap-4 md:gap-8 min-w-0">
+            <button
+              type="button"
+              className="md:hidden flex items-center justify-center rounded-full h-10 w-10 text-on-surface hover:bg-surface-container shrink-0"
+              aria-label="Open menu"
+              aria-expanded={mobileOpen}
+              onClick={() => setMobileOpen(true)}
+            >
+              <span className="material-symbols-outlined text-[26px]">menu</span>
+            </button>
+
             <Link
               href="/"
-              className="flex items-center gap-4 text-on-surface hover:opacity-80 transition-opacity"
+              className="flex items-center gap-4 text-on-surface hover:opacity-80 transition-opacity shrink-0"
             >
               <LogoMark />
               <div className="text-on-surface text-lg font-bold leading-tight tracking-[-0.015em]">
@@ -59,18 +103,62 @@ export function Navbar({ className }: Props) {
             </Link>
 
             <nav className="hidden md:flex items-center gap-9">
-              <Link
-                href="/men"
-                className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
-              >
-                Men
-              </Link>
-              <Link
-                href="/women"
-                className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
-              >
-                Women
-              </Link>
+              <div className="relative group">
+                <span className="inline-flex">
+                  <Link
+                    href="/store?gender=men"
+                    className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors py-2"
+                  >
+                    Men
+                  </Link>
+                </span>
+                <div
+                  className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                  role="menu"
+                >
+                  <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
+                    {menCats.map((c) => (
+                      <Link
+                        key={c.id}
+                        role="menuitem"
+                        href={`/store?category=${encodeURIComponent(c.slug)}`}
+                        className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                      >
+                        {c.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className="relative group">
+                <span className="inline-flex">
+                  <Link
+                    href="/store?gender=women"
+                    className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors py-2"
+                  >
+                    Women
+                  </Link>
+                </span>
+                <div
+                  className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
+                  role="menu"
+                >
+                  <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
+                    {womenCats.map((c) => (
+                      <Link
+                        key={c.id}
+                        role="menuitem"
+                        href={`/store?category=${encodeURIComponent(c.slug)}`}
+                        className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                      >
+                        {c.name}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
               <Link
                 href="/store"
                 className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
@@ -78,7 +166,7 @@ export function Navbar({ className }: Props) {
                 Collections
               </Link>
               <Link
-                href="/store"
+                href="/store?badge=sale"
                 className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
               >
                 Sale
@@ -86,7 +174,7 @@ export function Navbar({ className }: Props) {
             </nav>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-2 md:gap-4">
             <label className="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
               <div className="flex w-full h-full items-stretch rounded-xl border border-outline-variant bg-surface-container-lowest focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-shadow">
                 <div className="text-outline flex items-center justify-center pl-4 pr-2">
@@ -119,7 +207,7 @@ export function Navbar({ className }: Props) {
               <button
                 type="button"
                 aria-label="User profile"
-                className="flex items-center justify-center rounded-full h-10 w-10 bg-transparent text-on-surface hover:bg-surface-container transition-colors"
+                className="hidden sm:flex items-center justify-center rounded-full h-10 w-10 bg-transparent text-on-surface hover:bg-surface-container transition-colors"
               >
                 <span className="material-symbols-outlined text-[24px]">
                   person
@@ -129,7 +217,94 @@ export function Navbar({ className }: Props) {
           </div>
         </header>
       </div>
+
+      {mobileOpen ? (
+        <div className="fixed inset-0 z-[60] md:hidden">
+          <button
+            type="button"
+            className="absolute inset-0 bg-black/50"
+            aria-label="Close menu"
+            onClick={() => setMobileOpen(false)}
+          />
+          <div className="absolute left-0 top-0 bottom-0 w-[min(100%,320px)] bg-surface shadow-xl flex flex-col">
+            <div className="flex items-center justify-between px-4 py-4 border-b border-outline-variant">
+              <span className="font-headline-md text-headline-md">Menu</span>
+              <button
+                type="button"
+                className="flex h-10 w-10 items-center justify-center rounded-full hover:bg-surface-container"
+                aria-label="Close menu"
+                onClick={() => setMobileOpen(false)}
+              >
+                <span className="material-symbols-outlined">close</span>
+              </button>
+            </div>
+            <nav className="flex-1 overflow-y-auto px-4 py-6 flex flex-col gap-8">
+              <div>
+                <div className="font-label-caps text-label-caps text-outline mb-3">
+                  Men
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Link
+                    href="/store?gender=men"
+                    className="py-2 font-body-md text-on-surface"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    All Men
+                  </Link>
+                  {menCats.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/store?category=${encodeURIComponent(c.slug)}`}
+                      className="py-2 font-body-md text-on-surface-variant"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <div>
+                <div className="font-label-caps text-label-caps text-outline mb-3">
+                  Women
+                </div>
+                <div className="flex flex-col gap-1">
+                  <Link
+                    href="/store?gender=women"
+                    className="py-2 font-body-md text-on-surface"
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    All Women
+                  </Link>
+                  {womenCats.map((c) => (
+                    <Link
+                      key={c.id}
+                      href={`/store?category=${encodeURIComponent(c.slug)}`}
+                      className="py-2 font-body-md text-on-surface-variant"
+                      onClick={() => setMobileOpen(false)}
+                    >
+                      {c.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+              <Link
+                href="/store"
+                className="font-label-caps text-label-caps text-primary py-2"
+                onClick={() => setMobileOpen(false)}
+              >
+                Collections
+              </Link>
+              <Link
+                href="/store?badge=sale"
+                className="font-label-caps text-label-caps text-primary py-2"
+                onClick={() => setMobileOpen(false)}
+              >
+                Sale
+              </Link>
+            </nav>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
-

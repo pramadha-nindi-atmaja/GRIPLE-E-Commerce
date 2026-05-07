@@ -1,27 +1,24 @@
-import type { Product } from "@/lib/types";
+import Link from "next/link";
 
 import { ProductCard } from "@/components/product/ProductCard";
 import { Container } from "@/components/shared/Container";
+import { getNewArrivals } from "@/lib/mock/products";
 
-type Props = {
-  products: Product[];
-};
+export function NewArrivals() {
+  const newArrivals = getNewArrivals().slice(0, 4);
 
-export function RelatedProducts({ products }: Props) {
   return (
-    <section className="py-section-gap bg-background">
+    <section className="py-12 md:py-24 bg-background">
       <Container>
         <div className="flex flex-col items-center mb-16 text-center">
-          <span className="font-label-caps text-label-caps text-outline mb-4">
-            You May Also Like
-          </span>
+          <span className="font-label-caps text-outline mb-4">Just Dropped</span>
           <h2 className="text-headline-lg font-headline-lg text-on-background">
-            Related Products
+            New Arrivals
           </h2>
         </div>
 
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
+          {newArrivals.map((p) => (
             <ProductCard
               key={p.id}
               name={p.name}
@@ -41,8 +38,16 @@ export function RelatedProducts({ products }: Props) {
             />
           ))}
         </div>
+
+        <div className="flex justify-center mt-12">
+          <Link
+            href="/store"
+            className="border border-outline text-on-background rounded-full px-8 py-3 font-label-caps uppercase hover:bg-surface-container transition-colors"
+          >
+            Shop All New
+          </Link>
+        </div>
       </Container>
     </section>
   );
 }
-

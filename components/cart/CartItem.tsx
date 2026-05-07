@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 
 import type { CartItem as CartItemType } from "@/lib/types";
+import { useCartStore } from "@/lib/stores/cart.store";
 import { cn } from "@/lib/utils/cn";
 
 type Props = {
@@ -9,6 +12,9 @@ type Props = {
 };
 
 export function CartItem({ item, className }: Props) {
+  const updateQty = useCartStore((s) => s.updateQty);
+  const removeItem = useCartStore((s) => s.removeItem);
+
   return (
     <div
       className={cn(
@@ -40,6 +46,9 @@ export function CartItem({ item, className }: Props) {
           type="button"
           aria-label="Decrease quantity"
           className="flex-1 flex items-center justify-center hover:bg-surface-container-low transition-colors"
+          onClick={() =>
+            updateQty(item.productId, item.color, item.size, item.qty - 1)
+          }
         >
           <span className="material-symbols-outlined text-[16px]">remove</span>
         </button>
@@ -50,6 +59,9 @@ export function CartItem({ item, className }: Props) {
           type="button"
           aria-label="Increase quantity"
           className="flex-1 flex items-center justify-center hover:bg-surface-container-low transition-colors"
+          onClick={() =>
+            updateQty(item.productId, item.color, item.size, item.qty + 1)
+          }
         >
           <span className="material-symbols-outlined text-[16px]">add</span>
         </button>
@@ -63,6 +75,7 @@ export function CartItem({ item, className }: Props) {
         type="button"
         aria-label="Remove item"
         className="text-on-surface-variant hover:text-primary transition-colors ml-4 shrink-0"
+        onClick={() => removeItem(item.productId, item.color, item.size)}
       >
         <span className="material-symbols-outlined">close</span>
       </button>

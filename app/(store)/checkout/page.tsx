@@ -1,11 +1,7 @@
+import { CheckoutOrderSummary } from "@/components/checkout/CheckoutOrderSummary";
 import { CheckoutForm } from "@/components/checkout/CheckoutForm";
-import { OrderSummary } from "@/components/cart/OrderSummary";
-import { getMockCartItems } from "@/lib/mock/cart";
 
 export default function Page() {
-  const items = getMockCartItems();
-  const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
-
   return (
     <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-section-gap">
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
@@ -24,7 +20,7 @@ export default function Page() {
 
         <div className="lg:col-span-5 xl:col-span-5 relative mt-12 lg:mt-0">
           <div className="sticky top-24">
-            <OrderSummary subtotal={subtotal} items={items} showItems />
+            <CheckoutOrderSummary />
           </div>
         </div>
       </div>

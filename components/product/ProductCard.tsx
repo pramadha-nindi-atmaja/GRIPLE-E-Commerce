@@ -1,7 +1,18 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { QuickAddButton } from "@/components/product/QuickAddButton";
 import { cn } from "@/lib/utils/cn";
+import type { ProductColor } from "@/lib/types";
+
+type SwatchColor = { name: string; hex: string };
+
+type QuickAddConfig = {
+  productId: string;
+  sizes: string[];
+  stock: Record<string, number>;
+  colors: ProductColor[];
+};
 
 type Props = {
   name: string;
@@ -11,6 +22,8 @@ type Props = {
   badge?: string | null;
   image: string;
   hoverImage?: string;
+  colors?: SwatchColor[];
+  quickAdd?: QuickAddConfig;
   className?: string;
 };
 
@@ -22,59 +35,71 @@ export function ProductCard({
   badge,
   image,
   hoverImage,
+  colors,
+  quickAdd,
   className,
 }: Props) {
   const href = `/store/${slug}`;
+  const visibleSwatches = colors?.slice(0, 4) ?? [];
+  const overflow = colors && colors.length > 4 ? colors.length - 4 : 0;
+  const showQuick = Boolean(quickAdd);
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      <Link
-        href={href}
-        className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-surface-container border border-outline-variant"
-      >
-        <Image
-          src={image}
-          alt={name}
-          fill
-          sizes="(max-width: 768px) 80vw, 320px"
-          className={cn(
-            "object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]",
-            hoverImage ? "group-hover:opacity-0" : "",
-          )}
-          priority={false}
-        />
-
-        {hoverImage ? (
+      <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-surface-container border border-outline-variant">
+        <Link
+          href={href}
+          className="block absolute inset-0 z-0"
+          aria-label={name}
+        >
           <Image
-            src={hoverImage}
+            src={image}
             alt={name}
             fill
             sizes="(max-width: 768px) 80vw, 320px"
-            className="object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+            className={cn(
+              "object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]",
+              hoverImage ? "group-hover:opacity-0" : "",
+            )}
             priority={false}
           />
-        ) : null}
 
-        {badge ? (
-          <div className="absolute left-4 top-4">
-            <span className="bg-surface text-on-surface font-label-caps px-3 py-1 rounded-full text-[10px] border border-outline-variant">
-              {badge}
-            </span>
+          {hoverImage ? (
+            <Image
+              src={hoverImage}
+              alt={name}
+              fill
+              sizes="(max-width: 768px) 80vw, 320px"
+              className="object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              priority={false}
+            />
+          ) : null}
+
+          {badge ? (
+            <div className="absolute left-4 top-4 z-[1]">
+              <span className="bg-surface text-on-surface font-label-caps px-3 py-1 rounded-full text-[10px] border border-outline-variant">
+                {badge}
+              </span>
+            </div>
+          ) : null}
+        </Link>
+
+        {showQuick && quickAdd ? (
+          <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+            <QuickAddButton
+              productId={quickAdd.productId}
+              slug={slug}
+              name={name}
+              price={price}
+              colors={quickAdd.colors}
+              sizes={quickAdd.sizes}
+              stock={quickAdd.stock}
+            />
           </div>
         ) : null}
+      </div>
 
-        <div className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
-          <button
-            type="button"
-            aria-label="Quick add"
-            className="h-10 w-10 bg-surface rounded-full flex items-center justify-center text-primary border border-outline-variant hover:bg-primary hover:text-on-primary hover:border-primary transition-colors"
-          >
-            <span className="material-symbols-outlined text-[20px]">add</span>
-          </button>
-        </div>
-      </Link>
-
-      <div className="flex flex-col gap-1">
+      <div className="flex flex-col gap-2">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="font-body-md font-semibold text-on-background truncate">
@@ -94,8 +119,26 @@ export function ProductCard({
             )}
           </div>
         </div>
+
+        {visibleSwatches.length > 0 ? (
+          <div className="flex items-center gap-2">
+            {visibleSwatches.map((c) => (
+              <span
+                key={c.name}
+                title={c.name}
+                aria-label={c.name}
+                className="inline-block h-3.5 w-3.5 rounded-full border border-outline-variant"
+                style={{ backgroundColor: c.hex }}
+              />
+            ))}
+            {overflow > 0 ? (
+              <span className="font-label-caps text-[10px] text-outline">
+                +{overflow}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </div>
   );
 }
-

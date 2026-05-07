@@ -1,8 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 import { cn } from "@/lib/utils/cn";
+
+const STORAGE_KEY = "griple-announcement-dismissed";
+const ROTATE_MS = 5000;
 
 type Props = {
   className?: string;
@@ -18,8 +22,38 @@ export function AnnouncementBar({ className }: Props) {
     [],
   );
 
+  const mounted = useHasMounted();
   const [isVisible, setIsVisible] = useState(true);
   const [idx, setIdx] = useState(0);
+
+  useEffect(() => {
+    try {
+      if (localStorage.getItem(STORAGE_KEY)) {
+        // Sync dismiss state from a prior session (cannot run during SSR).
+        // eslint-disable-next-line react-hooks/set-state-in-effect -- browser-only persistence read
+        setIsVisible(false);
+      }
+    } catch {
+      /* ignore */
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!mounted || !isVisible) return;
+    const id = window.setInterval(() => {
+      setIdx((v) => (v + 1) % messages.length);
+    }, ROTATE_MS);
+    return () => window.clearInterval(id);
+  }, [mounted, isVisible, messages.length]);
+
+  const dismiss = () => {
+    try {
+      localStorage.setItem(STORAGE_KEY, "1");
+    } catch {
+      /* ignore */
+    }
+    setIsVisible(false);
+  };
 
   if (!isVisible) return null;
 
@@ -44,11 +78,10 @@ export function AnnouncementBar({ className }: Props) {
         type="button"
         aria-label="Close announcement"
         className="text-white hover:text-outline-variant transition-colors"
-        onClick={() => setIsVisible(false)}
+        onClick={dismiss}
       >
         <span className="material-symbols-outlined text-sm">close</span>
       </button>
     </div>
   );
 }
-

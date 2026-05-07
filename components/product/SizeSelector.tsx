@@ -1,3 +1,5 @@
+"use client";
+
 import { cn } from "@/lib/utils/cn";
 
 type Option = {
@@ -7,15 +9,16 @@ type Option = {
 
 type Props = {
   options: Option[];
-  selectedSize: string;
+  value: string;
+  onChange: (size: string) => void;
   className?: string;
 };
 
-export function SizeSelector({ options, selectedSize, className }: Props) {
+export function SizeSelector({ options, value, onChange, className }: Props) {
   return (
     <div className={cn("flex flex-wrap gap-2", className)}>
       {options.map((o) => {
-        const isSelected = o.size === selectedSize;
+        const isSelected = o.size === value;
         const isDisabled = Boolean(o.outOfStock);
 
         return (
@@ -23,6 +26,10 @@ export function SizeSelector({ options, selectedSize, className }: Props) {
             key={o.size}
             type="button"
             disabled={isDisabled}
+            aria-pressed={isSelected}
+            onClick={() => {
+              if (!isDisabled) onChange(o.size);
+            }}
             className={cn(
               "h-10 px-4 border border-outline-variant rounded-full font-label-caps text-label-caps transition-colors",
               isSelected
@@ -38,4 +45,3 @@ export function SizeSelector({ options, selectedSize, className }: Props) {
     </div>
   );
 }
-
