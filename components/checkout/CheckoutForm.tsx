@@ -22,7 +22,7 @@ const STORAGE_KEY = "griple-last-order";
 
 function inputClass(invalid: boolean) {
   return cn(
-    "w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-0 font-body-md text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl",
+    "w-full bg-surface-container-lowest border-b border-[#E5E5E5] py-3 px-2 font-body-md outline-none text-on-surface placeholder:text-outline transition-colors focus:border-[#1A1A1A] focus:ring-0 rounded-xl",
     invalid && "border-error",
   );
 }
