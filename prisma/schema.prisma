@@ -1,0 +1,225 @@
+// prisma/schema.prisma
+// Griple E-Commerce — PostgreSQL Schema
+// Generated for Phase 4 (post-MVP backend integration)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ─────────────────────────────────────────────
+// CATALOG
+// ─────────────────────────────────────────────
+
+model Category {
+  id        String   @id @default(cuid())
+  name      String
+  slug      String   @unique
+  gender    Gender   @default(ALL)
+  image     String
+  position  Int      @default(0)       // for display ordering
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  products  Product[]
+
+  @@index([slug])
+  @@index([gender])
+}
+
+model Product {
+  id            String   @id @default(cuid())
+  name          String
+  slug          String   @unique
+  categoryId    String
+  gender        Gender   @default(ALL)
+  price         Decimal  @db.Decimal(10, 2)
+  originalPrice Decimal? @db.Decimal(10, 2)  // non-null = sale item
+  badge         Badge?
+  description   String   @db.Text
+  fabric        String?
+  care          String?
+  isPublished   Boolean  @default(false)
+  isFeatured    Boolean  @default(false)
+  isNewArrival  Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  category      Category       @relation(fields: [categoryId], references: [id])
+  colors        ProductColor[]
+  sizes         ProductSize[]
+  orderItems    OrderItem[]
+
+  @@index([slug])
+  @@index([categoryId])
+  @@index([gender])
+  @@index([isPublished, isFeatured])
+  @@index([isPublished, isNewArrival])
+  @@index([createdAt])
+}
+
+// One row per color variant per product
+// e.g. "Essential Fleece Hoodie" × "Midnight Black"
+model ProductColor {
+  id        String  @id @default(cuid())
+  productId String
+  name      String  // "Midnight Black"
+  hex       String  // "#1A1A1A"
+  position  Int     @default(0)  // display order of color swatches
+
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade)
+  images    ProductImage[]
+  stocks    ProductStock[]
+
+  @@index([productId])
+}
+
+// Ordered images per color variant
+model ProductImage {
+  id       String       @id @default(cuid())
+  colorId  String
+  url      String
+  alt      String?
+  position Int          @default(0)  // 0 = primary/thumbnail
+
+  color    ProductColor @relation(fields: [colorId], references: [id], onDelete: Cascade)
+
+  @@index([colorId])
+}
+
+// Stock is tracked per color × size
+// e.g. "Essential Fleece Hoodie" × "Midnight Black" × "L" = 20 units
+model ProductStock {
+  id      String       @id @default(cuid())
+  colorId String
+  size    String       // "XS" | "S" | "M" | "L" | "XL" | "XXL"
+  qty     Int          @default(0)
+
+  color   ProductColor @relation(fields: [colorId], references: [id], onDelete: Cascade)
+
+  @@unique([colorId, size])  // one row per color+size combo
+  @@index([colorId])
+}
+
+// Available sizes per product (for display in UI / filtering)
+// Separate from ProductStock which tracks per-color qty
+model ProductSize {
+  id        String  @id @default(cuid())
+  productId String
+  size      String
+  position  Int     @default(0)
+
+  product   Product @relation(fields: [productId], references: [id], onDelete: Cascade)
+
+  @@unique([productId, size])
+  @@index([productId])
+}
+
+// ─────────────────────────────────────────────
+// ORDERS
+// ─────────────────────────────────────────────
+
+model Order {
+  id              String      @id @default(cuid())
+  displayId       String      @unique  // "GR-1716789123456" — shown to customer
+  status          OrderStatus @default(PENDING)
+
+  // Customer info (denormalized — no user accounts in MVP)
+  email           String
+  fullName        String
+
+  // Shipping address (JSON — simpler than normalizing, rarely queried by field)
+  shippingAddress Json
+  // Shape: { address1, address2?, city, state, zip, country }
+
+  // Pricing snapshot (always store what customer actually paid)
+  subtotal        Decimal     @db.Decimal(10, 2)
+  shippingCost    Decimal     @db.Decimal(10, 2) @default(0)
+  total           Decimal     @db.Decimal(10, 2)
+
+  // Stripe
+  paymentIntentId String?     @unique
+  paidAt          DateTime?
+
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  items           OrderItem[]
+
+  @@index([email])
+  @@index([status])
+  @@index([createdAt])
+  @@index([paymentIntentId])
+}
+
+// Snapshot of the product at time of purchase
+// Never use live product data for order history — prices change
+model OrderItem {
+  id          String  @id @default(cuid())
+  orderId     String
+  productId   String  // soft reference — product may be deleted later
+
+  // Snapshot fields (denormalized intentionally)
+  productName String
+  colorName   String
+  colorHex    String
+  size        String
+  unitPrice   Decimal @db.Decimal(10, 2)
+  qty         Int
+
+  // Keep product link for analytics, but allow null if product deleted
+  order       Order   @relation(fields: [orderId], references: [id])
+  product     Product @relation(fields: [productId], references: [id])
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+// ─────────────────────────────────────────────
+// ADMIN (Post-MVP)
+// ─────────────────────────────────────────────
+
+model AdminUser {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String
+  password  String    // bcrypt hashed
+  role      AdminRole @default(STAFF)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([email])
+}
+
+// ─────────────────────────────────────────────
+// ENUMS
+// ─────────────────────────────────────────────
+
+enum Gender {
+  MEN
+  WOMEN
+  ALL
+}
+
+enum Badge {
+  BEST_SELLER
+  NEW
+  SALE
+}
+
+enum OrderStatus {
+  PENDING      // order created, payment not confirmed
+  PROCESSING   // payment confirmed via Stripe webhook
+  SHIPPED      // manually updated by admin
+  DELIVERED    // manually updated by admin
+  CANCELLED    // cancelled before shipment
+}
+
+enum AdminRole {
+  SUPER_ADMIN
+  STAFF
+}
