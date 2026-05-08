@@ -1,30 +1,114 @@
 import type { Gender, Product } from "@/lib/types";
-import products from "@/data/products.json";
 
-export function getAllProducts(): Product[] {
-  return products as Product[];
+// API-based functions (replace mock data)
+export async function getAllProducts(): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products`, {
+      cache: 'no-store', // Disable cache for development
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch products:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching products:', error);
+    return [];
+  }
 }
 
-export function getProductBySlug(slug: string): Product | null {
-  const all = getAllProducts();
-  return all.find((p) => p.slug === slug) ?? null;
+export async function getProductBySlug(slug: string): Promise<Product | null> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products/${slug}`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      if (response.status === 404) {
+        return null;
+      }
+      console.error('Failed to fetch product:', response.statusText);
+      return null;
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching product:', error);
+    return null;
+  }
 }
 
-export function getFeaturedProducts(): Product[] {
-  return getAllProducts().filter((p) => p.isFeatured && p.isPublished);
+export async function getFeaturedProducts(): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?featured=true`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch featured products:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching featured products:', error);
+    return [];
+  }
 }
 
-export function getNewArrivals(): Product[] {
-  return getAllProducts().filter((p) => p.isNewArrival && p.isPublished);
+export async function getNewArrivals(): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?newArrivals=true`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch new arrivals:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching new arrivals:', error);
+    return [];
+  }
 }
 
-export function getProductsByGender(gender: Gender): Product[] {
-  return getAllProducts().filter(
-    (p) => p.isPublished && (p.gender === gender || p.gender === "unisex"),
-  );
+export async function getProductsByGender(gender: Gender): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?gender=${gender}`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch products by gender:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching products by gender:', error);
+    return [];
+  }
 }
 
-export function getProductsByCategory(categorySlug: string): Product[] {
-  return getAllProducts().filter((p) => p.isPublished && p.category === categorySlug);
+export async function getProductsByCategory(categorySlug: string): Promise<Product[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/products?category=${categorySlug}`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch products by category:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching products by category:', error);
+    return [];
+  }
 }
 

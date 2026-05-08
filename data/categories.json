@@ -54,5 +54,19 @@
     "slug": "jackets",
     "gender": "all",
     "image": "/images/categories/jackets.jpg"
+  },
+  {
+    "id": "cat_009",
+    "name": "Tops",
+    "slug": "tops",
+    "gender": "women",
+    "image": "/images/categories/tops.jpg"
+  },
+  {
+    "id": "cat_010",
+    "name": "Pants",
+    "slug": "pants",
+    "gender": "women",
+    "image": "/images/categories/pants.jpg"
   }
 ]

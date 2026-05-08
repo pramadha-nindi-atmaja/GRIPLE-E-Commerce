@@ -2,11 +2,12 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import { getCategoriesByGender } from "@/lib/mock/categories";
 import { useCartStore } from "@/lib/stores/cart.store";
 import { cn } from "@/lib/utils/cn";
+import type { Category } from "@/lib/types";
 
 type Props = {
   className?: string;
@@ -43,11 +44,30 @@ export function Navbar({ className }: Props) {
   const itemCount = useCartStore((s) => s.itemCount());
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-
-  const menCats = useMemo(() => getCategoriesByGender("men"), []);
-  const womenCats = useMemo(() => getCategoriesByGender("women"), []);
+  const [menCats, setMenCats] = useState<Category[]>([]);
+  const [womenCats, setWomenCats] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
 
   const isHome = pathname === "/";
+
+  useEffect(() => {
+    async function loadCategories() {
+      try {
+        const [menCategories, womenCategories] = await Promise.all([
+          getCategoriesByGender("men"),
+          getCategoriesByGender("women"),
+        ]);
+        setMenCats(menCategories);
+        setWomenCats(womenCategories);
+      } catch (error) {
+        console.error("Failed to load categories:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadCategories();
+  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 16);
@@ -117,16 +137,20 @@ export function Navbar({ className }: Props) {
                   role="menu"
                 >
                   <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
-                    {menCats.map((c) => (
-                      <Link
-                        key={c.id}
-                        role="menuitem"
-                        href={`/store?category=${encodeURIComponent(c.slug)}`}
-                        className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
+                    {loading ? (
+                      <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
+                    ) : (
+                      menCats.map((c) => (
+                        <Link
+                          key={c.id}
+                          role="menuitem"
+                          href={`/store?category=${encodeURIComponent(c.slug)}`}
+                          className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                        >
+                          {c.name}
+                        </Link>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -145,16 +169,20 @@ export function Navbar({ className }: Props) {
                   role="menu"
                 >
                   <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
-                    {womenCats.map((c) => (
-                      <Link
-                        key={c.id}
-                        role="menuitem"
-                        href={`/store?category=${encodeURIComponent(c.slug)}`}
-                        className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
-                      >
-                        {c.name}
-                      </Link>
-                    ))}
+                    {loading ? (
+                      <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
+                    ) : (
+                      womenCats.map((c) => (
+                        <Link
+                          key={c.id}
+                          role="menuitem"
+                          href={`/store?category=${encodeURIComponent(c.slug)}`}
+                          className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                        >
+                          {c.name}
+                        </Link>
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
@@ -251,16 +279,20 @@ export function Navbar({ className }: Props) {
                   >
                     All Men
                   </Link>
-                  {menCats.map((c) => (
-                    <Link
-                      key={c.id}
-                      href={`/store?category=${encodeURIComponent(c.slug)}`}
-                      className="py-2 font-body-md text-on-surface-variant"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {c.name}
-                    </Link>
-                  ))}
+                  {loading ? (
+                    <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
+                  ) : (
+                    menCats.map((c) => (
+                      <Link
+                        key={c.id}
+                        href={`/store?category=${encodeURIComponent(c.slug)}`}
+                        className="py-2 font-body-md text-on-surface-variant"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {c.name}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </div>
               <div>
@@ -275,16 +307,20 @@ export function Navbar({ className }: Props) {
                   >
                     All Women
                   </Link>
-                  {womenCats.map((c) => (
-                    <Link
-                      key={c.id}
-                      href={`/store?category=${encodeURIComponent(c.slug)}`}
-                      className="py-2 font-body-md text-on-surface-variant"
-                      onClick={() => setMobileOpen(false)}
-                    >
-                      {c.name}
-                    </Link>
-                  ))}
+                  {loading ? (
+                    <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
+                  ) : (
+                    womenCats.map((c) => (
+                      <Link
+                        key={c.id}
+                        href={`/store?category=${encodeURIComponent(c.slug)}`}
+                        className="py-2 font-body-md text-on-surface-variant"
+                        onClick={() => setMobileOpen(false)}
+                      >
+                        {c.name}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </div>
               <Link

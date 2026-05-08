@@ -1,3 +1,7 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { CategoryCard } from "@/components/product/CategoryCard";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { GenderHero } from "@/components/landing/GenderHero";
@@ -5,10 +9,40 @@ import { Container } from "@/components/shared/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getCategoriesByGender } from "@/lib/mock/categories";
 import { getProductsByGender } from "@/lib/mock/products";
+import type { Category, Product } from "@/lib/types";
 
 export default function Page() {
-  const categories = getCategoriesByGender("men");
-  const products = getProductsByGender("men").slice(0, 8);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [categoriesData, productsData] = await Promise.all([
+          getCategoriesByGender("men"),
+          getProductsByGender("men").then(products => products.slice(0, 8)),
+        ]);
+
+        setCategories(categoriesData);
+        setProducts(productsData);
+      } catch (error) {
+        console.error("Failed to load men's page data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <>

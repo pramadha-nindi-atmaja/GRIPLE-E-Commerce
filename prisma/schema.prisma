@@ -75,6 +75,7 @@ model ProductColor {
   images    ProductImage[]
   stocks    ProductStock[]
 
+  @@unique([productId, name])
   @@index([productId])
 }
 
@@ -88,6 +89,7 @@ model ProductImage {
 
   color    ProductColor @relation(fields: [colorId], references: [id], onDelete: Cascade)
 
+  @@unique([colorId, url])
   @@index([colorId])
 }
 

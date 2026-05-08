@@ -4,6 +4,11 @@ import { checkoutSchema } from "@/lib/schemas/checkout";
 
 export const cartItemRequestSchema = z.object({
   productId: z.string().min(1),
+  // Backward/forward compatibility:
+  // - Old persisted carts used mock IDs (e.g. "prod_008")
+  // - New DB-backed products use Prisma IDs
+  // We send `productSlug` so the server can fallback to slug lookup.
+  productSlug: z.string().min(1).optional(),
   color: z.string().min(1),
   size: z.string().min(1),
   qty: z.number().int().positive().max(99),

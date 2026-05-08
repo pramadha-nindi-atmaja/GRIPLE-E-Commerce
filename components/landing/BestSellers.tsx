@@ -1,11 +1,49 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import { getFeaturedProducts } from "@/lib/mock/products";
+import type { Product } from "@/lib/types";
 
 import { ProductCard } from "@/components/product/ProductCard";
 import { Container } from "@/components/shared/Container";
 import Link from "next/link";
 
 export function BestSellers() {
-  const featured = getFeaturedProducts().slice(0, 4);
+  const [featured, setFeatured] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadFeatured() {
+      try {
+        const products = await getFeaturedProducts();
+        setFeatured(products.slice(0, 4));
+      } catch (error) {
+        console.error("Failed to load featured products:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadFeatured();
+  }, []);
+
+  if (loading) {
+    return (
+      <section className="py-12 md:py-24 bg-background">
+        <Container>
+          <div className="flex flex-col items-center mb-16 text-center">
+            <span className="font-label-caps text-outline mb-4">Trending Now</span>
+            <h2 className="text-headline-lg font-headline-lg text-on-background">
+              Best Sellers
+            </h2>
+          </div>
+          <div className="flex justify-center">
+            <div className="text-center">Loading...</div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
 
   return (
     <section className="py-12 md:py-24 bg-background">

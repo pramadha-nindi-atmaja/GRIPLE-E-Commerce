@@ -105,6 +105,7 @@ export function CheckoutForm() {
 
     const itemsRequest = items.map((i) => ({
       productId: i.productId,
+      productSlug: i.slug,
       color: i.color,
       size: i.size,
       qty: i.qty,

@@ -1,4 +1,6 @@
-import { Suspense } from "react";
+"use client";
+
+import { Suspense, useEffect, useState } from "react";
 
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { FilterSidebar } from "@/components/store/FilterSidebar";
@@ -8,7 +10,7 @@ import { ProductGrid } from "@/components/store/ProductGrid";
 import { SortBar } from "@/components/store/SortBar";
 import { getAllCategories } from "@/lib/mock/categories";
 import { getAllProducts } from "@/lib/mock/products";
-import type { Product } from "@/lib/types";
+import type { Category, Product } from "@/lib/types";
 import {
   applyFilters,
   applySort,
@@ -34,20 +36,50 @@ function StoreProducts({
 }: {
   searchParams: Record<string, string | string[] | undefined>;
 }) {
-  const published = getAllProducts().filter((p) => p.isPublished);
+  const [products, setProducts] = useState<Product[]>([]);
+  const [categories, setCategories] = useState<Category[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    async function loadData() {
+      try {
+        const [allProducts, allCategories] = await Promise.all([
+          getAllProducts(),
+          getAllCategories(),
+        ]);
+        setProducts(allProducts.filter((p) => p.isPublished));
+        setCategories(allCategories);
+      } catch (error) {
+        console.error("Failed to load store data:", error);
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadData();
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center min-h-[400px]">
+        <div className="text-center">Loading products...</div>
+      </div>
+    );
+  }
+
   const q = parseStoreSearchParams(searchParams);
-  const sorted = applySort(applyFilters(published, q), q.sort);
+  const sorted = applySort(applyFilters(products, q), q.sort);
   const {
     items: pageItems,
     page,
     totalPages,
   } = paginate(sorted, q.page, PAGE_SIZE);
 
-  const categories = getAllCategories().map((c) => ({
+  const categoryOptions = categories.map((c) => ({
     slug: c.slug,
     name: c.name,
   }));
-  const colors = uniqueColors(published);
+  const colors = uniqueColors(products);
 
   return (
     <div className="flex flex-col md:flex-row gap-gutter">
@@ -56,7 +88,7 @@ function StoreProducts({
           <aside className="hidden md:block w-[260px] shrink-0 rounded-2xl bg-surface-container-high min-h-[24rem] animate-pulse" />
         }
       >
-        <FilterSidebar categories={categories} colors={colors} sizes={SIZES} />
+        <FilterSidebar categories={categoryOptions} colors={colors} sizes={SIZES} />
       </Suspense>
 
       <div className="flex-grow">

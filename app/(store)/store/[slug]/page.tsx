@@ -1,31 +1,69 @@
-import { notFound } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { notFound, useParams } from "next/navigation";
 
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { ProductAccordion } from "@/components/product/ProductAccordion";
 import { ProductView } from "@/components/product/ProductView";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import {
-  getAllProducts,
   getProductBySlug,
   getProductsByCategory,
 } from "@/lib/mock/products";
+import type { Product } from "@/lib/types";
 
-export function generateStaticParams() {
-  return getAllProducts().map((p) => ({ slug: p.slug }));
-}
+export default function Page() {
+  const params = useParams();
+  const slug = params.slug as string;
 
-export default async function Page({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
-  const { slug } = await params;
-  const product = getProductBySlug(slug);
-  if (!product || !product.isPublished) notFound();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [related, setRelated] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
 
-  const related = getProductsByCategory(product.category)
-    .filter((p) => p.slug !== product.slug)
-    .slice(0, 4);
+  useEffect(() => {
+    async function loadProduct() {
+      try {
+        const [productData, relatedData] = await Promise.all([
+          getProductBySlug(slug),
+          getProductsByCategory(product?.category || "").then(products =>
+            products.filter((p) => p.slug !== slug).slice(0, 4)
+          ),
+        ]);
+
+        if (!productData || !productData.isPublished) {
+          notFound();
+          return;
+        }
+
+        setProduct(productData);
+        setRelated(relatedData);
+      } catch (error) {
+        console.error("Failed to load product:", error);
+        notFound();
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    if (slug) {
+      loadProduct();
+    }
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <main className="mx-auto w-full max-w-(--container-container-max) px-4 md:px-margin-edge py-8">
+        <div className="flex justify-center items-center min-h-[400px]">
+          <div className="text-center">Loading product...</div>
+        </div>
+      </main>
+    );
+  }
+
+  if (!product) {
+    notFound();
+  }
 
   return (
     <>

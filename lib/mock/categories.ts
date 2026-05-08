@@ -1,11 +1,38 @@
 import type { Category } from "@/lib/types";
-import categories from "@/data/categories.json";
 
-export function getAllCategories(): Category[] {
-  return categories as Category[];
+export async function getAllCategories(): Promise<Category[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories`, {
+      cache: 'no-store', // Disable cache for development
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch categories:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
 }
 
-export function getCategoriesByGender(gender: "men" | "women"): Category[] {
-  return getAllCategories().filter((c) => c.gender === "all" || c.gender === gender);
+export async function getCategoriesByGender(gender: "men" | "women"): Promise<Category[]> {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/categories?gender=${gender}`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.error('Failed to fetch categories by gender:', response.statusText);
+      return [];
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching categories by gender:', error);
+    return [];
+  }
 }
 

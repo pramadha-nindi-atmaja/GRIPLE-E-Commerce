@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 
-import { getAllProducts } from "@/lib/mock/products";
+import { prisma } from "@/lib/prisma";
 import { paymentIntentRequestSchema } from "@/lib/schemas/payment-intent";
 import { stripe } from "@/lib/stripe";
 
@@ -29,20 +29,56 @@ export async function POST(req: Request) {
 
   const { items, shipping } = parsed.data;
 
-  const products = getAllProducts();
-  const productMap = new Map(products.map((p) => [p.id, p]));
+  // Fetch products from database.
+  // We primarily resolve by `productId` (Prisma ID), but also support fallback
+  // by `productSlug` to handle older persisted carts that still carry mock IDs
+  // like "prod_008".
+  const productIds = Array.from(new Set(items.map((item) => item.productId)));
+  const productSlugs = Array.from(
+    new Set(items.map((item) => item.productSlug).filter(Boolean)),
+  ) as string[];
+
+  const [productsById, productsBySlug] = await Promise.all([
+    prisma.product.findMany({
+      where: {
+        id: { in: productIds },
+        isPublished: true,
+      },
+      include: {
+        colors: { include: { images: true, stocks: true } },
+        sizes: true,
+      },
+    }),
+    productSlugs.length
+      ? prisma.product.findMany({
+          where: {
+            slug: { in: productSlugs },
+            isPublished: true,
+          },
+          include: {
+            colors: { include: { images: true, stocks: true } },
+            sizes: true,
+          },
+        })
+      : Promise.resolve([]),
+  ]);
+
+  const productById = new Map(productsById.map((p) => [p.id, p]));
+  const productBySlug = new Map(productsBySlug.map((p) => [p.slug, p]));
 
   let amountCents = 0;
   const itemSummary: string[] = [];
   for (const item of items) {
-    const product = productMap.get(item.productId);
-    if (!product || !product.isPublished) {
+    const product =
+      productById.get(item.productId) ??
+      (item.productSlug ? productBySlug.get(item.productSlug) : undefined);
+    if (!product) {
       return NextResponse.json(
         { error: `Product not available: ${item.productId}` },
         { status: 400 },
       );
     }
-    amountCents += Math.round(product.price * 100) * item.qty;
+    amountCents += Math.round(Number(product.price) * 100) * item.qty;
     itemSummary.push(`${product.name} x${item.qty}`);
   }
 
