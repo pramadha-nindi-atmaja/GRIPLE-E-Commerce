@@ -3,10 +3,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
-import { StripeCardPlaceholder } from "@/components/checkout/StripeCardPlaceholder";
+import {
+  type ConfirmPaymentFn,
+  StripePaymentSection,
+} from "@/components/checkout/StripePaymentSection";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
 import {
   type CheckoutFormValues,
@@ -24,17 +27,34 @@ function inputClass(invalid: boolean) {
   );
 }
 
+type PaymentInitState = {
+  clientSecret: string;
+  paymentIntentId: string;
+  orderId: string;
+  amount: number;
+};
+
 export function CheckoutForm() {
   const router = useRouter();
   const mounted = useHasMounted();
+
   const items = useCartStore((s) => s.items);
   const clear = useCartStore((s) => s.clear);
   const total = useCartStore((s) => s.total());
+
+  const [payment, setPayment] = useState<PaymentInitState | null>(null);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
+  const [confirmFn, setConfirmFn] = useState<ConfirmPaymentFn | null>(null);
+  const [isPaying, setIsPaying] = useState(false);
+  // Tracks whether we've handed off to Stripe so the cart-empty effect below
+  // doesn't bounce the user back to /cart after `clear()` runs.
+  const [hasSubmittedOrder, setHasSubmittedOrder] = useState(false);
 
   const {
     register,
     handleSubmit,
     control,
+    getValues,
     formState: { errors, isSubmitting },
   } = useForm<CheckoutFormValues>({
     resolver: zodResolver(checkoutSchema),
@@ -63,19 +83,82 @@ export function CheckoutForm() {
   useEffect(() => {
     if (!mounted) return;
     if (items.length === 0) {
+      // If the cart is empty because we just placed an order, don't bounce back to /cart.
+      if (hasSubmittedOrder) return;
       router.replace("/cart");
     }
-  }, [mounted, items.length, router]);
+  }, [mounted, items.length, router, hasSubmittedOrder]);
 
-  const onSubmit = (data: CheckoutFormValues) => {
-    // Unique id per submission (impure by design).
-    // eslint-disable-next-line react-hooks/purity -- order id generated only on submit
-    const orderId = `GR-${Date.now().toString(36).toUpperCase().slice(-8)}`;
+  // Lazy-create PaymentIntent once shipping form is valid and the cart total
+  // is known. Re-create when total or item count changes so the amount stays
+  // in sync with the cart.
+  useEffect(() => {
+    if (!mounted) return;
+    if (!isValid) return;
+    if (items.length === 0) return;
+    if (hasSubmittedOrder) return;
+
+    const shippingResult = checkoutSchema.safeParse(getValues());
+    if (!shippingResult.success) return;
+
+    const controller = new AbortController();
+
+    const itemsRequest = items.map((i) => ({
+      productId: i.productId,
+      color: i.color,
+      size: i.size,
+      qty: i.qty,
+    }));
+
+    fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        items: itemsRequest,
+        shipping: shippingResult.data,
+      }),
+      signal: controller.signal,
+    })
+      .then(async (res) => {
+        const data = await res.json();
+        if (!res.ok) {
+          throw new Error(data?.error ?? "Failed to initialize payment");
+        }
+        return data as PaymentInitState;
+      })
+      .then((data) => {
+        setPayment(data);
+        setPaymentError(null);
+      })
+      .catch((err: unknown) => {
+        if (err instanceof Error && err.name === "AbortError") return;
+        setPaymentError(
+          err instanceof Error ? err.message : "Failed to initialize payment",
+        );
+      });
+
+    return () => controller.abort();
+  }, [mounted, isValid, items, total, getValues, hasSubmittedOrder]);
+
+  const handlePaymentReady = useCallback((confirm: ConfirmPaymentFn | null) => {
+    setConfirmFn(() => confirm);
+  }, []);
+
+  const onSubmit = async (data: CheckoutFormValues) => {
+    if (!payment || !confirmFn) {
+      setPaymentError("Payment is not ready yet. Please wait a moment.");
+      return;
+    }
+
+    setHasSubmittedOrder(true);
+    setPaymentError(null);
+    setIsPaying(true);
+
     try {
       sessionStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({
-          orderId,
+          orderId: payment.orderId,
           items,
           total,
           shipping: data,
@@ -84,11 +167,34 @@ export function CheckoutForm() {
     } catch {
       sessionStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ orderId, items, total }),
+        JSON.stringify({ orderId: payment.orderId, items, total }),
       );
     }
-    clear();
-    router.push("/order/confirmation");
+
+    const returnUrl = `${window.location.origin}/order/confirmation?orderId=${payment.orderId}`;
+    const result = await confirmFn({
+      returnUrl,
+      receiptEmail: data.email,
+    });
+
+    if (result.status === "succeeded" || result.status === "processing") {
+      clear();
+      router.push(
+        `/order/confirmation?orderId=${payment.orderId}&payment_intent=${result.paymentIntentId}`,
+      );
+      return;
+    }
+
+    if (result.status === "redirected") {
+      // Browser is navigating to the return_url (e.g. 3DS challenge).
+      // Cart will be cleared on the confirmation page after verification.
+      return;
+    }
+
+    // Error: keep the cart, allow retry.
+    setHasSubmittedOrder(false);
+    setPaymentError(result.message);
+    setIsPaying(false);
   };
 
   if (!mounted || items.length === 0) {
@@ -279,18 +385,44 @@ export function CheckoutForm() {
 
       <section className="flex flex-col gap-6">
         <h2 className="font-headline-md text-headline-md">Payment</h2>
-        <StripeCardPlaceholder />
+
+        {!isValid ? (
+          <div className="rounded-xl border border-dashed border-outline-variant p-6 text-center font-body-md text-on-surface-variant">
+            Complete the shipping details above to load secure payment options.
+          </div>
+        ) : payment ? (
+          <StripePaymentSection
+            key={payment.clientSecret}
+            clientSecret={payment.clientSecret}
+            onReady={handlePaymentReady}
+          />
+        ) : !paymentError ? (
+          <div className="rounded-xl border border-outline-variant p-6 text-center font-body-md text-on-surface-variant">
+            Loading payment options…
+          </div>
+        ) : null}
+
+        {paymentError ? (
+          <p className="font-label-caps text-label-caps text-error flex items-center gap-1">
+            <span className="material-symbols-outlined text-[14px]">error</span>
+            {paymentError}
+          </p>
+        ) : null}
       </section>
 
       <div className="pt-6">
         <button
           type="submit"
-          disabled={!isValid || isSubmitting}
-          aria-disabled={!isValid || isSubmitting}
+          disabled={!isValid || !payment || !confirmFn || isSubmitting || isPaying}
+          aria-disabled={
+            !isValid || !payment || !confirmFn || isSubmitting || isPaying
+          }
           className="w-full bg-[#1A1A1A] text-[#FFFFFF] font-label-caps text-label-caps py-6 px-8 hover:bg-primary-container transition-colors duration-300 flex items-center justify-center gap-2 rounded-full uppercase tracking-widest disabled:opacity-60 disabled:cursor-not-allowed"
         >
-          PLACE ORDER
-          <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+          {isPaying ? "PROCESSING…" : "PLACE ORDER"}
+          {!isPaying && (
+            <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
+          )}
         </button>
       </div>
     </form>
