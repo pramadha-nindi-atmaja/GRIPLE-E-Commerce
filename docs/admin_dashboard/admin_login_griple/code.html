@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>GRIPLE Admin Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface": "#FFFFFF",
+                      "tertiary-container": "#1c1b1a",
+                      "surface-container-highest": "#e5e2e1",
+                      "surface-variant": "#e5e2e1",
+                      "on-tertiary-fixed-variant": "#484645",
+                      "secondary-fixed-dim": "#c7c6c6",
+                      "surface-container": "#f1edec",
+                      "background": "#FAFAF8",
+                      "primary": "#000000",
+                      "surface-container-low": "#f7f3f2",
+                      "on-primary": "#FFFFFF",
+                      "on-secondary-container": "#626263",
+                      "outline": "#747878",
+                      "surface-tint": "#5f5e5e",
+                      "surface-dim": "#ddd9d8",
+                      "on-error-container": "#93000a",
+                      "on-tertiary": "#ffffff",
+                      "tertiary-fixed-dim": "#cac6c4",
+                      "inverse-surface": "#313030",
+                      "on-surface": "#1c1b1b",
+                      "tertiary": "#000000",
+                      "secondary-fixed": "#e4e2e2",
+                      "text-primary": "#1B1C1C",
+                      "on-secondary-fixed-variant": "#464747",
+                      "surface-bright": "#fdf8f8",
+                      "secondary-container": "#e1dfdf",
+                      "primary-container": "#1c1b1b",
+                      "inverse-on-surface": "#f4f0ef",
+                      "text-muted": "#6B6B6B",
+                      "tertiary-fixed": "#e6e2df",
+                      "on-tertiary-fixed": "#1c1b1a",
+                      "on-background": "#1c1b1b",
+                      "sidebar-text": "#A0A0A0",
+                      "warning": "#D97706",
+                      "inverse-primary": "#c8c6c5",
+                      "surface-container-lowest": "#ffffff",
+                      "on-primary-container": "#858383",
+                      "on-primary-fixed-variant": "#474746",
+                      "outline-variant": "#c4c7c7",
+                      "primary-fixed-dim": "#c8c6c5",
+                      "on-surface-variant": "#444748",
+                      "on-error": "#ffffff",
+                      "on-secondary": "#ffffff",
+                      "error": "#BA1A1A",
+                      "border": "#E5E5E5",
+                      "on-primary-fixed": "#1c1b1b",
+                      "sidebar-text-active": "#FFFFFF",
+                      "error-container": "#ffdad6",
+                      "on-secondary-fixed": "#1b1c1c",
+                      "surface-container-high": "#ebe7e6",
+                      "primary-fixed": "#e5e2e1",
+                      "success": "#16A34A",
+                      "on-tertiary-container": "#868382",
+                      "sidebar-bg": "#1A1A1A",
+                      "info": "#2563EB",
+                      "secondary": "#5e5e5e"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "2xl": "1rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "container-padding": "32px",
+                      "sidebar-width": "260px",
+                      "stack-md": "16px",
+                      "stack-sm": "8px",
+                      "gutter": "24px",
+                      "stack-lg": "24px"
+              },
+              "fontFamily": {
+                      "label-sm": ["Inter"],
+                      "body": ["Inter"],
+                      "page-title": ["Inter"],
+                      "sidebar-nav": ["Inter"],
+                      "section-label": ["Inter"]
+              },
+              "fontSize": {
+                      "label-sm": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                      "body": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}],
+                      "page-title": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                      "sidebar-nav": ["13px", {"lineHeight": "1.0", "letterSpacing": "0em", "fontWeight": "500"}],
+                      "section-label": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+<style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #FAFAF8;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .small-caps {
+            font-variant: small-caps;
+        }
+    </style>
+</head>
+<body class="bg-background min-h-screen flex items-center justify-center p-6">
+<!-- Login Container -->
+<main class="w-full max-w-[420px] bg-surface rounded-2xl border border-border shadow-sm p-[40px] flex flex-col">
+<!-- Header Section -->
+<header class="text-center space-y-2 mb-8">
+<h1 class="font-page-title text-[32px] font-black text-primary tracking-tighter">GRIPLE</h1>
+<p class="font-section-label text-text-muted small-caps tracking-widest text-[12px]">ADMIN DASHBOARD</p>
+</header>
+<!-- Divider -->
+<div class="h-[1px] w-full bg-border mb-8"></div>
+<!-- Form Section -->
+<section>
+<h2 class="font-page-title text-[20px] font-bold text-text-primary mb-6">Sign in to your account</h2>
+<form class="space-y-5">
+<!-- Email Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-text-muted px-1" for="email">Email address</label>
+<input class="w-full h-12 px-4 rounded-xl border border-border bg-surface text-text-primary font-body focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-secondary-container" id="email" name="email" placeholder="admin@griple.com" type="email"/>
+</div>
+<!-- Password Input -->
+<div class="flex flex-col gap-2">
+<label class="font-label-sm text-text-muted px-1" for="password">Password</label>
+<div class="relative">
+<input class="w-full h-12 px-4 pr-12 rounded-xl border border-border bg-surface text-text-primary font-body focus:ring-1 focus:ring-primary focus:border-primary outline-none transition-all placeholder:text-on-secondary-container" id="password" name="password" placeholder="••••••••" type="password"/>
+<button class="absolute right-4 top-1/2 -translate-y-1/2 text-on-secondary-container hover:text-primary transition-colors" type="button">
+<span class="material-symbols-outlined text-[20px]" data-icon="visibility">visibility</span>
+</button>
+</div>
+</div>
+<!-- Action Button -->
+<div class="pt-2">
+<button class="w-full h-12 bg-primary text-on-primary font-semibold text-[14px] rounded-full uppercase tracking-wider hover:opacity-90 active:scale-[0.98] transition-all shadow-sm" type="submit">
+                        SIGN IN
+                    </button>
+</div>
+</form>
+</section>
+<!-- Footer Section -->
+<footer class="mt-8 text-center">
+<p class="font-body text-[12px] text-text-muted leading-relaxed">
+                For access requests, contact your administrator.
+            </p>
+</footer>
+</main>
+<!-- Background Decorative Elements -->
+<div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+<div class="absolute top-[-10%] right-[-10%] w-[40%] h-[40%] bg-surface-container rounded-full blur-[120px] opacity-50"></div>
+<div class="absolute bottom-[-10%] left-[-10%] w-[40%] h-[40%] bg-surface-container-highest rounded-full blur-[120px] opacity-30"></div>
+</div>
+</body></html>

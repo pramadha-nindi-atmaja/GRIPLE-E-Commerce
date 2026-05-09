@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Griple Admin - Products</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#e4e2e2",
+                        "tertiary": "#000000",
+                        "tertiary-fixed-dim": "#cac6c4",
+                        "secondary": "#5e5e5e",
+                        "primary-fixed-dim": "#c8c6c5",
+                        "on-primary": "#ffffff",
+                        "surface-tint": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#484645",
+                        "on-secondary-fixed-variant": "#464747",
+                        "on-background": "#1c1b1b",
+                        "primary-fixed": "#e5e2e1",
+                        "on-secondary-container": "#626263",
+                        "on-surface": "#1c1b1b",
+                        "surface-container": "#F5F3F3",
+                        "text-primary": "#1B1C1C",
+                        "inverse-on-surface": "#f4f0ef",
+                        "error": "#BA1A1A",
+                        "sidebar-bg": "#1A1A1A",
+                        "tertiary-container": "#1c1b1a",
+                        "inverse-primary": "#c8c6c5",
+                        "primary-container": "#1c1b1b",
+                        "surface-dim": "#ddd9d8",
+                        "sidebar-text-active": "#FFFFFF",
+                        "success": "#16A34A",
+                        "on-primary-container": "#858383",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface-bright": "#fdf8f8",
+                        "secondary-fixed-dim": "#c7c6c6",
+                        "warning": "#D97706",
+                        "on-tertiary": "#ffffff",
+                        "info": "#2563EB",
+                        "tertiary-fixed": "#e6e2df",
+                        "secondary-container": "#e1dfdf",
+                        "background": "#FAFAF8",
+                        "surface-container-lowest": "#ffffff",
+                        "primary": "#000000",
+                        "surface-container-high": "#ebe7e6",
+                        "on-primary-fixed-variant": "#474746",
+                        "sidebar-text": "#A0A0A0",
+                        "on-surface-variant": "#444748",
+                        "text-muted": "#6B6B6B",
+                        "inverse-surface": "#313030",
+                        "surface-container-highest": "#e5e2e1",
+                        "surface-container-low": "#f7f3f2",
+                        "on-tertiary-fixed": "#1c1b1a",
+                        "on-primary-fixed": "#1c1b1b",
+                        "surface-variant": "#e5e2e1",
+                        "on-tertiary-container": "#868382",
+                        "outline-variant": "#c4c7c7",
+                        "outline": "#747878",
+                        "on-error": "#ffffff",
+                        "on-secondary-fixed": "#1b1c1c",
+                        "surface": "#FFFFFF",
+                        "border": "#E5E5E5"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "stack-sm": "8px",
+                        "container-padding": "32px",
+                        "stack-md": "16px",
+                        "stack-lg": "24px",
+                        "sidebar-width": "260px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "page-title": ["Inter"],
+                        "label-sm": ["Inter"],
+                        "sidebar-nav": ["Inter"],
+                        "section-label": ["Inter"],
+                        "body": ["Inter"]
+                    },
+                    "fontSize": {
+                        "page-title": ["24px", {"lineHeight": "1.2", "letterSpacing": "-0.01em", "fontWeight": "700"}],
+                        "label-sm": ["11px", {"lineHeight": "1.0", "letterSpacing": "0.02em", "fontWeight": "500"}],
+                        "sidebar-nav": ["13px", {"lineHeight": "1.0", "letterSpacing": "0em", "fontWeight": "500"}],
+                        "section-label": ["12px", {"lineHeight": "1.0", "letterSpacing": "0.08em", "fontWeight": "600"}],
+                        "body": ["14px", {"lineHeight": "1.5", "letterSpacing": "0em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .sidebar-active {
+            font-variation-settings: 'FILL' 1;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface">
+<!-- SideNavBar -->
+<aside class="w-[260px] h-screen fixed left-0 top-0 bg-sidebar-bg flex flex-col justify-between py-8 px-4 border-r border-outline-variant dark:border-tertiary-container z-50">
+<div>
+<div class="mb-10 px-4">
+<h1 class="font-page-title text-page-title font-black tracking-tighter text-on-primary">GRIPLE</h1>
+<p class="text-[11px] uppercase tracking-widest text-sidebar-text mt-1">Admin Dashboard</p>
+</div>
+<nav class="space-y-2">
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text transition-colors duration-200 hover:text-sidebar-text-active hover:bg-tertiary-container/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-sidebar-nav text-sidebar-nav">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text-active bg-tertiary-container rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2" style="font-variation-settings: 'FILL' 1;">inventory_2</span>
+<span class="font-sidebar-nav text-sidebar-nav">Products</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text transition-colors duration-200 hover:text-sidebar-text-active hover:bg-tertiary-container/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-sidebar-nav text-sidebar-nav">Orders</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text transition-colors duration-200 hover:text-sidebar-text-active hover:bg-tertiary-container/50 rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span class="font-sidebar-nav text-sidebar-nav">Settings</span>
+</a>
+</nav>
+</div>
+<div class="space-y-2 border-t border-white/10 pt-6">
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text transition-colors duration-200 hover:text-sidebar-text-active rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-sidebar-nav text-sidebar-nav">Profile</span>
+</a>
+<a class="flex items-center gap-3 px-4 py-2 text-sidebar-text transition-colors duration-200 hover:text-sidebar-text-active rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-sidebar-nav text-sidebar-nav">Logout</span>
+</a>
+</div>
+</aside>
+<!-- Main Content Area -->
+<main class="ml-[260px] min-h-screen">
+<!-- TopAppBar Content -->
+<header class="h-16 flex justify-between items-center px-container-padding bg-surface border-b border-border sticky top-0 z-40">
+<div class="flex items-center gap-4">
+<h2 class="font-page-title text-page-title text-primary">Products</h2>
+<span class="px-3 py-1 bg-surface-container rounded-full text-text-muted font-medium text-xs">12 products</span>
+</div>
+<div class="flex items-center gap-stack-lg">
+<div class="relative w-[240px]">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline text-lg" data-icon="search">search</span>
+<input class="w-full pl-10 pr-4 py-2 bg-surface border border-border rounded-xl focus:ring-0 focus:border-primary text-body font-body" placeholder="Search products..." type="text"/>
+</div>
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-low rounded-full transition-colors">
+<span class="material-symbols-outlined text-on-surface-variant" data-icon="notifications">notifications</span>
+</button>
+<button class="bg-primary text-on-primary px-6 py-2 rounded-full font-medium hover:opacity-90 transition-opacity flex items-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                        Add Product
+                    </button>
+</div>
+</div>
+</header>
+<!-- Filter Row -->
+<section class="px-container-padding py-stack-lg space-y-stack-md bg-background">
+<div class="flex flex-wrap items-center gap-stack-lg">
+<!-- Gender Filter -->
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Gender</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary text-xs font-semibold">All</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Men</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Women</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Unisex</button>
+</div>
+</div>
+<!-- Vertical Divider -->
+<div class="h-6 w-[1px] bg-border"></div>
+<!-- Category Filter -->
+<div class="flex items-center gap-2">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Category</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary text-xs font-semibold">All Categories</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Hoodies</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Joggers</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">T-Shirts</button>
+</div>
+</div>
+<!-- Status Filter -->
+<div class="flex items-center gap-2 ml-auto">
+<span class="text-xs font-bold text-outline uppercase tracking-wider">Status</span>
+<div class="flex gap-2">
+<button class="px-4 py-1.5 rounded-full bg-primary text-on-primary text-xs font-semibold">Published</button>
+<button class="px-4 py-1.5 rounded-full border border-border text-secondary text-xs font-semibold hover:border-primary">Draft</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Product Table Canvas -->
+<div class="px-container-padding pb-container-padding">
+<div class="bg-surface rounded-2xl border border-border overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-border bg-surface-container-low">
+<th class="py-4 px-6 w-12"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></th>
+<th class="py-4 px-4 font-section-label text-section-label text-outline uppercase">Product</th>
+<th class="py-4 px-4 font-section-label text-section-label text-outline uppercase">Attributes</th>
+<th class="py-4 px-4 font-section-label text-section-label text-outline uppercase">Price</th>
+<th class="py-4 px-4 font-section-label text-section-label text-outline uppercase">Stock</th>
+<th class="py-4 px-4 font-section-label text-section-label text-outline uppercase">Status</th>
+<th class="py-4 px-6 text-right font-section-label text-section-label text-outline uppercase">Actions</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-border">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-4">
+<div class="w-[48px] h-[60px] bg-surface-container rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Heavyweight Hoodie" class="w-full h-full object-cover" data-alt="A high-end, studio-shot photograph of a minimalist heavyweight black hoodie displayed against a soft grey background. The lighting is crisp and editorial, highlighting the premium fabric texture and clean stitching. The overall aesthetic is professional, modern, and aligned with a luxury tech-apparel brand identity." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0Iru4lnfymULYe4BZhHLVMua2-1Zesmw8FsYuu7SU6zdJbT0-oTjNI1-mAcqNb7PJEo5fQNmTBkhoyWeoVdnQ55IEPhGznZakJ6_0hOMFVTI-sKL9U3DeFFko94Kz5qJ-98z3OJp3-ubP1Vz8hTsBOdXdZQY35DLQrF1wC6KgTRoYJCh0gkVJiB2x3SHJFb7bZ7QIERake2q4Lvr-vBoKeHt-pPUU20NWOIUAFq99qgrD3ZZbv5R-kKBb-UgubbUqijIg4WzRu8Dm"/>
+</div>
+<div>
+<p class="font-bold text-text-primary text-body">Onyx Heavyweight Hoodie</p>
+<p class="text-[11px] font-mono text-text-muted uppercase">GRP-HOD-001</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="space-y-1">
+<span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">HOODIES</span>
+<span class="block text-[10px] text-outline font-medium">UNISEX</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<p class="font-bold text-text-primary">$120.00</p>
+<p class="text-[11px] text-text-muted line-through">$145.00</p>
+</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="font-bold">84</span>
+<span class="text-[10px] text-outline">Units</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline hover:text-primary transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+</button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-outline hover:text-error transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 (Low Stock) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-4">
+<div class="w-[48px] h-[60px] bg-surface-container rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Performance Tee" class="w-full h-full object-cover" data-alt="Close up product photography of a sleek performance t-shirt in slate grey. The garment features high-tech breathable mesh panels and reflective detailing. The setting is a minimalist industrial studio with soft, directional lighting that emphasizes the aerodynamic silhouette of the shirt. Professional corporate apparel style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZVxldBaip-FQa51RdVK6LTo4sNCf66qO2eIPns_B4nyKQb5yi1BAoxKt1D_u3vtx5WnOptD6kspFEJRTwSNKr76vUtfeD3W6BAqlww5GE_dj0p3fEQJC46Zj_mdYz_XGvSr52k1O6VLPhrUvODCnTNqemRPuGWmhqWLTSNZrIqfBh6ckdClvmtW-3sI-P7wVHO10CTkbGmlAj5w-IsX4vZWryU5Ei_yJxWQNGEKTgCNdd-fKqURXSURMZDiLuMuJzy5UNbVv6r1b0"/>
+</div>
+<div>
+<p class="font-bold text-text-primary text-body">Aeon Performance Tee</p>
+<p class="text-[11px] font-mono text-text-muted uppercase">GRP-TEE-042</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="space-y-1">
+<span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">T-SHIRTS</span>
+<span class="block text-[10px] text-outline font-medium">MEN</span>
+</div>
+</td>
+<td class="py-4 px-4 font-bold text-text-primary">$55.00</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="font-bold">6</span>
+<span class="px-2 py-0.5 bg-warning/10 text-warning text-[9px] font-black rounded uppercase">Low Stock</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+</button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3 (Draft) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-4">
+<div class="w-[48px] h-[60px] bg-surface-container rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Tech Joggers" class="w-full h-full object-cover" data-alt="A professional studio photo of modern charcoal joggers with tailored cargo pockets and tapered cuffs. The joggers are presented in a clean, high-contrast environment with sharp shadows that define the garment's structure. The visual style is premium streetwear, emphasizing utility and sophistication with a monochromatic black and white color scheme." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBSbY0mX5cRfzgCcRH8RhxdUwNG0Anf5-02_8hl9mGUt5jns3dZzNi71hG1u63CdJ3FlZFgsXQenfOyfqe8qekSJULMTzXL8x3q9Mwrlu-HxKannuqF5RceGowwT2uTsTrZpWWsgkYVMX5d3GL2BU82O1lkdU8djb2wUg2caU-ehbTNTqFtNQlabxPwpNL6Luwfuco4vse1-ZdbonL6dD_sn33G4QUONvn1A_CgLqE22dHl5iqIhsBF1X6POkXoorX--7zvO-R38zqA"/>
+</div>
+<div>
+<p class="font-bold text-text-primary text-body">Stealth Tech Joggers</p>
+<p class="text-[11px] font-mono text-text-muted uppercase">GRP-JOG-088</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="space-y-1">
+<span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">JOGGERS</span>
+<span class="block text-[10px] text-outline font-medium">WOMEN</span>
+</div>
+</td>
+<td class="py-4 px-4 font-bold text-text-primary">$85.00</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="font-bold">120</span>
+<span class="text-[10px] text-outline">Units</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-3 py-1 bg-outline-variant/20 text-outline text-[11px] font-bold rounded-full uppercase">Draft</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+</button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4 (Out of Stock) -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-4">
+<div class="w-[48px] h-[60px] bg-surface-container rounded-xl overflow-hidden flex-shrink-0">
+<img alt="Winter Jacket" class="w-full h-full object-cover" data-alt="A high-end editorial shot of a matte white waterproof puffer jacket. The jacket is meticulously detailed with waterproof zippers and an oversized hood. It is displayed in a brightly lit, high-key studio with minimal shadows, evoking a sense of purity and advanced textile technology. The color palette is strictly white and light grey." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDpeGg5U0TZeosfPEVkTe7zd68qgJDpK8pbuLI6sS5zUfzsRhJZZ-J_7P0Np2vjMIOMpmCAhACGgHkksmCYf3TpyoPKA_mRx4bln6e6TqjviDANOnjAIvckRvTHiNHmTvHnAGuRBzOl5kAo_L3pRqb_IXjshMj_W_sBai4s_NAXgHpVGLJhEHOZ6wMzQsaDj81wP93w_pPAhJ3ZEjvIuF13xhwMKQRsJjJSCNVHqLC3sLxMQcdRjNQhb5h_JozZGbjh4VTlYJSRynQJ"/>
+</div>
+<div>
+<p class="font-bold text-text-primary text-body">Polar Puffer Jacket</p>
+<p class="text-[11px] font-mono text-text-muted uppercase">GRP-JKT-112</p>
+</div>
+</div>
+</td>
+<td class="py-4 px-4">
+<div class="space-y-1">
+<span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">JACKETS</span>
+<span class="block text-[10px] text-outline font-medium">UNISEX</span>
+</div>
+</td>
+<td class="py-4 px-4 font-bold text-text-primary">$210.00</td>
+<td class="py-4 px-4">
+<div class="flex items-center gap-2">
+<span class="font-bold text-error">0</span>
+<span class="px-2 py-0.5 bg-error/10 text-error text-[9px] font-black rounded uppercase">Out of Stock</span>
+</div>
+</td>
+<td class="py-4 px-4">
+<span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span>
+</td>
+<td class="py-4 px-6 text-right">
+<div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="edit">edit</span>
+</button>
+<button class="p-2 hover:bg-surface-container-high rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="content_copy">content_copy</span>
+</button>
+<button class="p-2 hover:bg-error/10 rounded-lg text-outline">
+<span class="material-symbols-outlined text-lg" data-icon="delete">delete</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Filling with more rows for the 10-row requirement -->
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Swift Running Leggings</p><p class="text-[11px] font-mono text-text-muted">GRP-LEG-005</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">LEGGINGS</span><span class="block text-[10px] text-outline font-medium">WOMEN</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$65.00</td>
+<td class="py-4 px-4 font-bold">42</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Element Rain Shell</p><p class="text-[11px] font-mono text-text-muted">GRP-JKT-091</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">JACKETS</span><span class="block text-[10px] text-outline font-medium">MEN</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$180.00</td>
+<td class="py-4 px-4 font-bold">12</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Apex Compression Tee</p><p class="text-[11px] font-mono text-text-muted">GRP-TEE-014</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">T-SHIRTS</span><span class="block text-[10px] text-outline font-medium">UNISEX</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$48.00</td>
+<td class="py-4 px-4 font-bold">215</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Core Ribbed Tank</p><p class="text-[11px] font-mono text-text-muted">GRP-TNK-002</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">T-SHIRTS</span><span class="block text-[10px] text-outline font-medium">WOMEN</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$32.00</td>
+<td class="py-4 px-4 font-bold">9</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-warning/10 text-warning text-[11px] font-bold rounded-full uppercase">Low Stock</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Gravel Cargo Joggers</p><p class="text-[11px] font-mono text-text-muted">GRP-JOG-022</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">JOGGERS</span><span class="block text-[10px] text-outline font-medium">MEN</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$95.00</td>
+<td class="py-4 px-4 font-bold">54</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-outline-variant/20 text-outline text-[11px] font-bold rounded-full uppercase">Draft</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+<tr class="hover:bg-surface-container-lowest transition-colors group">
+<td class="py-4 px-6"><input class="rounded-sm border-border text-primary focus:ring-primary" type="checkbox"/></td>
+<td class="py-4 px-4"><div class="flex items-center gap-4"><div class="w-[48px] h-[60px] bg-surface-container rounded-xl"></div><div><p class="font-bold text-text-primary text-body">Aero Windbreaker</p><p class="text-[11px] font-mono text-text-muted">GRP-JKT-115</p></div></div></td>
+<td class="py-4 px-4"><div class="space-y-1"><span class="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit">JACKETS</span><span class="block text-[10px] text-outline font-medium">UNISEX</span></div></td>
+<td class="py-4 px-4 font-bold text-text-primary">$135.00</td>
+<td class="py-4 px-4 font-bold">18</td>
+<td class="py-4 px-4"><span class="px-3 py-1 bg-success/10 text-success text-[11px] font-bold rounded-full uppercase">Published</span></td>
+<td class="py-4 px-6 text-right"><div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity"><button class="p-2 hover:bg-surface-container-high rounded-lg text-outline"><span class="material-symbols-outlined text-lg" data-icon="edit">edit</span></button></div></td>
+</tr>
+</tbody>
+</table>
+<!-- Table Footer / Pagination -->
+<div class="px-6 py-4 bg-surface border-t border-border flex items-center justify-between">
+<p class="text-body text-text-muted">Showing 1–12 of 12 products</p>
+<div class="flex gap-2">
+<button class="px-4 py-2 rounded-full border border-border text-text-primary font-medium hover:bg-surface-container-low transition-colors disabled:opacity-50" disabled="">
+                            Previous
+                        </button>
+<button class="w-10 h-10 rounded-full bg-primary text-on-primary font-bold">1</button>
+<button class="w-10 h-10 rounded-full border border-border text-text-primary font-medium hover:bg-surface-container-low">2</button>
+<button class="px-4 py-2 rounded-full border border-border text-text-primary font-medium hover:bg-surface-container-low transition-colors">
+                            Next
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
