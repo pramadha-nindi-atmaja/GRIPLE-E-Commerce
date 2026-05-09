@@ -65,7 +65,7 @@ export default async function AdminProductsPage({
   const categories = await prisma.category.findMany({ orderBy: { name: "asc" } });
 
   const categoryIdFilter =
-    catRaw && categories.some((c) => c.id === catRaw) ? catRaw : undefined;
+    catRaw && categories.some((c: { id: string }) => c.id === catRaw) ? catRaw : undefined;
 
   const products = await prisma.product.findMany({
     where: {
