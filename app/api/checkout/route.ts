@@ -50,8 +50,12 @@ export async function POST(req: Request) {
       })
     : ([] as typeof productsById);
 
-  const productById = new Map(productsById.map((p) => [p.id, p]));
-  const productBySlug = new Map(productsBySlug.map((p) => [p.slug, p]));
+  const productById = new Map(
+    productsById.map((p: (typeof productsById)[number]) => [p.id, p]),
+  );
+  const productBySlug = new Map(
+    productsBySlug.map((p: (typeof productsBySlug)[number]) => [p.slug, p]),
+  );
 
   let amountCents = 0;
   const itemSummary: string[] = [];
