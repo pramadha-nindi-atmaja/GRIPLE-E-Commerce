@@ -4,9 +4,7 @@ import type { ReactNode } from "react";
 import "./globals.css";
 
 import { inter } from "@/app/fonts";
-import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
-import { Footer } from "@/components/layout/Footer";
-import { Navbar } from "@/components/layout/Navbar";
+import { AppSessionProvider } from "@/components/providers/AppSessionProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -32,10 +30,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-on-background font-body-md">
-        <AnnouncementBar />
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
+        <AppSessionProvider>{children}</AppSessionProvider>
       </body>
     </html>
   );

@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -108,6 +109,7 @@ async function main() {
     // CLEAR EXISTING DATA (for clean seed)
     // ─────────────────────────────────────────────
     console.log("🗑️  Clearing existing data...");
+    await prisma.adminUser.deleteMany({});
     await prisma.orderItem.deleteMany({});
     await prisma.order.deleteMany({});
     await prisma.productStock.deleteMany({});
@@ -235,6 +237,30 @@ async function main() {
         }
       }
     }
+
+    // ─────────────────────────────────────────────
+    // 3. ADMIN USERS (development credentials)
+    // ─────────────────────────────────────────────
+    console.log("\n👤 Seeding admin users...");
+    const hash = (pw: string) => bcrypt.hashSync(pw, 12);
+    await prisma.adminUser.createMany({
+      data: [
+        {
+          email: "admin@griple.com",
+          name: "Super Admin",
+          password: hash("dev-admin-change-me"),
+          role: "SUPER_ADMIN",
+        },
+        {
+          email: "staff@griple.com",
+          name: "Staff User",
+          password: hash("dev-staff-change-me"),
+          role: "STAFF",
+        },
+      ],
+    });
+    console.log("  ✓ admin@griple.com / dev-admin-change-me (SUPER_ADMIN)");
+    console.log("  ✓ staff@griple.com / dev-staff-change-me (STAFF)");
 
     console.log("\n✅ Seed completed successfully!");
   } catch (error) {

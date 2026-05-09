@@ -29,6 +29,7 @@
   --color-inverse-on-surface: #f2f0f0;
   --color-secondary: #5d5f5d;
   --color-on-secondary: #ffffff;
+  --color-secondary-fixed-dim: #c7c6c6;
   --color-secondary-container: #e2e3e1;
   --color-on-secondary-container: #636563;
   --color-tertiary: #000000;
@@ -37,6 +38,48 @@
   --color-on-error: #ffffff;
   --color-error-container: #ffdad6;
   --color-on-error-container: #93000a;
+
+  /* Admin dashboard — docs/admin_dashboard/griple_admin/DESIGN.md */
+  --color-admin-bg: #fafaf8;
+  --color-sidebar-bg: #1a1a1a;
+  --color-sidebar-text: #a0a0a0;
+  --color-sidebar-text-active: #ffffff;
+  --color-text-muted: #6b6b6b;
+  --color-text-primary: #1b1c1c;
+  --color-admin-border: #e5e5e5;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-info: #2563eb;
+
+  --spacing-sidebar-width: 260px;
+  --spacing-container-padding: 32px;
+  --spacing-stack-sm: 8px;
+  --spacing-stack-md: 16px;
+  --spacing-stack-lg: 24px;
+  --spacing-gutter: 24px;
+
+  --text-sidebar-nav: 13px;
+  --text-sidebar-nav--line-height: 1;
+  --text-sidebar-nav--font-weight: 500;
+
+  --text-admin-body: 14px;
+  --text-admin-body--line-height: 1.5;
+  --text-admin-body--font-weight: 400;
+
+  --text-admin-section-label: 12px;
+  --text-admin-section-label--line-height: 1;
+  --text-admin-section-label--letter-spacing: 0.08em;
+  --text-admin-section-label--font-weight: 600;
+
+  --text-admin-label-sm: 11px;
+  --text-admin-label-sm--line-height: 1;
+  --text-admin-label-sm--letter-spacing: 0.02em;
+  --text-admin-label-sm--font-weight: 500;
+
+  --text-admin-page-title: 24px;
+  --text-admin-page-title--line-height: 1.2;
+  --text-admin-page-title--letter-spacing: -0.01em;
+  --text-admin-page-title--font-weight: 700;
 
   /* Typography scale */
   --text-display: 64px;
@@ -94,6 +137,31 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     font-weight: 600;
+  }
+
+  /* Admin section headings — mirrors docs/admin_dashboard mockups */
+  .font-section-label {
+    font-size: var(--text-admin-section-label);
+    line-height: var(--text-admin-section-label--line-height);
+    letter-spacing: var(--text-admin-section-label--letter-spacing);
+    font-weight: var(--text-admin-section-label--font-weight);
+    text-transform: uppercase;
+  }
+
+  .text-section-label-muted {
+    color: var(--color-text-muted);
+  }
+
+  .text-section-label-secondary {
+    color: var(--color-secondary);
+  }
+
+  .small-caps {
+    font-variant: small-caps;
+  }
+
+  .material-symbols-outlined {
+    font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
   }
 
   .no-scrollbar::-webkit-scrollbar {

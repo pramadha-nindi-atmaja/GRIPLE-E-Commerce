@@ -2,9 +2,10 @@
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState, useSyncExternalStore } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 
 import { useCartStore } from "@/lib/stores/cart.store";
+import type { CheckoutFormValues } from "@/lib/schemas/checkout";
 import type { CartItem } from "@/lib/types";
 import { getMockCartItems } from "@/lib/mock/cart";
 
@@ -14,6 +15,7 @@ type Snapshot = {
   orderId: string;
   items: CartItem[];
   total: number;
+  shipping?: CheckoutFormValues;
 };
 
 let lastSnapshotRaw: string | null | undefined;
@@ -70,6 +72,7 @@ export function OrderConfirmationView() {
   const paymentIntentId = searchParams.get("payment_intent");
   const orderIdFromUrl = searchParams.get("orderId");
   const clearCart = useCartStore((s) => s.clear);
+  const persistedOrderRef = useRef(false);
 
   const snapshot = useSyncExternalStore(
     () => () => {},
@@ -107,6 +110,39 @@ export function OrderConfirmationView() {
 
     return () => controller.abort();
   }, [paymentIntentId]);
+
+  useEffect(() => {
+    if (persistedOrderRef.current) return;
+    if (!paymentIntentId) return;
+    if (verify.kind !== "ok") return;
+    if (verify.data.status !== "succeeded" && verify.data.status !== "processing") {
+      return;
+    }
+    const snap = readSnapshot();
+    if (!snap?.items?.length || !snap.shipping) return;
+
+    persistedOrderRef.current = true;
+    void fetch("/api/orders/complete", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        paymentIntentId,
+        displayOrderId: snap.orderId,
+        shipping: snap.shipping,
+        items: snap.items.map((i) => ({
+          productId: i.productId,
+          productName: i.name,
+          colorName: i.color,
+          colorHex: i.colorHex,
+          size: i.size,
+          qty: i.qty,
+          unitPrice: i.price,
+        })),
+      }),
+    }).then(async (res) => {
+      if (!res.ok) persistedOrderRef.current = false;
+    });
+  }, [paymentIntentId, verify]);
 
   // Clear the cart once we've confirmed the payment actually succeeded —
   // covers the 3DS redirect path where CheckoutForm could not clear it.
