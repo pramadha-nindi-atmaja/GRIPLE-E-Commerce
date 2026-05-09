@@ -50,11 +50,11 @@ export async function POST(req: Request) {
       })
     : ([] as typeof productsById);
 
-  const productById = new Map(
-    productsById.map((p: (typeof productsById)[number]) => [p.id, p]),
+  const productById = new Map<string, (typeof productsById)[number]>(
+    productsById.map((p) => [p.id, p]),
   );
-  const productBySlug = new Map(
-    productsBySlug.map((p: (typeof productsBySlug)[number]) => [p.slug, p]),
+  const productBySlug = new Map<string, (typeof productsBySlug)[number]>(
+    productsBySlug.map((p) => [p.slug, p]),
   );
 
   let amountCents = 0;
