@@ -231,7 +231,10 @@ export default async function AdminDashboardPage() {
                   </tr>
                 ) : (
                   recentOrders.map((o: (typeof recentOrders)[number]) => {
-                    const n = o.items.reduce((s, i) => s + i.qty, 0);
+                    const n = o.items.reduce(
+                      (sum: number, item: (typeof o.items)[number]) => sum + item.qty,
+                      0,
+                    );
                     return (
                       <tr key={o.id}>
                         <td className="px-6 py-4 font-mono text-[13px] text-text-muted">
