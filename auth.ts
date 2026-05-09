@@ -2,11 +2,11 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-import type { AdminRole } from "@/lib/types/admin-role";
-
+import { authConfig } from "@/auth.config";
 import { prisma } from "@/lib/prisma";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
       name: "Credentials",
@@ -35,24 +35,4 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       },
     }),
   ],
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user && "role" in user && user.role) {
-        token.role = user.role as AdminRole;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.id = token.sub ?? "";
-        if (token.role) session.user.role = token.role as AdminRole;
-      }
-      return session;
-    },
-  },
-  pages: {
-    signIn: "/auth/login",
-  },
-  session: { strategy: "jwt", maxAge: 60 * 60 * 24 * 7 },
-  trustHost: true,
 });
