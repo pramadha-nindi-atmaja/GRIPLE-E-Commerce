@@ -115,7 +115,7 @@ export default async function AdminDashboardPage() {
 
   const topOrdered = topIds
     .map((id) => {
-      const p = topProducts.find((x) => x.id === id);
+      const p = topProducts.find((row: (typeof topProducts)[number]) => row.id === id);
       const agg = byProduct.get(id)!;
       const img = p?.colors[0]?.images[0]?.url;
       return p
