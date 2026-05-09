@@ -52,7 +52,10 @@ export default async function AdminOrderDetailPage({
     },
   });
   const thumbByProductId = new Map(
-    products.map((p) => [p.id, p.colors[0]?.images[0]?.url ?? null] as const),
+    products.map((p: (typeof products)[number]) => [
+      p.id,
+      p.colors[0]?.images[0]?.url ?? null,
+    ] as const),
   );
 
   const itemCount = order.items.reduce(
