@@ -5,9 +5,9 @@ import { useState } from "react";
 
 import { updateOrderStatusAction } from "@/lib/actions/admin/orders";
 
-import { OrderStatus } from "@prisma/client";
+import { ORDER_STATUSES, type OrderStatus } from "@/lib/types/order-status";
 
-const OPTIONS = Object.values(OrderStatus);
+const OPTIONS = ORDER_STATUSES;
 
 type OrderStatusFormProps = {
   orderId: string;

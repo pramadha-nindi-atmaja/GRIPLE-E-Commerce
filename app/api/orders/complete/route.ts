@@ -4,7 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { orderCompleteSchema } from "@/lib/schemas/order-complete";
 import { stripe } from "@/lib/stripe";
 
-import { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/lib/types/order-status";
 
 export async function POST(req: Request) {
   let json: unknown;
@@ -56,9 +56,9 @@ export async function POST(req: Request) {
   const total = intent.amount / 100;
   const shippingCost = Math.max(0, total - subtotal);
 
-  let status: OrderStatus = OrderStatus.PENDING;
-  if (intent.status === "succeeded") status = OrderStatus.PROCESSING;
-  else if (intent.status === "processing") status = OrderStatus.PENDING;
+  let status: OrderStatus = "PENDING";
+  if (intent.status === "succeeded") status = "PROCESSING";
+  else if (intent.status === "processing") status = "PENDING";
 
   const order = await prisma.order.create({
     data: {

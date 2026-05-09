@@ -1,4 +1,4 @@
-import type { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/lib/types/order-status";
 
 const STATUS_STYLES: Record<OrderStatus, string> = {
   SHIPPED: "bg-green-100 text-green-700",

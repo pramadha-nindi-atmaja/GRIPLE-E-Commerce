@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 
-import { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/lib/types/order-status";
 
 import { AdminIcon } from "@/components/admin/AdminIcon";
 import { OrderStatusBadge } from "@/components/admin/OrderStatusBadge";

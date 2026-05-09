@@ -1,19 +1,19 @@
-import { OrderStatus } from "@prisma/client";
+import type { OrderStatus } from "@/lib/types/order-status";
 
 import { AdminIcon } from "@/components/admin/AdminIcon";
 
 const STEPS: { key: string; label: string; minStatus: OrderStatus }[] = [
-  { key: "placed", label: "Order Placed", minStatus: OrderStatus.PENDING },
-  { key: "payment", label: "Payment Confirmed", minStatus: OrderStatus.PROCESSING },
-  { key: "shipped", label: "Shipped", minStatus: OrderStatus.SHIPPED },
-  { key: "delivered", label: "Delivered", minStatus: OrderStatus.DELIVERED },
+  { key: "placed", label: "Order Placed", minStatus: "PENDING" },
+  { key: "payment", label: "Payment Confirmed", minStatus: "PROCESSING" },
+  { key: "shipped", label: "Shipped", minStatus: "SHIPPED" },
+  { key: "delivered", label: "Delivered", minStatus: "DELIVERED" },
 ];
 
 const STATUS_ORDER: OrderStatus[] = [
-  OrderStatus.PENDING,
-  OrderStatus.PROCESSING,
-  OrderStatus.SHIPPED,
-  OrderStatus.DELIVERED,
+  "PENDING",
+  "PROCESSING",
+  "SHIPPED",
+  "DELIVERED",
 ];
 
 function statusIndex(s: OrderStatus): number {
@@ -21,8 +21,8 @@ function statusIndex(s: OrderStatus): number {
 }
 
 function stepComplete(current: OrderStatus, stepMin: OrderStatus): boolean {
-  if (current === OrderStatus.CANCELLED) {
-    return stepMin === OrderStatus.PENDING;
+  if (current === "CANCELLED") {
+    return stepMin === "PENDING";
   }
   if (statusIndex(current) < 0) return false;
   return statusIndex(current) >= statusIndex(stepMin);
@@ -45,7 +45,7 @@ export function OrderTimeline({ status, createdAt, paidAt }: OrderTimelineProps)
 
         {STEPS.map((step) => {
           const done = stepComplete(status, step.minStatus);
-          const upcoming = !done && status !== OrderStatus.CANCELLED;
+          const upcoming = !done && status !== "CANCELLED";
 
           let sub = "";
           if (step.key === "placed") {
@@ -98,7 +98,7 @@ export function OrderTimeline({ status, createdAt, paidAt }: OrderTimelineProps)
           );
         })}
 
-        {status === OrderStatus.CANCELLED ? (
+        {status === "CANCELLED" ? (
           <div className="relative">
             <div className="absolute -left-[31px] top-1 w-4 h-4 rounded-full bg-error ring-4 ring-background z-10" />
             <div>

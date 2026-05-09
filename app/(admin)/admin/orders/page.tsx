@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { OrderStatus } from "@prisma/client";
+import { ORDER_STATUSES, type OrderStatus } from "@/lib/types/order-status";
 
 import { prisma } from "@/lib/prisma";
 
@@ -15,7 +15,7 @@ export default async function AdminOrdersPage({
 }) {
   const { status: statusRaw, q } = await searchParams;
   const filter: OrderStatus | "ALL" =
-    statusRaw && statusRaw !== "ALL" && Object.values(OrderStatus).includes(statusRaw as OrderStatus)
+    statusRaw && statusRaw !== "ALL" && ORDER_STATUSES.includes(statusRaw as OrderStatus)
       ? (statusRaw as OrderStatus)
       : "ALL";
 

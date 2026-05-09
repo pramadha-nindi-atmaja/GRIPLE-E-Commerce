@@ -1,10 +1,10 @@
 import Link from "next/link";
 
-import { OrderStatus } from "@prisma/client";
+import { ORDER_STATUSES, type OrderStatus } from "@/lib/types/order-status";
 
 const STATUSES: (OrderStatus | "ALL")[] = [
   "ALL",
-  ...Object.values(OrderStatus),
+  ...ORDER_STATUSES,
 ];
 
 function buildParams(q?: string, status?: OrderStatus | "ALL") {
