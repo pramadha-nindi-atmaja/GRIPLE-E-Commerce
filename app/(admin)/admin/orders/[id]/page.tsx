@@ -80,7 +80,7 @@ export default async function AdminOrderDetailPage({
               </span>
             </div>
             <div className="p-6 space-y-6">
-              {order.items.map((item) => {
+              {order.items.map((item: (typeof order.items)[number]) => {
                 const thumb = thumbByProductId.get(item.productId);
                 return (
                   <div key={item.id} className="flex gap-6 items-center">

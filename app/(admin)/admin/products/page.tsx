@@ -15,7 +15,12 @@ function totalStock(p: {
   colors: { stocks: { qty: number }[] }[];
 }): number {
   return p.colors.reduce(
-    (sum, c) => sum + c.stocks.reduce((s, z) => s + z.qty, 0),
+    (sum: number, c: (typeof p.colors)[number]) =>
+      sum +
+      c.stocks.reduce(
+        (innerSum: number, z: (typeof c.stocks)[number]) => innerSum + z.qty,
+        0,
+      ),
     0,
   );
 }
@@ -146,7 +151,7 @@ export default async function AdminProductsPage({
             </tr>
           </thead>
           <tbody className="divide-y divide-admin-border">
-            {products.map((p) => {
+            {products.map((p: (typeof products)[number]) => {
               const thumb = thumbUrl(p);
               const stock = totalStock(p);
               const genderLabel =

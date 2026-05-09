@@ -84,8 +84,11 @@ export default async function AdminOrdersPage({
                   </td>
                 </tr>
               ) : (
-                orders.map((o) => {
-                  const items = o.items.reduce((s, i) => s + i.qty, 0);
+                orders.map((o: (typeof orders)[number]) => {
+                  const items = o.items.reduce(
+                    (sum: number, item: (typeof o.items)[number]) => sum + item.qty,
+                    0,
+                  );
                   return (
                     <tr key={o.id} className="hover:bg-surface-container-low/40 transition-colors">
                       <td className="px-6 py-4 font-mono text-[13px] text-text-muted">
