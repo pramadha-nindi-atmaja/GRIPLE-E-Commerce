@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         where: { slug: { in: productSlugs }, isPublished: true },
         include: { colors: { include: { images: true, stocks: true } }, sizes: true },
       })
-    : [];
+    : ([] as typeof productsById);
 
   const productById = new Map(productsById.map((p) => [p.id, p]));
   const productBySlug = new Map(productsBySlug.map((p) => [p.slug, p]));
