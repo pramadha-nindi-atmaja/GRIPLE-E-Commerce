@@ -51,11 +51,11 @@ export default async function AdminOrderDetailPage({
       },
     },
   });
-  const thumbByProductId = new Map(
-    products.map((p: (typeof products)[number]) => [
-      p.id,
-      p.colors[0]?.images[0]?.url ?? null,
-    ] as const),
+  const thumbByProductId: Map<string, string | null> = new Map(
+    products.map(
+      (p: (typeof products)[number]) =>
+        [p.id, p.colors[0]?.images[0]?.url ?? null] as [string, string | null],
+    ),
   );
 
   const itemCount = order.items.reduce(
@@ -82,12 +82,13 @@ export default async function AdminOrderDetailPage({
             <div className="p-6 space-y-6">
               {order.items.map((item: (typeof order.items)[number]) => {
                 const thumb = thumbByProductId.get(item.productId);
+                const thumbSrc = typeof thumb === "string" ? thumb : undefined;
                 return (
                   <div key={item.id} className="flex gap-6 items-center">
                     <div className="w-16 h-20 bg-surface-container rounded-xl overflow-hidden flex-shrink-0 relative">
-                      {thumb ? (
+                      {thumbSrc ? (
                         // eslint-disable-next-line @next/next/no-img-element
-                        <img src={thumb} alt="" className="w-full h-full object-cover" />
+                        <img src={thumbSrc} alt="" className="w-full h-full object-cover" />
                       ) : (
                         <div className="w-full h-full bg-surface-container-high" />
                       )}
