@@ -1,8 +1,13 @@
 import { NextResponse } from "next/server";
+import type { Prisma } from "@prisma/client";
 
 import { prisma } from "@/lib/prisma";
 import { paymentIntentRequestSchema } from "@/lib/schemas/payment-intent";
 import { stripe } from "@/lib/stripe";
+
+type ProductForCheckout = Prisma.ProductGetPayload<{
+  include: { colors: { include: { images: true; stocks: true } }; sizes: true };
+}>;
 
 function generateOrderId() {
   return `GR-${Date.now().toString(36).toUpperCase().slice(-8)}`;
@@ -38,22 +43,27 @@ export async function POST(req: Request) {
     new Set(items.map((item) => item.productSlug).filter(Boolean)),
   ) as string[];
 
-  const productsById = await prisma.product.findMany({
+  const include = {
+    colors: { include: { images: true as const, stocks: true as const } },
+    sizes: true as const,
+  };
+
+  const productsById: ProductForCheckout[] = await prisma.product.findMany({
     where: { id: { in: productIds }, isPublished: true },
-    include: { colors: { include: { images: true, stocks: true } }, sizes: true },
+    include,
   });
 
-  const productsBySlug = productSlugs.length
+  const productsBySlug: ProductForCheckout[] = productSlugs.length
     ? await prisma.product.findMany({
         where: { slug: { in: productSlugs }, isPublished: true },
-        include: { colors: { include: { images: true, stocks: true } }, sizes: true },
+        include,
       })
-    : ([] as typeof productsById);
+    : [];
 
-  const productById = new Map<string, (typeof productsById)[number]>(
+  const productById = new Map<string, ProductForCheckout>(
     productsById.map((p) => [p.id, p]),
   );
-  const productBySlug = new Map<string, (typeof productsBySlug)[number]>(
+  const productBySlug = new Map<string, ProductForCheckout>(
     productsBySlug.map((p) => [p.slug, p]),
   );
 
