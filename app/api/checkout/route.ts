@@ -38,30 +38,17 @@ export async function POST(req: Request) {
     new Set(items.map((item) => item.productSlug).filter(Boolean)),
   ) as string[];
 
-  const [productsById, productsBySlug] = await Promise.all([
-    prisma.product.findMany({
-      where: {
-        id: { in: productIds },
-        isPublished: true,
-      },
-      include: {
-        colors: { include: { images: true, stocks: true } },
-        sizes: true,
-      },
-    }),
-    productSlugs.length
-      ? prisma.product.findMany({
-          where: {
-            slug: { in: productSlugs },
-            isPublished: true,
-          },
-          include: {
-            colors: { include: { images: true, stocks: true } },
-            sizes: true,
-          },
-        })
-      : Promise.resolve([]),
-  ]);
+  const productsById = await prisma.product.findMany({
+    where: { id: { in: productIds }, isPublished: true },
+    include: { colors: { include: { images: true, stocks: true } }, sizes: true },
+  });
+
+  const productsBySlug = productSlugs.length
+    ? await prisma.product.findMany({
+        where: { slug: { in: productSlugs }, isPublished: true },
+        include: { colors: { include: { images: true, stocks: true } }, sizes: true },
+      })
+    : [];
 
   const productById = new Map(productsById.map((p) => [p.id, p]));
   const productBySlug = new Map(productsBySlug.map((p) => [p.slug, p]));
