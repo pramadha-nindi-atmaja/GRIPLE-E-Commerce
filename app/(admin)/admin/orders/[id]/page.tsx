@@ -31,7 +31,9 @@ export default async function AdminOrderDetailPage({
     country: string;
   };
 
-  const productIds = [...new Set(order.items.map((i) => i.productId))];
+  const productIds = [
+    ...new Set(order.items.map((i: (typeof order.items)[number]) => i.productId)),
+  ];
   const products = await prisma.product.findMany({
     where: { id: { in: productIds } },
     select: {
@@ -53,7 +55,10 @@ export default async function AdminOrderDetailPage({
     products.map((p) => [p.id, p.colors[0]?.images[0]?.url ?? null] as const),
   );
 
-  const itemCount = order.items.reduce((s, i) => s + i.qty, 0);
+  const itemCount = order.items.reduce(
+    (sum: number, item: (typeof order.items)[number]) => sum + item.qty,
+    0,
+  );
   const paid = Boolean(order.paidAt);
 
   return (
