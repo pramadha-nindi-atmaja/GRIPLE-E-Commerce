@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-import type { AdminRole } from "@prisma/client";
+import type { AdminRole } from "@/lib/types/admin-role";
 
 export async function requireAuth() {
   const session = await auth();

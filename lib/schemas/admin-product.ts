@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { Badge, Gender } from "@prisma/client";
+import { BADGES, GENDERS } from "@/lib/types/catalog-enums";
 
 const colorVariantSchema = z.object({
   name: z.string().min(1, "Nama warna wajib"),
@@ -16,10 +16,10 @@ export const adminProductPayloadSchema = z.object({
   name: z.string().min(2),
   slug: z.string().min(2).regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   categoryId: z.string().min(1),
-  gender: z.nativeEnum(Gender),
+  gender: z.enum(GENDERS),
   price: z.number().positive(),
   originalPrice: z.union([z.number().positive(), z.null()]).optional(),
-  badge: z.union([z.nativeEnum(Badge), z.null()]).optional(),
+  badge: z.union([z.enum(BADGES), z.null()]).optional(),
   description: z.string().min(1),
   fabric: z.string().optional().nullable(),
   care: z.string().optional().nullable(),

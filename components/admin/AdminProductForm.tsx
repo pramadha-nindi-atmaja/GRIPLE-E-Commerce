@@ -1,6 +1,6 @@
 "use client";
 
-import { Badge, Gender } from "@prisma/client";
+import type { Badge, Gender } from "@/lib/types/catalog-enums";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useMemo, useRef, useState } from "react";
@@ -30,9 +30,9 @@ const SIZE_LABELS: Record<(typeof SIZE_KEYS)[number], string> = {
 
 const BADGE_OPTIONS: { value: string; label: string }[] = [
   { value: "NONE", label: "None" },
-  { value: Badge.BEST_SELLER, label: "Best Seller" },
-  { value: Badge.NEW, label: "New" },
-  { value: Badge.SALE, label: "Sale" },
+  { value: "BEST_SELLER", label: "Best Seller" },
+  { value: "NEW", label: "New" },
+  { value: "SALE", label: "Sale" },
 ];
 
 function emptyVariant(): AdminProductPayload["variants"][0] {
@@ -49,7 +49,7 @@ function defaultPayload(categories: { id: string }[]): AdminProductPayload {
     name: "",
     slug: "",
     categoryId: categories[0]?.id ?? "",
-    gender: Gender.ALL,
+    gender: "ALL",
     price: 59,
     originalPrice: null,
     badge: null,
@@ -446,9 +446,9 @@ export function AdminProductForm({
                 Gender
               </span>
               <div className="flex p-1 bg-surface-container-low rounded-xl border border-admin-border">
-                {([Gender.MEN, Gender.WOMEN, Gender.ALL] as const).map((g) => {
+                {(["MEN", "WOMEN", "ALL"] as const).map((g) => {
                   const active = payload.gender === g;
-                  const label = g === Gender.MEN ? "Men" : g === Gender.WOMEN ? "Women" : "Unisex";
+                  const label = g === "MEN" ? "Men" : g === "WOMEN" ? "Women" : "Unisex";
                   return (
                     <button
                       key={g}

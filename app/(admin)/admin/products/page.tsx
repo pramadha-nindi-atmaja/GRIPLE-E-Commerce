@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Gender } from "@prisma/client";
+import type { Gender } from "@/lib/types/catalog-enums";
 
 import { auth } from "@/auth";
 import { prisma } from "@/lib/prisma";
@@ -48,7 +48,7 @@ export default async function AdminProductsPage({
   const superAdmin = session?.user?.role && isSuperAdmin(session.user.role);
 
   const genderFilter =
-    genderRaw && Object.values(Gender).includes(genderRaw as Gender)
+    genderRaw && (["MEN", "WOMEN", "ALL"] as const).includes(genderRaw as Gender)
       ? (genderRaw as Gender)
       : undefined;
 
@@ -155,9 +155,9 @@ export default async function AdminProductsPage({
               const thumb = thumbUrl(p);
               const stock = totalStock(p);
               const genderLabel =
-                p.gender === Gender.MEN
+                p.gender === "MEN"
                   ? "MEN"
-                  : p.gender === Gender.WOMEN
+                  : p.gender === "WOMEN"
                     ? "WOMEN"
                     : "UNISEX";
               return (

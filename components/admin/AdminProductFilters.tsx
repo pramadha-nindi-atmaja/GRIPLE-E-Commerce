@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Gender } from "@prisma/client";
+import type { Gender } from "@/lib/types/catalog-enums";
 
 type Cat = { id: string; name: string };
 
@@ -37,9 +37,9 @@ export function AdminProductFilters({
 }) {
   const genderChips: { value: Gender | "ANY"; label: string }[] = [
     { value: "ANY", label: "All" },
-    { value: Gender.MEN, label: "Men" },
-    { value: Gender.WOMEN, label: "Women" },
-    { value: Gender.ALL, label: "Unisex" },
+    { value: "MEN", label: "Men" },
+    { value: "WOMEN", label: "Women" },
+    { value: "ALL", label: "Unisex" },
   ];
   const pubFilters: { key: "published" | "draft" | "all"; label: string }[] = [
     { key: "published", label: "Published" },

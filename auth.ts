@@ -2,7 +2,7 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 
-import type { AdminRole } from "@prisma/client";
+import type { AdminRole } from "@/lib/types/admin-role";
 
 import { prisma } from "@/lib/prisma";
 
