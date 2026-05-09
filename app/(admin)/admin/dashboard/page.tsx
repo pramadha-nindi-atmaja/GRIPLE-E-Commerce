@@ -230,7 +230,7 @@ export default async function AdminDashboardPage() {
                     </td>
                   </tr>
                 ) : (
-                  recentOrders.map((o) => {
+                  recentOrders.map((o: (typeof recentOrders)[number]) => {
                     const n = o.items.reduce((s, i) => s + i.qty, 0);
                     return (
                       <tr key={o.id}>
