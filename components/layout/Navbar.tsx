@@ -140,16 +140,25 @@ export function Navbar({ className }: Props) {
                     {loading ? (
                       <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
                     ) : (
-                      menCats.map((c) => (
+                      <>
+                        {menCats.slice(0, 6).map((c) => (
+                          <Link
+                            key={c.id}
+                            role="menuitem"
+                            href={`/store?category=${encodeURIComponent(c.slug)}`}
+                            className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                          >
+                            {c.name}
+                          </Link>
+                        ))}
                         <Link
-                          key={c.id}
                           role="menuitem"
-                          href={`/store?category=${encodeURIComponent(c.slug)}`}
-                          className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                          href="/store?gender=men"
+                          className="font-label-caps text-[11px] text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors mt-1 border-t border-outline-variant pt-2"
                         >
-                          {c.name}
+                          View all Men →
                         </Link>
-                      ))
+                      </>
                     )}
                   </div>
                 </div>
@@ -172,16 +181,25 @@ export function Navbar({ className }: Props) {
                     {loading ? (
                       <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
                     ) : (
-                      womenCats.map((c) => (
+                      <>
+                        {womenCats.slice(0, 6).map((c) => (
+                          <Link
+                            key={c.id}
+                            role="menuitem"
+                            href={`/store?category=${encodeURIComponent(c.slug)}`}
+                            className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                          >
+                            {c.name}
+                          </Link>
+                        ))}
                         <Link
-                          key={c.id}
                           role="menuitem"
-                          href={`/store?category=${encodeURIComponent(c.slug)}`}
-                          className="font-body-md text-on-surface-variant hover:text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors"
+                          href="/store?gender=women"
+                          className="font-label-caps text-[11px] text-primary hover:bg-surface-container rounded-xl px-3 py-2 transition-colors mt-1 border-t border-outline-variant pt-2"
                         >
-                          {c.name}
+                          View all Women →
                         </Link>
-                      ))
+                      </>
                     )}
                   </div>
                 </div>
@@ -282,16 +300,25 @@ export function Navbar({ className }: Props) {
                   {loading ? (
                     <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
                   ) : (
-                    menCats.map((c) => (
+                    <>
+                      {menCats.slice(0, 6).map((c) => (
+                        <Link
+                          key={c.id}
+                          href={`/store?category=${encodeURIComponent(c.slug)}`}
+                          className="py-2 font-body-md text-on-surface-variant"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {c.name}
+                        </Link>
+                      ))}
                       <Link
-                        key={c.id}
-                        href={`/store?category=${encodeURIComponent(c.slug)}`}
-                        className="py-2 font-body-md text-on-surface-variant"
+                        href="/store?gender=men"
+                        className="py-2 font-label-caps text-[11px] text-primary"
                         onClick={() => setMobileOpen(false)}
                       >
-                        {c.name}
+                        View all Men →
                       </Link>
-                    ))
+                    </>
                   )}
                 </div>
               </div>
@@ -310,16 +337,25 @@ export function Navbar({ className }: Props) {
                   {loading ? (
                     <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
                   ) : (
-                    womenCats.map((c) => (
+                    <>
+                      {womenCats.slice(0, 6).map((c) => (
+                        <Link
+                          key={c.id}
+                          href={`/store?category=${encodeURIComponent(c.slug)}`}
+                          className="py-2 font-body-md text-on-surface-variant"
+                          onClick={() => setMobileOpen(false)}
+                        >
+                          {c.name}
+                        </Link>
+                      ))}
                       <Link
-                        key={c.id}
-                        href={`/store?category=${encodeURIComponent(c.slug)}`}
-                        className="py-2 font-body-md text-on-surface-variant"
+                        href="/store?gender=women"
+                        className="py-2 font-label-caps text-[11px] text-primary"
                         onClick={() => setMobileOpen(false)}
                       >
-                        {c.name}
+                        View all Women →
                       </Link>
-                    ))
+                    </>
                   )}
                 </div>
               </div>
