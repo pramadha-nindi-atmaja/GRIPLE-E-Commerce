@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 import type { Gender } from "@/lib/types/catalog-enums";
 
@@ -6,7 +9,6 @@ type Cat = { id: string; name: string };
 
 export type ProductListFilters = {
   q?: string;
-  /** Omit or ANY = filter off */
   gender?: Gender | "ANY";
   categoryId?: string | "ALL";
   published?: "published" | "draft" | "all";
@@ -35,6 +37,8 @@ export function AdminProductFilters({
   categories: Cat[];
   current: ProductListFilters;
 }) {
+  const router = useRouter();
+
   const genderChips: { value: Gender | "ANY"; label: string }[] = [
     { value: "ANY", label: "All" },
     { value: "MEN", label: "Men" },
@@ -47,6 +51,8 @@ export function AdminProductFilters({
     { key: "all", label: "All" },
   ];
 
+  const activeCatId = current.categoryId && current.categoryId !== "ALL" ? current.categoryId : "";
+
   return (
     <section className="space-y-4 py-2">
       <div className="flex flex-wrap items-center gap-stack-lg">
@@ -57,10 +63,7 @@ export function AdminProductFilters({
           <div className="flex gap-2 flex-wrap">
             {genderChips.map(({ value: g, label }) => {
               const active = (current.gender ?? "ANY") === g;
-              const next: ProductListFilters = {
-                ...current,
-                gender: g,
-              };
+              const next: ProductListFilters = { ...current, gender: g };
               return (
                 <Link key={g} href={`/admin/products${buildParams(next)}`} className={chipClass(active)}>
                   {label}
@@ -72,27 +75,25 @@ export function AdminProductFilters({
 
         <div className="h-6 w-px bg-admin-border hidden sm:block" aria-hidden />
 
-        <div className="flex items-center gap-2 flex-wrap">
+        <div className="flex items-center gap-2">
           <span className="text-xs font-bold text-outline uppercase tracking-wider">
             Category
           </span>
-          <div className="flex gap-2 flex-wrap">
-            <Link
-              href={`/admin/products${buildParams({ ...current, categoryId: "ALL" })}`}
-              className={chipClass(!current.categoryId || current.categoryId === "ALL")}
-            >
-              All Categories
-            </Link>
-            {categories.map((c) => {
-              const active = current.categoryId === c.id;
-              const next: ProductListFilters = { ...current, categoryId: c.id };
-              return (
-                <Link key={c.id} href={`/admin/products${buildParams(next)}`} className={chipClass(active)}>
-                  {c.name}
-                </Link>
-              );
-            })}
-          </div>
+          <select
+            value={activeCatId}
+            onChange={(e) => {
+              const next: ProductListFilters = { ...current, categoryId: e.target.value || "ALL" };
+              router.push(`/admin/products${buildParams(next)}`);
+            }}
+            className="text-xs border border-admin-border rounded-full px-3 py-1.5 bg-surface text-secondary font-semibold focus:outline-none focus:border-primary hover:border-primary transition-colors cursor-pointer"
+          >
+            <option value="">All Categories</option>
+            {categories.map((c) => (
+              <option key={c.id} value={c.id}>
+                {c.name}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="flex items-center gap-2 flex-wrap sm:ml-auto">
