@@ -118,8 +118,8 @@ export default async function AdminProductsPage({
         </div>
       </div>
 
-      <div className="bg-surface rounded-2xl border border-admin-border overflow-hidden shadow-sm">
-        <table className="w-full text-left border-collapse">
+      <div className="bg-surface rounded-2xl border border-admin-border overflow-x-auto shadow-sm">
+        <table className="w-full min-w-[760px] text-left border-collapse">
           <thead>
             <tr className="border-b border-admin-border bg-surface-container-low">
               <th className="py-4 px-6 w-12">
@@ -191,7 +191,7 @@ export default async function AdminProductsPage({
                   </td>
                   <td className="py-4 px-4">
                     <div className="space-y-1">
-                      <span className="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded w-fit uppercase tracking-tight">
+                      <span className="block text-[11px] font-bold text-secondary-fixed-dim bg-secondary-container px-2 py-0.5 rounded uppercase tracking-tight max-w-[160px] truncate" title={p.category.name}>
                         {p.category.name}
                       </span>
                       <span className="block text-[10px] text-on-surface-variant font-medium">
