@@ -1,17 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 
-// Transform database product to frontend format
+const INCLUDE = {
+  category: true,
+  colors: {
+    include: {
+      images: { orderBy: { position: "asc" as const } },
+      stocks: true,
+    },
+    orderBy: { position: "asc" as const },
+  },
+  sizes: { orderBy: { position: "asc" as const } },
+} as const;
+
 function transformProduct(dbProduct: any) {
   return {
     id: dbProduct.id,
     name: dbProduct.name,
     slug: dbProduct.slug,
-    category: dbProduct.category.slug, // Map to category slug for compatibility
-    gender: dbProduct.gender.toLowerCase(), // Convert enum to lowercase
+    category: dbProduct.category.slug,
+    gender: dbProduct.gender.toLowerCase(),
     price: Number(dbProduct.price),
     originalPrice: dbProduct.originalPrice ? Number(dbProduct.originalPrice) : null,
-    badge: dbProduct.badge?.toLowerCase().replace('_', ' '), // Convert enum to string
+    badge: dbProduct.badge?.toLowerCase().replace("_", " ") ?? null,
     description: dbProduct.description,
     fabric: dbProduct.fabric,
     care: dbProduct.care,
@@ -37,60 +48,80 @@ function transformProduct(dbProduct: any) {
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
-    const featured = searchParams.get('featured') === 'true';
-    const newArrivals = searchParams.get('newArrivals') === 'true';
-    const gender = searchParams.get('gender');
-    const category = searchParams.get('category');
+    const featured = searchParams.get("featured") === "true";
+    const newArrivals = searchParams.get("newArrivals") === "true";
+    const gender = searchParams.get("gender");
+    const category = searchParams.get("category");
 
-    let where: any = { isPublished: true };
-
-    if (featured) {
-      where.isFeatured = true;
-    }
-
-    if (newArrivals) {
-      where.isNewArrival = true;
-    }
+    const base = { isPublished: true };
+    let where: any = { ...base };
 
     if (gender) {
-      const genderEnum = gender.toUpperCase();
-      where.gender = genderEnum === 'UNISEX' ? 'ALL' : genderEnum;
+      const g = gender.toUpperCase();
+      where.gender = g === "UNISEX" ? "ALL" : g;
     }
-
     if (category) {
-      where.category = {
-        slug: category,
-      };
+      where.category = { slug: category };
     }
 
+    // Featured products — fallback to 8 newest if none are flagged
+    if (featured) {
+      const featuredProducts = await prisma.product.findMany({
+        where: { ...where, isFeatured: true },
+        include: INCLUDE,
+        orderBy: { createdAt: "desc" },
+        take: 8,
+      });
+
+      if (featuredProducts.length > 0) {
+        return NextResponse.json(featuredProducts.map(transformProduct));
+      }
+
+      // Fallback: return 8 newest published products
+      const fallback = await prisma.product.findMany({
+        where,
+        include: INCLUDE,
+        orderBy: { createdAt: "desc" },
+        take: 8,
+      });
+      return NextResponse.json(fallback.map(transformProduct));
+    }
+
+    // New arrivals — fallback to 8 newest if none are flagged
+    if (newArrivals) {
+      const newProducts = await prisma.product.findMany({
+        where: { ...where, isNewArrival: true },
+        include: INCLUDE,
+        orderBy: { createdAt: "desc" },
+        take: 8,
+      });
+
+      if (newProducts.length > 0) {
+        return NextResponse.json(newProducts.map(transformProduct));
+      }
+
+      // Fallback: return 8 newest with offset to differ from featured
+      const fallback = await prisma.product.findMany({
+        where,
+        include: INCLUDE,
+        orderBy: { createdAt: "desc" },
+        take: 8,
+        skip: 8,
+      });
+      return NextResponse.json(fallback.map(transformProduct));
+    }
+
+    // Default: all products (capped at 200 for performance)
     const products = await prisma.product.findMany({
       where,
-      include: {
-        category: true,
-        colors: {
-          include: {
-            images: {
-              orderBy: { position: 'asc' },
-            },
-            stocks: true,
-          },
-          orderBy: { position: 'asc' },
-        },
-        sizes: {
-          orderBy: { position: 'asc' },
-        },
-      },
-      orderBy: { createdAt: 'desc' },
+      include: INCLUDE,
+      orderBy: { createdAt: "desc" },
+      take: 200,
     });
 
-    const transformedProducts = products.map(transformProduct);
-
-    return NextResponse.json(transformedProducts);
+    return NextResponse.json(products.map(transformProduct));
   } catch (error) {
-    console.error('Error fetching products:', error);
-    return NextResponse.json(
-      { error: 'Failed to fetch products' },
-      { status: 500 }
-    );
+    console.error("Error fetching products:", error);
+    return NextResponse.json({ error: "Failed to fetch products" }, { status: 500 });
   }
 }
