@@ -5,6 +5,8 @@ import { useState } from "react";
 import type { ParsedStoreQuery } from "@/lib/utils/filters";
 import { cn } from "@/lib/utils/cn";
 
+const CATEGORY_LIMIT = 8;
+
 type CategoryOpt = { slug: string; name: string };
 type ColorOpt = { name: string; hex: string };
 
@@ -90,6 +92,9 @@ export function FilterControls({
   colors,
   sizes,
 }: Props) {
+  const [showAllCategories, setShowAllCategories] = useState(false);
+  const visibleCategories = showAllCategories ? categories : categories.slice(0, CATEGORY_LIMIT);
+
   const toggleGender = (value: "men" | "women" | "unisex") => {
     const next = query.gender.includes(value)
       ? query.gender.filter((g) => g !== value)
@@ -146,7 +151,7 @@ export function FilterControls({
           </span>
         </summary>
         <div className="mt-4 flex flex-col gap-3">
-          {categories.map((c) => (
+          {visibleCategories.map((c) => (
             <label key={c.slug} className="flex items-center gap-3 cursor-pointer">
               <input
                 type="checkbox"
@@ -159,6 +164,15 @@ export function FilterControls({
               </span>
             </label>
           ))}
+          {categories.length > CATEGORY_LIMIT && (
+            <button
+              type="button"
+              onClick={() => setShowAllCategories((v) => !v)}
+              className="text-left font-label-caps text-label-caps text-primary underline underline-offset-4 hover:opacity-70 transition-opacity mt-1"
+            >
+              {showAllCategories ? "Show less" : `+${categories.length - CATEGORY_LIMIT} more`}
+            </button>
+          )}
         </div>
       </details>
 
