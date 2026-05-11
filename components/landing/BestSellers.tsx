@@ -5,6 +5,7 @@ import { getFeaturedProducts } from "@/lib/mock/products";
 import type { Product } from "@/lib/types";
 
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { Container } from "@/components/shared/Container";
 import Link from "next/link";
 
@@ -37,8 +38,12 @@ export function BestSellers() {
               Best Sellers
             </h2>
           </div>
-          <div className="flex justify-center">
-            <div className="text-center">Loading...</div>
+          <div className="flex overflow-x-auto no-scrollbar gap-6 pb-8 snap-x snap-mandatory">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="snap-start shrink-0 w-[280px] md:w-[320px]">
+                <ProductCardSkeleton />
+              </div>
+            ))}
           </div>
         </Container>
       </section>

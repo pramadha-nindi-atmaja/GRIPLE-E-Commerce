@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 import { ProductCard } from "@/components/product/ProductCard";
+import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { Container } from "@/components/shared/Container";
 import { getNewArrivals } from "@/lib/mock/products";
 import type { Product } from "@/lib/types";
@@ -37,8 +38,10 @@ export function NewArrivals() {
               New Arrivals
             </h2>
           </div>
-          <div className="flex justify-center">
-            <div className="text-center">Loading...</div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
+            {Array.from({ length: 4 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
+            ))}
           </div>
         </Container>
       </section>

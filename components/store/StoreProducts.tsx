@@ -7,6 +7,7 @@ import { MobileFilterDrawer } from "@/components/store/MobileFilterDrawer";
 import { Pagination } from "@/components/store/Pagination";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { SortBar } from "@/components/store/SortBar";
+import { ProductCardSkeleton } from "@/components/product/ProductCardSkeleton";
 import { getAllCategories } from "@/lib/mock/categories";
 import { getAllProducts } from "@/lib/mock/products";
 import type { Category, Product } from "@/lib/types";
@@ -60,8 +61,27 @@ export function StoreProducts({
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-center">Loading products...</div>
+      <div className="flex flex-col md:flex-row gap-gutter">
+        <aside className="hidden md:flex md:flex-col w-[260px] shrink-0">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <div key={i} className="py-4 border-b border-outline-variant">
+              <div className="h-3 w-20 rounded-full bg-surface-container-high animate-pulse mb-4" />
+              <div className="flex flex-col gap-3">
+                {Array.from({ length: 3 }).map((_, j) => (
+                  <div key={j} className="h-4 w-full rounded-full bg-surface-container-high animate-pulse" />
+                ))}
+              </div>
+            </div>
+          ))}
+        </aside>
+        <div className="flex-grow">
+          <div className="h-12 mb-8 rounded-xl bg-surface-container-high animate-pulse" />
+          <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <ProductCardSkeleton key={i} />
+            ))}
+          </div>
+        </div>
       </div>
     );
   }
