@@ -1,72 +1,338 @@
 [
   {
-    "id": "cat_001",
-    "name": "Hoodies",
-    "slug": "hoodies",
-    "gender": "all",
-    "image": "/images/categories/hoodies.jpg"
-  },
-  {
-    "id": "cat_002",
-    "name": "Joggers",
-    "slug": "joggers",
-    "gender": "all",
-    "image": "/images/categories/joggers.jpg"
-  },
-  {
-    "id": "cat_003",
-    "name": "Base Layers",
-    "slug": "base-layers",
-    "gender": "all",
-    "image": "/images/categories/base-layers.jpg"
-  },
-  {
-    "id": "cat_004",
-    "name": "New In",
-    "slug": "new-arrivals",
-    "gender": "all",
-    "image": "/images/categories/new-in.jpg"
-  },
-  {
-    "id": "cat_005",
-    "name": "T-Shirts",
-    "slug": "t-shirts",
-    "gender": "all",
-    "image": "/images/categories/t-shirts.jpg"
-  },
-  {
-    "id": "cat_006",
-    "name": "Leggings",
-    "slug": "leggings",
-    "gender": "women",
-    "image": "/images/categories/leggings.jpg"
-  },
-  {
-    "id": "cat_007",
-    "name": "Shorts",
-    "slug": "shorts",
+    "id": "cat_gs_001",
+    "name": "Mens Apparel Shorts Training",
+    "slug": "mens-apparel-shorts-training",
     "gender": "men",
-    "image": "/images/categories/shorts.jpg"
+    "image": "/images/categories/mens-apparel-shorts-training.jpg"
   },
   {
-    "id": "cat_008",
-    "name": "Jackets",
-    "slug": "jackets",
+    "id": "cat_gs_002",
+    "name": "Mens Apparel Ss Tops T Shirt",
+    "slug": "mens-apparel-ss-tops-t-shirt",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-ss-tops-t-shirt.jpg"
+  },
+  {
+    "id": "cat_gs_003",
+    "name": "Mens Apparel Pants Joggers",
+    "slug": "mens-apparel-pants-joggers",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pants-joggers.jpg"
+  },
+  {
+    "id": "cat_gs_004",
+    "name": "Mens Apparel Sleeveless Tops Tanks",
+    "slug": "mens-apparel-sleeveless-tops-tanks",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-sleeveless-tops-tanks.jpg"
+  },
+  {
+    "id": "cat_gs_005",
+    "name": "Mens Apparel Pullovers Hoodie",
+    "slug": "mens-apparel-pullovers-hoodie",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pullovers-hoodie.jpg"
+  },
+  {
+    "id": "cat_gs_006",
+    "name": "Mens Apparel Pants Training",
+    "slug": "mens-apparel-pants-training",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pants-training.jpg"
+  },
+  {
+    "id": "cat_gs_007",
+    "name": "Mens Apparel Sleeveless Tops Stringers",
+    "slug": "mens-apparel-sleeveless-tops-stringers",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-sleeveless-tops-stringers.jpg"
+  },
+  {
+    "id": "cat_gs_008",
+    "name": "Mens Apparel Shorts 2 In 1",
+    "slug": "mens-apparel-shorts-2-in-1",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-shorts-2-in-1.jpg"
+  },
+  {
+    "id": "cat_gs_009",
+    "name": "Mens Apparel Shorts Lifestyle",
+    "slug": "mens-apparel-shorts-lifestyle",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-shorts-lifestyle.jpg"
+  },
+  {
+    "id": "cat_gs_010",
+    "name": "Mens Apparel Ls Tops T Shirt",
+    "slug": "mens-apparel-ls-tops-t-shirt",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-ls-tops-t-shirt.jpg"
+  },
+  {
+    "id": "cat_gs_011",
+    "name": "Unisex Accessories Equipment Lifting Straps",
+    "slug": "unisex-accessories-equipment-lifting-straps",
     "gender": "all",
-    "image": "/images/categories/jackets.jpg"
+    "image": "/images/categories/unisex-accessories-equipment-lifting-straps.jpg"
   },
   {
-    "id": "cat_009",
-    "name": "Tops",
-    "slug": "tops",
-    "gender": "women",
-    "image": "/images/categories/tops.jpg"
+    "id": "cat_gs_012",
+    "name": "Other",
+    "slug": "other",
+    "gender": "all",
+    "image": "/images/categories/other.jpg"
   },
   {
-    "id": "cat_010",
-    "name": "Pants",
-    "slug": "pants",
+    "id": "cat_gs_013",
+    "name": "Unisex Accessories Socks Crew",
+    "slug": "unisex-accessories-socks-crew",
+    "gender": "all",
+    "image": "/images/categories/unisex-accessories-socks-crew.jpg"
+  },
+  {
+    "id": "cat_gs_014",
+    "name": "Mens Apparel Pants Lifestyle",
+    "slug": "mens-apparel-pants-lifestyle",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pants-lifestyle.jpg"
+  },
+  {
+    "id": "cat_gs_015",
+    "name": "Unisex Accessories Headwear Cap",
+    "slug": "unisex-accessories-headwear-cap",
+    "gender": "all",
+    "image": "/images/categories/unisex-accessories-headwear-cap.jpg"
+  },
+  {
+    "id": "cat_gs_016",
+    "name": "Unisex Accessories Bags Tote",
+    "slug": "unisex-accessories-bags-tote",
+    "gender": "all",
+    "image": "/images/categories/unisex-accessories-bags-tote.jpg"
+  },
+  {
+    "id": "cat_gs_017",
+    "name": "Mens Apparel Jackets Outerwear Track Top",
+    "slug": "mens-apparel-jackets-outerwear-track-top",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-jackets-outerwear-track-top.jpg"
+  },
+  {
+    "id": "cat_gs_018",
+    "name": "Unisex Accessories Equipment Belts",
+    "slug": "unisex-accessories-equipment-belts",
+    "gender": "all",
+    "image": "/images/categories/unisex-accessories-equipment-belts.jpg"
+  },
+  {
+    "id": "cat_gs_019",
+    "name": "Unisex Accessories Bags Large Holdall",
+    "slug": "unisex-accessories-bags-large-holdall",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-bags-large-holdall.jpg"
+  },
+  {
+    "id": "cat_gs_020",
+    "name": "Unisex Accessories Bags Small Holdall",
+    "slug": "unisex-accessories-bags-small-holdall",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-bags-small-holdall.jpg"
+  },
+  {
+    "id": "cat_gs_021",
+    "name": "Unisex Accessories Headwear Beanie",
+    "slug": "unisex-accessories-headwear-beanie",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-headwear-beanie.jpg"
+  },
+  {
+    "id": "cat_gs_022",
+    "name": "Unisex Accessories Headwear Hijab",
+    "slug": "unisex-accessories-headwear-hijab",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-headwear-hijab.jpg"
+  },
+  {
+    "id": "cat_gs_023",
+    "name": "Unisex Accessories Bags Crossbody",
+    "slug": "unisex-accessories-bags-crossbody",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-bags-crossbody.jpg"
+  },
+  {
+    "id": "cat_gs_024",
+    "name": "Unisex Accessories Bottles Insulated",
+    "slug": "unisex-accessories-bottles-insulated",
+    "gender": "men",
+    "image": "/images/categories/unisex-accessories-bottles-insulated.jpg"
+  },
+  {
+    "id": "cat_gs_025",
+    "name": "Mens Apparel Pullovers Full Zip Hoodie",
+    "slug": "mens-apparel-pullovers-full-zip-hoodie",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pullovers-full-zip-hoodie.jpg"
+  },
+  {
+    "id": "cat_gs_026",
+    "name": "Mens Apparel Pullovers 1 4 Zip",
+    "slug": "mens-apparel-pullovers-1-4-zip",
+    "gender": "men",
+    "image": "/images/categories/mens-apparel-pullovers-1-4-zip.jpg"
+  },
+  {
+    "id": "cat_gs_027",
+    "name": "Womens Apparel Leggings Full Length",
+    "slug": "womens-apparel-leggings-full-length",
     "gender": "women",
-    "image": "/images/categories/pants.jpg"
+    "image": "/images/categories/womens-apparel-leggings-full-length.jpg"
+  },
+  {
+    "id": "cat_gs_028",
+    "name": "Womens Apparel Shorts Tight",
+    "slug": "womens-apparel-shorts-tight",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-shorts-tight.jpg"
+  },
+  {
+    "id": "cat_gs_029",
+    "name": "Womens Apparel Sports Bras Scoop Neck",
+    "slug": "womens-apparel-sports-bras-scoop-neck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-sports-bras-scoop-neck.jpg"
+  },
+  {
+    "id": "cat_gs_030",
+    "name": "Womens Apparel Sports Bras Square Neck",
+    "slug": "womens-apparel-sports-bras-square-neck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-sports-bras-square-neck.jpg"
+  },
+  {
+    "id": "cat_gs_031",
+    "name": "Womens Apparel Shorts Loose",
+    "slug": "womens-apparel-shorts-loose",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-shorts-loose.jpg"
+  },
+  {
+    "id": "cat_gs_032",
+    "name": "Womens Apparel Sports Bras V Neck",
+    "slug": "womens-apparel-sports-bras-v-neck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-sports-bras-v-neck.jpg"
+  },
+  {
+    "id": "cat_gs_033",
+    "name": "Womens Apparel Pullovers Hoodie",
+    "slug": "womens-apparel-pullovers-hoodie",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pullovers-hoodie.jpg"
+  },
+  {
+    "id": "cat_gs_034",
+    "name": "Womens Apparel Pants Joggers",
+    "slug": "womens-apparel-pants-joggers",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pants-joggers.jpg"
+  },
+  {
+    "id": "cat_gs_035",
+    "name": "Womens Apparel Ss Tops Crew Neck",
+    "slug": "womens-apparel-ss-tops-crew-neck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-ss-tops-crew-neck.jpg"
+  },
+  {
+    "id": "cat_gs_036",
+    "name": "Womens Apparel Pants Straight Leg",
+    "slug": "womens-apparel-pants-straight-leg",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pants-straight-leg.jpg"
+  },
+  {
+    "id": "cat_gs_037",
+    "name": "Womens Apparel One Pieces One Piece",
+    "slug": "womens-apparel-one-pieces-one-piece",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-one-pieces-one-piece.jpg"
+  },
+  {
+    "id": "cat_gs_038",
+    "name": "Womens Apparel Pullovers Crew",
+    "slug": "womens-apparel-pullovers-crew",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pullovers-crew.jpg"
+  },
+  {
+    "id": "cat_gs_039",
+    "name": "Womens Apparel Hoodies Hoodie",
+    "slug": "womens-apparel-hoodies-hoodie",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-hoodies-hoodie.jpg"
+  },
+  {
+    "id": "cat_gs_040",
+    "name": "Womens Apparel Pants Wide Leg",
+    "slug": "womens-apparel-pants-wide-leg",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pants-wide-leg.jpg"
+  },
+  {
+    "id": "cat_gs_041",
+    "name": "Womens Apparel Pullovers Full Zip Hoodie",
+    "slug": "womens-apparel-pullovers-full-zip-hoodie",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-pullovers-full-zip-hoodie.jpg"
+  },
+  {
+    "id": "cat_gs_042",
+    "name": "Womens Accessories Socks Long",
+    "slug": "womens-accessories-socks-long",
+    "gender": "women",
+    "image": "/images/categories/womens-accessories-socks-long.jpg"
+  },
+  {
+    "id": "cat_gs_043",
+    "name": "Womens Accessories Bags Small Holdall",
+    "slug": "womens-accessories-bags-small-holdall",
+    "gender": "women",
+    "image": "/images/categories/womens-accessories-bags-small-holdall.jpg"
+  },
+  {
+    "id": "cat_gs_044",
+    "name": "Womens Apparel Ls Tops Crew Neck",
+    "slug": "womens-apparel-ls-tops-crew-neck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-ls-tops-crew-neck.jpg"
+  },
+  {
+    "id": "cat_gs_045",
+    "name": "Womens Apparel Ls Tops Crop",
+    "slug": "womens-apparel-ls-tops-crop",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-ls-tops-crop.jpg"
+  },
+  {
+    "id": "cat_gs_046",
+    "name": "Womens Apparel Ls Tops Turtleneck",
+    "slug": "womens-apparel-ls-tops-turtleneck",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-ls-tops-turtleneck.jpg"
+  },
+  {
+    "id": "cat_gs_047",
+    "name": "Womens Apparel Ls Tops Long Sleeve",
+    "slug": "womens-apparel-ls-tops-long-sleeve",
+    "gender": "women",
+    "image": "/images/categories/womens-apparel-ls-tops-long-sleeve.jpg"
+  },
+  {
+    "id": "cat_gs_048",
+    "name": "Womens Accessories Headwear Headband",
+    "slug": "womens-accessories-headwear-headband",
+    "gender": "women",
+    "image": "/images/categories/womens-accessories-headwear-headband.jpg"
   }
 ]
