@@ -42,72 +42,74 @@ export default async function OrderDetailPage({ params }: Props) {
     country: string;
   };
 
+  const placedDate = new Date(order.createdAt).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
+
   return (
     <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-section-gap">
       <div className="mx-auto max-w-2xl">
-        <div className="mb-6">
-          <Link
-            href="/account/orders"
-            className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest hover:text-on-surface transition-colors flex items-center gap-1 mb-4 text-sm"
-          >
-            <span className="material-symbols-outlined text-[16px]">arrow_back</span>
-            All Orders
-          </Link>
-          <h1 className="font-headline-lg text-headline-lg text-on-background mb-1">
-            Order #{order.displayId}
-          </h1>
-          <p className="font-body-md text-on-surface-variant">
-            Placed on{" "}
-            {new Date(order.createdAt).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+
+        {/* Back nav */}
+        <Link
+          href="/account/orders"
+          className="inline-flex items-center gap-1.5 text-xs font-medium text-on-surface-variant hover:text-on-surface transition-colors mb-6"
+        >
+          <span className="material-symbols-outlined text-[16px]">arrow_back</span>
+          All Orders
+        </Link>
+
+        {/* Page header */}
+        <div className="mb-6 flex items-start justify-between gap-4">
+          <div>
+            <h1 className="font-bold text-2xl text-on-background leading-tight">Order #{order.displayId}</h1>
+            <p className="text-sm text-on-surface-variant mt-1">Placed on {placedDate}</p>
+          </div>
         </div>
 
         {/* Timeline */}
-        <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 mb-6">
-          <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-6 text-sm">
-            Order Status
-          </h2>
+        <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 mb-4">
+          <p className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest mb-5">Order Status</p>
           <OrderTimeline status={order.status} />
         </div>
 
         {/* Items */}
-        <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 mb-6">
-          <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4 text-sm">
+        <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6 mb-4">
+          <p className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest mb-5">
             Items ({order.items.length})
-          </h2>
-          <div className="flex flex-col gap-4">
+          </p>
+          <div className="flex flex-col divide-y divide-outline-variant">
             {order.items.map((item) => {
-              const colorMatch = item.product?.colors.find(
-                (c) => c.name === item.colorName,
-              );
+              const colorMatch = item.product?.colors.find((c) => c.name === item.colorName);
               const imgUrl = colorMatch?.images[0]?.url;
 
               return (
-                <div key={item.id} className="flex items-center gap-4">
+                <div key={item.id} className="flex items-center gap-4 py-3 first:pt-0 last:pb-0">
                   {imgUrl ? (
-                    <div className="relative w-16 h-16 rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
+                    <div className="relative w-[72px] h-[72px] rounded-xl overflow-hidden flex-shrink-0 bg-surface-container">
                       <Image
                         src={imgUrl}
                         alt={item.productName}
                         fill
                         className="object-cover"
-                        sizes="64px"
+                        sizes="72px"
                       />
                     </div>
                   ) : (
-                    <div className="w-16 h-16 rounded-xl bg-surface-container flex-shrink-0" />
+                    <div className="w-[72px] h-[72px] rounded-xl bg-surface-container flex-shrink-0 flex items-center justify-center">
+                      <span className="material-symbols-outlined text-[28px] text-on-surface-variant/40">image</span>
+                    </div>
                   )}
                   <div className="flex-1 min-w-0">
-                    <p className="font-body-md text-on-surface truncate">{item.productName}</p>
-                    <p className="font-body-md text-on-surface-variant text-sm">
-                      {item.colorName} · Size {item.size} · Qty {item.qty}
+                    <p className="font-medium text-sm text-on-surface truncate">{item.productName}</p>
+                    <p className="text-xs text-on-surface-variant mt-0.5">
+                      {item.colorName} · Size {item.size}
                     </p>
+                    <p className="text-xs text-on-surface-variant">Qty {item.qty}</p>
                   </div>
-                  <p className="font-body-md text-on-surface flex-shrink-0">
+                  <p className="font-semibold text-sm text-on-surface flex-shrink-0">
                     ${(Number(item.unitPrice) * item.qty).toFixed(2)}
                   </p>
                 </div>
@@ -115,41 +117,42 @@ export default async function OrderDetailPage({ params }: Props) {
             })}
           </div>
 
-          <div className="border-t border-outline-variant mt-4 pt-4 flex flex-col gap-2">
-            <div className="flex justify-between font-body-md text-on-surface-variant">
+          {/* Price summary */}
+          <div className="mt-4 pt-4 border-t border-outline-variant flex flex-col gap-2">
+            <div className="flex justify-between text-sm text-on-surface-variant">
               <span>Subtotal</span>
               <span>${Number(order.subtotal).toFixed(2)}</span>
             </div>
-            <div className="flex justify-between font-body-md text-on-surface-variant">
+            <div className="flex justify-between text-sm text-on-surface-variant">
               <span>Shipping</span>
               <span>
-                {Number(order.shippingCost) === 0
-                  ? "Free"
-                  : `$${Number(order.shippingCost).toFixed(2)}`}
+                {Number(order.shippingCost) === 0 ? "Free" : `$${Number(order.shippingCost).toFixed(2)}`}
               </span>
             </div>
-            <div className="flex justify-between font-headline-sm text-on-surface mt-1">
+            <div className="flex justify-between text-base font-bold text-on-surface mt-1 pt-2 border-t border-outline-variant">
               <span>Total</span>
               <span>${Number(order.total).toFixed(2)}</span>
             </div>
           </div>
         </div>
 
-        {/* Shipping Address */}
+        {/* Shipping address */}
         <div className="rounded-2xl border border-outline-variant bg-surface-container-lowest p-6">
-          <h2 className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest mb-4 text-sm">
-            Shipping Address
-          </h2>
-          <address className="not-italic font-body-md text-on-surface leading-relaxed">
-            <p>{order.fullName}</p>
-            <p>{address.address1}</p>
-            {address.address2 && <p>{address.address2}</p>}
-            <p>
-              {address.city}, {address.state} {address.zip}
-            </p>
-            <p>{address.country}</p>
-          </address>
+          <p className="text-[10px] font-semibold text-on-surface-variant uppercase tracking-widest mb-4">Shipping Address</p>
+          <div className="flex items-start gap-3">
+            <span className="material-symbols-outlined text-[20px] text-on-surface-variant mt-0.5 flex-shrink-0">location_on</span>
+            <address className="not-italic text-sm text-on-surface leading-relaxed">
+              <p className="font-medium">{order.fullName}</p>
+              <p className="text-on-surface-variant">{address.address1}</p>
+              {address.address2 && <p className="text-on-surface-variant">{address.address2}</p>}
+              <p className="text-on-surface-variant">
+                {address.city}, {address.state} {address.zip}
+              </p>
+              <p className="text-on-surface-variant">{address.country}</p>
+            </address>
+          </div>
         </div>
+
       </div>
     </main>
   );
