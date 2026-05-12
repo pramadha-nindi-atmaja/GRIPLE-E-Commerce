@@ -21,7 +21,6 @@
     "@stripe/react-stripe-js": "^6.3.0",
     "@stripe/stripe-js": "^9.4.0",
     "bcryptjs": "^3.0.3",
-    "cloudinary": "^2.10.0",
     "next": "16.2.4",
     "next-auth": "5.0.0-beta.31",
     "prisma": "6",

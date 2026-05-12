@@ -1,4 +1,6 @@
-import { v2 as cloudinary } from "cloudinary";
+import { randomUUID } from "crypto";
+import { mkdir, writeFile } from "fs/promises";
+import { join } from "path";
 
 import { auth } from "@/auth";
 
@@ -6,32 +8,12 @@ export const runtime = "nodejs";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 
-const ALLOWED_TYPES = new Set([
-  "image/jpeg",
-  "image/png",
-  "image/webp",
-  "image/gif",
-]);
-
-cloudinary.config({
-  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-  api_key: process.env.CLOUDINARY_API_KEY,
-  api_secret: process.env.CLOUDINARY_API_SECRET,
-});
-
-function uploadToCloudinary(buffer: Buffer): Promise<string> {
-  return new Promise((resolve, reject) => {
-    cloudinary.uploader
-      .upload_stream(
-        { folder: "griple/products", resource_type: "image" },
-        (err, result) => {
-          if (err || !result) return reject(err ?? new Error("Upload failed"));
-          resolve(result.secure_url);
-        }
-      )
-      .end(buffer);
-  });
-}
+const MIME_EXT: Record<string, string> = {
+  "image/jpeg": "jpg",
+  "image/png": "png",
+  "image/webp": "webp",
+  "image/gif": "gif",
+};
 
 export async function POST(req: Request) {
   const session = await auth();
@@ -45,7 +27,8 @@ export async function POST(req: Request) {
     return Response.json({ error: "No file" }, { status: 400 });
   }
 
-  if (!ALLOWED_TYPES.has(file.type)) {
+  const ext = MIME_EXT[file.type];
+  if (!ext) {
     return Response.json({ error: "Unsupported image type" }, { status: 400 });
   }
 
@@ -53,8 +36,14 @@ export async function POST(req: Request) {
     return Response.json({ error: "File too large (max 5 MB)" }, { status: 400 });
   }
 
-  const buffer = Buffer.from(await file.arrayBuffer());
-  const url = await uploadToCloudinary(buffer);
+  const dir = join(process.cwd(), "public", "uploads", "products");
+  await mkdir(dir, { recursive: true });
 
+  const filename = `${randomUUID()}.${ext}`;
+  const filepath = join(dir, filename);
+  const buffer = Buffer.from(await file.arrayBuffer());
+  await writeFile(filepath, buffer);
+
+  const url = `/uploads/products/${filename}`;
   return Response.json({ url });
 }
