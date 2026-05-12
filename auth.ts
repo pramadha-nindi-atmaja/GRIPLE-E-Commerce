@@ -8,8 +8,10 @@ import { prisma } from "@/lib/prisma";
 export const { handlers, auth, signIn, signOut } = NextAuth({
   ...authConfig,
   providers: [
+    // Admin login
     Credentials({
-      name: "Credentials",
+      id: "admin-credentials",
+      name: "Admin",
       credentials: {
         email: { label: "Email", type: "email" },
         password: { label: "Password", type: "password" },
@@ -32,6 +34,44 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
           name: user.name,
           role: user.role,
         };
+      },
+    }),
+
+    // Customer login / register
+    Credentials({
+      id: "customer-credentials",
+      name: "Customer",
+      credentials: {
+        email: { label: "Email", type: "email" },
+        password: { label: "Password", type: "password" },
+        name: { label: "Name", type: "text" },
+      },
+      async authorize(credentials) {
+        const emailRaw = credentials?.email;
+        const passwordRaw = credentials?.password;
+        if (!emailRaw || !passwordRaw) return null;
+
+        const email = String(emailRaw).trim().toLowerCase();
+        const password = String(passwordRaw);
+        const nameRaw = credentials?.name ? String(credentials.name).trim() : undefined;
+
+        const existing = await prisma.customer.findUnique({ where: { email } });
+
+        if (existing) {
+          const valid = await bcrypt.compare(password, existing.passwordHash);
+          if (!valid) return null;
+          return { id: existing.id, email: existing.email, name: existing.name, role: "CUSTOMER" as const };
+        }
+
+        // Register new customer — only if name is provided (checkout flow)
+        if (!nameRaw) return null;
+
+        const hash = await bcrypt.hash(password, 10);
+        const customer = await prisma.customer.create({
+          data: { email, name: nameRaw, passwordHash: hash },
+        });
+
+        return { id: customer.id, email: customer.email, name: customer.name, role: "CUSTOMER" as const };
       },
     }),
   ],

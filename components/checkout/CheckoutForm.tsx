@@ -3,6 +3,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { signIn, useSession } from "next-auth/react";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
 
@@ -12,7 +13,8 @@ import {
 } from "@/components/checkout/StripePaymentSection";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
 import {
-  type CheckoutFormValues,
+  type CheckoutFormData,
+  checkoutFormSchema,
   checkoutSchema,
 } from "@/lib/schemas/checkout";
 import { useCartStore } from "@/lib/stores/cart.store";
@@ -37,6 +39,7 @@ type PaymentInitState = {
 export function CheckoutForm() {
   const router = useRouter();
   const mounted = useHasMounted();
+  const { data: session } = useSession();
 
   const items = useCartStore((s) => s.items);
   const clear = useCartStore((s) => s.clear);
@@ -55,9 +58,10 @@ export function CheckoutForm() {
     handleSubmit,
     control,
     getValues,
+    setError,
     formState: { errors, isSubmitting },
-  } = useForm<CheckoutFormValues>({
-    resolver: zodResolver(checkoutSchema),
+  } = useForm<CheckoutFormData>({
+    resolver: zodResolver(checkoutFormSchema),
     mode: "onBlur",
     reValidateMode: "onChange",
     defaultValues: {
@@ -69,6 +73,7 @@ export function CheckoutForm() {
       state: "",
       zip: "",
       country: "US",
+      password: "",
     },
   });
 
@@ -76,9 +81,10 @@ export function CheckoutForm() {
   // object — errors keep their `mode: "onBlur"` UX while submit gating is live.
   const values = useWatch({ control });
   const isValid = useMemo(
-    () => checkoutSchema.safeParse(values).success,
+    () => checkoutFormSchema.safeParse(values).success,
     [values],
   );
+
 
   useEffect(() => {
     if (!mounted) return;
@@ -98,7 +104,9 @@ export function CheckoutForm() {
     if (items.length === 0) return;
     if (hasSubmittedOrder) return;
 
-    const shippingResult = checkoutSchema.safeParse(getValues());
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _p, ...shippingOnly } = getValues();
+    const shippingResult = checkoutSchema.safeParse(shippingOnly);
     if (!shippingResult.success) return;
 
     const controller = new AbortController();
@@ -145,30 +153,53 @@ export function CheckoutForm() {
     setConfirmFn(() => confirm);
   }, []);
 
-  const onSubmit = async (data: CheckoutFormValues) => {
+  const onSubmit = async (data: CheckoutFormData) => {
     if (!payment || !confirmFn) {
       setPaymentError("Payment is not ready yet. Please wait a moment.");
       return;
+    }
+
+    // Authenticate or register customer before charging
+    let customerId: string | null = session?.user?.role === "CUSTOMER" ? session.user.id : null;
+    if (!customerId) {
+      const authResult = await signIn("customer-credentials", {
+        email: data.email,
+        password: data.password,
+        name: data.fullName,
+        redirect: false,
+      });
+      if (authResult?.error) {
+        setError("password", { message: "Incorrect password for this email address" });
+        return;
+      }
+      // Session will update asynchronously; read customerId from a fresh call
+      const { getSession } = await import("next-auth/react");
+      const freshSession = await getSession();
+      customerId = freshSession?.user?.id ?? null;
     }
 
     setHasSubmittedOrder(true);
     setPaymentError(null);
     setIsPaying(true);
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password: _password, ...shippingData } = data;
+
     try {
       sessionStorage.setItem(
         STORAGE_KEY,
         JSON.stringify({
           orderId: payment.orderId,
+          customerId,
           items,
           total,
-          shipping: data,
+          shipping: shippingData,
         }),
       );
     } catch {
       sessionStorage.setItem(
         STORAGE_KEY,
-        JSON.stringify({ orderId: payment.orderId, items, total }),
+        JSON.stringify({ orderId: payment.orderId, customerId, items, total }),
       );
     }
 
@@ -236,6 +267,31 @@ export function CheckoutForm() {
               {errors.email.message}
             </p>
           ) : null}
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label className="font-label-caps text-label-caps text-on-surface" htmlFor="password">
+            Password
+          </label>
+          <input
+            id="password"
+            type="password"
+            autoComplete="current-password"
+            placeholder="Create or enter your password (min. 8 chars)"
+            className={inputClass(!!errors.password)}
+            aria-invalid={errors.password ? "true" : undefined}
+            {...register("password")}
+          />
+          {errors.password ? (
+            <p className="font-label-caps text-label-caps text-error mt-1 flex items-center gap-1">
+              <span className="material-symbols-outlined text-[14px]">error</span>
+              {errors.password.message}
+            </p>
+          ) : (
+            <p className="font-label-caps text-label-caps text-on-surface-variant mt-1">
+              New email? We&apos;ll create an account so you can track your order.
+            </p>
+          )}
         </div>
       </section>
 

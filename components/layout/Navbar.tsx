@@ -8,6 +8,8 @@ import { getCategoriesByGender } from "@/lib/mock/categories";
 import { useCartStore } from "@/lib/stores/cart.store";
 import { cn } from "@/lib/utils/cn";
 import type { Category } from "@/lib/types";
+import { UserProfileDropdown } from "@/components/layout/UserProfileDropdown";
+import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
 type Props = {
   className?: string;
@@ -41,6 +43,7 @@ function LogoMark() {
 
 export function Navbar({ className }: Props) {
   const pathname = usePathname();
+  const mounted = useHasMounted();
   const itemCount = useCartStore((s) => s.itemCount());
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -252,21 +255,15 @@ export function Navbar({ className }: Props) {
                 <span className="material-symbols-outlined text-[24px]">
                   shopping_cart
                 </span>
-                {itemCount > 0 ? (
+                {mounted && itemCount > 0 ? (
                   <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-primary text-on-primary text-[11px] leading-5 text-center">
                     {itemCount}
                   </span>
                 ) : null}
               </Link>
-              <button
-                type="button"
-                aria-label="User profile"
-                className="hidden sm:flex items-center justify-center rounded-full h-10 w-10 bg-transparent text-on-surface hover:bg-surface-container transition-colors"
-              >
-                <span className="material-symbols-outlined text-[24px]">
-                  person
-                </span>
-              </button>
+              <div className="hidden sm:flex">
+                <UserProfileDropdown />
+              </div>
             </div>
           </div>
         </header>

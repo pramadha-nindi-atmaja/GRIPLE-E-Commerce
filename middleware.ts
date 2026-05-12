@@ -27,13 +27,25 @@ export default auth((req) => {
     }
   }
 
+  if (pathname.startsWith("/account") && pathname !== "/account/login") {
+    if (!req.auth?.user || req.auth.user.role !== "CUSTOMER") {
+      const login = new URL("/account/login", req.nextUrl.origin);
+      login.searchParams.set("callbackUrl", pathname + req.nextUrl.search);
+      return NextResponse.redirect(login);
+    }
+  }
+
   if (pathname === "/auth/login" && req.auth?.user) {
     return NextResponse.redirect(new URL("/admin/dashboard", req.nextUrl.origin));
+  }
+
+  if (pathname === "/account/login" && req.auth?.user?.role === "CUSTOMER") {
+    return NextResponse.redirect(new URL("/account/orders", req.nextUrl.origin));
   }
 
   return NextResponse.next();
 });
 
 export const config = {
-  matcher: ["/admin/:path*", "/auth/login"],
+  matcher: ["/admin/:path*", "/auth/login", "/account/:path*"],
 };

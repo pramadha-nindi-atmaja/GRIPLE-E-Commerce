@@ -1,6 +1,6 @@
 import { auth } from "@/auth";
 
-import type { AdminRole } from "@/lib/types/admin-role";
+import type { UserRole } from "@/lib/types/admin-role";
 
 export async function requireAuth() {
   const session = await auth();
@@ -18,6 +18,6 @@ export async function requireSuperAdmin() {
   return session;
 }
 
-export function isSuperAdmin(role: AdminRole) {
+export function isSuperAdmin(role: UserRole) {
   return role === "SUPER_ADMIN";
 }

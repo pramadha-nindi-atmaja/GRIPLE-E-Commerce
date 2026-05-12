@@ -12,3 +12,9 @@ export const checkoutSchema = z.object({
 });
 
 export type CheckoutFormValues = z.infer<typeof checkoutSchema>;
+
+export const checkoutFormSchema = checkoutSchema.extend({
+  password: z.string().min(8, "Password min 8 characters"),
+});
+
+export type CheckoutFormData = z.infer<typeof checkoutFormSchema>;

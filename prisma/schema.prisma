@@ -122,6 +122,23 @@ model ProductSize {
 }
 
 // ─────────────────────────────────────────────
+// CUSTOMERS
+// ─────────────────────────────────────────────
+
+model Customer {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  orders       Order[]
+
+  @@index([email])
+}
+
+// ─────────────────────────────────────────────
 // ORDERS
 // ─────────────────────────────────────────────
 
@@ -130,7 +147,11 @@ model Order {
   displayId       String      @unique  // "GR-1716789123456" — shown to customer
   status          OrderStatus @default(PENDING)
 
-  // Customer info (denormalized — no user accounts in MVP)
+  // Customer account link (optional — null for legacy guest orders)
+  customerId      String?
+  customer        Customer?   @relation(fields: [customerId], references: [id])
+
+  // Customer info (denormalized snapshot)
   email           String
   fullName        String
 
@@ -152,6 +173,7 @@ model Order {
 
   items           OrderItem[]
 
+  @@index([customerId])
   @@index([email])
   @@index([status])
   @@index([createdAt])

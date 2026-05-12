@@ -5,6 +5,7 @@ import { checkoutSchema } from "@/lib/schemas/checkout";
 export const orderCompleteSchema = z.object({
   paymentIntentId: z.string().min(1),
   displayOrderId: z.string().min(1),
+  customerId: z.string().optional(),
   shipping: checkoutSchema,
   items: z
     .array(

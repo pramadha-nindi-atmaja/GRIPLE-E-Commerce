@@ -13,6 +13,7 @@ const STORAGE_KEY = "griple-last-order";
 
 type Snapshot = {
   orderId: string;
+  customerId?: string | null;
   items: CartItem[];
   total: number;
   shipping?: CheckoutFormValues;
@@ -128,6 +129,7 @@ export function OrderConfirmationView() {
       body: JSON.stringify({
         paymentIntentId,
         displayOrderId: snap.orderId,
+        customerId: snap.customerId ?? undefined,
         shipping: snap.shipping,
         items: snap.items.map((i) => ({
           productId: i.productId,
@@ -283,12 +285,12 @@ export function OrderConfirmationView() {
           >
             Continue Shopping
           </Link>
-          <button
-            type="button"
+          <Link
+            href="/account/orders"
             className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-outline text-on-surface font-label-caps text-label-caps uppercase tracking-widest hover:bg-surface-container transition-colors"
           >
             Track order
-          </button>
+          </Link>
         </div>
       </div>
     </main>

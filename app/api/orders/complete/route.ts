@@ -64,6 +64,7 @@ export async function POST(req: Request) {
     data: {
       displayId: body.displayOrderId,
       status,
+      customerId: body.customerId ?? null,
       email: body.shipping.email,
       fullName: body.shipping.fullName,
       shippingAddress: {
