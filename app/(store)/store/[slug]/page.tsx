@@ -5,6 +5,7 @@ import { notFound, useParams } from "next/navigation";
 
 import { Breadcrumb } from "@/components/shared/Breadcrumb";
 import { ProductAccordion } from "@/components/product/ProductAccordion";
+import { ProductDetailSkeleton } from "@/components/product/ProductDetailSkeleton";
 import { ProductView } from "@/components/product/ProductView";
 import { RelatedProducts } from "@/components/product/RelatedProducts";
 import {
@@ -52,13 +53,7 @@ export default function Page() {
   }, [slug]);
 
   if (loading) {
-    return (
-      <main className="mx-auto w-full max-w-(--container-container-max) px-4 md:px-margin-edge py-8">
-        <div className="flex justify-center items-center min-h-[400px]">
-          <div className="text-center">Loading product...</div>
-        </div>
-      </main>
-    );
+    return <ProductDetailSkeleton />;
   }
 
   if (!product) {

@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CategoryCard } from "@/components/product/CategoryCard";
 import { ProductGrid } from "@/components/store/ProductGrid";
 import { GenderHero } from "@/components/landing/GenderHero";
+import { GenderPageSkeleton } from "@/components/store/GenderPageSkeleton";
 import { Container } from "@/components/shared/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { getCategoriesByGender } from "@/lib/mock/categories";
@@ -37,11 +38,7 @@ export default function Page() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-center">Loading...</div>
-      </div>
-    );
+    return <GenderPageSkeleton />;
   }
 
   return (

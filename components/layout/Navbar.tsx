@@ -138,7 +138,11 @@ export function Navbar({ className }: Props) {
                 >
                   <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
                     {loading ? (
-                      <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
+                      <div className="flex flex-col gap-1 px-3 py-1">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <div key={i} className="h-8 rounded-xl bg-surface-container-high animate-pulse" />
+                        ))}
+                      </div>
                     ) : (
                       <>
                         {menCats.slice(0, 6).map((c) => (
@@ -179,7 +183,11 @@ export function Navbar({ className }: Props) {
                 >
                   <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
                     {loading ? (
-                      <div className="px-3 py-2 text-on-surface-variant text-sm">Loading...</div>
+                      <div className="flex flex-col gap-1 px-3 py-1">
+                        {Array.from({ length: 6 }).map((_, i) => (
+                          <div key={i} className="h-8 rounded-xl bg-surface-container-high animate-pulse" />
+                        ))}
+                      </div>
                     ) : (
                       <>
                         {womenCats.slice(0, 6).map((c) => (
@@ -298,7 +306,11 @@ export function Navbar({ className }: Props) {
                     All Men
                   </Link>
                   {loading ? (
-                    <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
+                    <div className="flex flex-col gap-1 mt-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div key={i} className="h-8 rounded-xl bg-surface-container-high animate-pulse" />
+                      ))}
+                    </div>
                   ) : (
                     <>
                       {menCats.slice(0, 6).map((c) => (
@@ -335,7 +347,11 @@ export function Navbar({ className }: Props) {
                     All Women
                   </Link>
                   {loading ? (
-                    <div className="py-2 font-body-md text-on-surface-variant">Loading...</div>
+                    <div className="flex flex-col gap-1 mt-1">
+                      {Array.from({ length: 5 }).map((_, i) => (
+                        <div key={i} className="h-8 rounded-xl bg-surface-container-high animate-pulse" />
+                      ))}
+                    </div>
                   ) : (
                     <>
                       {womenCats.slice(0, 6).map((c) => (

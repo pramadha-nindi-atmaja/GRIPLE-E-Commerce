@@ -7,6 +7,7 @@ import { CategoryCard } from "@/components/product/CategoryCard";
 import { Container } from "@/components/shared/Container";
 import { SectionHeader } from "@/components/shared/SectionHeader";
 import { ProductGrid } from "@/components/store/ProductGrid";
+import { GenderPageSkeleton } from "@/components/store/GenderPageSkeleton";
 import { getCategoriesByGender } from "@/lib/mock/categories";
 import { getProductsByGender } from "@/lib/mock/products";
 import type { Category, Product } from "@/lib/types";
@@ -37,11 +38,7 @@ export default function Page() {
   }, []);
 
   if (loading) {
-    return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <div className="text-center">Loading...</div>
-      </div>
-    );
+    return <GenderPageSkeleton />;
   }
 
   return (
