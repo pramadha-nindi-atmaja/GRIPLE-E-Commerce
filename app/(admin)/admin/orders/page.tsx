@@ -41,7 +41,7 @@ export default async function AdminOrdersPage({
 
   return (
     <>
-      <div className="-mx-container-padding px-container-padding pb-stack-lg space-y-stack-md bg-background border-b border-admin-border mb-6">
+      <div className="-mx-container-padding px-container-padding pb-stack-lg space-y-stack-md bg-background border-b border-admin-border my-6">
         <AdminOrderStatusFilters q={q} currentStatus={filter} />
       </div>
 
