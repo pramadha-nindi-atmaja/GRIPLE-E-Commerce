@@ -27,11 +27,11 @@ export type ConfirmPaymentFn = (
 ) => Promise<ConfirmPaymentResult>;
 
 const appearance: Appearance = {
-  theme: "stripe",
+  theme: "flat",
+  labels: "floating",
   variables: {
     colorPrimary: "#1A1A1A",
-    borderRadius: "12px",
-    fontFamily: "inherit",
+    colorBackground: "#ffffff",
   },
 };
 
