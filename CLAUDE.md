@@ -28,7 +28,8 @@ This project runs **Next.js 16.2.4** with **React 19**. APIs and conventions dif
 | Group | Path prefix | Purpose |
 |-------|-------------|---------|
 | `(store)` | `/`, `/store`, `/men`, `/women`, `/cart`, `/checkout`, `/order/confirmation` | Public storefront |
-| `(admin)` | `/admin/**` | Admin dashboard (auth-gated) |
+| `(store)` | `/account/login`, `/account/orders`, `/account/orders/[id]` | Customer account (auth-gated, CUSTOMER role) |
+| `(admin)` | `/admin/**` | Admin dashboard (auth-gated, admin roles) |
 | `(auth)` | `/auth/login` | Admin login |
 
 API routes live in `app/api/`: `products`, `categories`, `checkout`, `checkout/verify`, `orders/complete`, `admin/upload`.
@@ -46,10 +47,25 @@ Cart is managed by **Zustand** (`lib/stores/cart.store.ts`), persisted to `local
 
 ### Auth
 
-NextAuth v5 (`next-auth@5.0.0-beta.31`) with credentials provider. Config at `auth.ts`, types extended at `types/next-auth.d.ts`. Middleware at `middleware.ts` gates `/admin/**`.
+NextAuth v5 (`next-auth@5.0.0-beta.31`) — two credentials providers. Config at `auth.ts`, types extended at `types/next-auth.d.ts`. Middleware at `middleware.ts`.
 
+| Provider ID | Model | Gates |
+|-------------|-------|-------|
+| `"admin-credentials"` | `AdminUser` | `/admin/**` |
+| `"customer-credentials"` | `Customer` | `/account/**` |
+
+**⚠️ Gotcha:** `signIn()` must use the exact provider ID. `signIn("credentials", ...)` matches nothing — use `signIn("admin-credentials", ...)` or `signIn("customer-credentials", ...)`.
+
+Customer auth auto-registers on first login if `name` field is provided (checkout flow). If `name` omitted and email not found → returns null (login-only path).
+
+Roles:
 - `SUPER_ADMIN` — full access including product create/edit/delete
 - `STAFF` — read-only on products (redirected away from create/edit routes)
+- `CUSTOMER` — customer account access only
+
+### Image Uploads
+
+Cloudinary via `app/api/admin/upload` route. SUPER_ADMIN only. Env vars: `CLOUDINARY_CLOUD_NAME`, `CLOUDINARY_API_KEY`, `CLOUDINARY_API_SECRET`, `CLOUDINARY_URL`.
 
 ### Server Actions
 
@@ -61,6 +77,27 @@ Admin mutations live in `lib/actions/admin/` (`products.ts`, `orders.ts`). All r
 2. Client confirms payment via Stripe Elements
 3. On success, client POSTs to `/api/orders/complete` → verifies payment intent, updates order to `PROCESSING`
 
+### Dependencies — Notable Versions
+
+- **Zod v4** (`^4.4.3`) — breaking changes from v3. API differs.
+- **Tailwind v4** — uses `@tailwindcss/postcss`, config in CSS not `tailwind.config.js`.
+- **react-hook-form v7** with `@hookform/resolvers` for Zod integration.
+
+### Environment Variables
+
+Required in `.env`:
+```
+DATABASE_URL
+AUTH_SECRET
+STRIPE_SECRET_KEY
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
+NEXT_PUBLIC_BASE_URL
+CLOUDINARY_CLOUD_NAME
+CLOUDINARY_API_KEY
+CLOUDINARY_API_SECRET
+CLOUDINARY_URL
+```
+
 ### Types
 
 - `lib/types.ts` — frontend product/cart types (used by store pages and components)
@@ -70,12 +107,13 @@ Admin mutations live in `lib/actions/admin/` (`products.ts`, `orders.ts`). All r
 
 ```
 components/
+  account/    # customer account (CustomerLoginForm, OrderCard, OrderTimeline)
   admin/      # admin dashboard UI
-  auth/       # login form
+  auth/       # admin login form (LoginForm)
   cart/       # cart drawer/page
   checkout/   # checkout form, Stripe, confirmation
   landing/    # homepage sections
-  layout/     # Navbar, Footer, AnnouncementBar
+  layout/     # Navbar, Footer, AnnouncementBar, UserProfileDropdown
   product/    # PDP components (gallery, selectors, purchase panel)
   providers/  # AppSessionProvider (NextAuth SessionProvider wrapper)
   shared/     # Breadcrumb, Container, SectionHeader
