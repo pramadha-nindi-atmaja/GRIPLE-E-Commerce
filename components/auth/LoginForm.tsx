@@ -22,7 +22,7 @@ export function LoginForm() {
     e.preventDefault();
     setError(null);
     setPending(true);
-    const res = await signIn("credentials", {
+    const res = await signIn("admin-credentials", {
       email: email.trim(),
       password,
       redirect: false,
