@@ -33,7 +33,7 @@ const appearance: Appearance = {
     colorPrimary: "#1A1A1A",
     colorBackground: "#ffffff",
   },
-};
+};  
 
 type InnerProps = {
   onReady: (confirm: ConfirmPaymentFn | null) => void;

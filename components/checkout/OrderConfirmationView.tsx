@@ -46,6 +46,16 @@ function readSnapshot(): Snapshot | null {
   return null;
 }
 
+function getEstimatedDelivery(): string {
+  const start = new Date();
+  start.setDate(start.getDate() + 5);
+  const end = new Date();
+  end.setDate(end.getDate() + 7);
+  const fmt = (d: Date) =>
+    d.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  return `${fmt(start)} – ${fmt(end)}`;
+}
+
 type VerifyResponse = {
   id: string;
   status:
@@ -146,8 +156,6 @@ export function OrderConfirmationView() {
     });
   }, [paymentIntentId, verify]);
 
-  // Clear the cart once we've confirmed the payment actually succeeded —
-  // covers the 3DS redirect path where CheckoutForm could not clear it.
   useEffect(() => {
     if (verify.kind === "ok" && verify.data.status === "succeeded") {
       clearCart();
@@ -165,7 +173,6 @@ export function OrderConfirmationView() {
     verify.kind === "ok" ? verify.data.amount / 100 : null;
   const total = verifiedTotal ?? snapshot?.total ?? fallbackTotal;
 
-  // Branch on status when we actually have a payment_intent param to verify.
   const status: "succeeded" | "processing" | "failed" | "unknown" =
     !paymentIntentId
       ? "unknown"
@@ -179,15 +186,15 @@ export function OrderConfirmationView() {
 
   if (paymentIntentId && verify.kind === "loading") {
     return (
-      <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-section-gap">
-        <div className="mx-auto max-w-2xl text-center flex flex-col items-center">
-          <span className="material-symbols-outlined text-[64px] text-primary mb-8 animate-pulse">
+      <main className="flex-grow min-h-[calc(100vh-160px)] flex items-center justify-center py-6 px-8">
+        <div className="w-full max-w-xl flex flex-col items-center text-center gap-4">
+          <span className="material-symbols-outlined text-[80px] text-primary animate-pulse">
             sync
           </span>
-          <h1 className="font-headline-lg text-headline-lg text-on-background mb-4">
+          <h1 className="text-2xl font-bold text-primary uppercase tracking-tight">
             Verifying your payment…
           </h1>
-          <p className="font-body-md text-on-surface-variant">
+          <p className="text-sm text-on-surface-variant">
             Please wait while we confirm your transaction with Stripe.
           </p>
         </div>
@@ -203,28 +210,27 @@ export function OrderConfirmationView() {
           ? `Payment ${verify.data.status.replace(/_/g, " ")}.`
           : "Payment was not completed.";
     return (
-      <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-section-gap">
-        <div className="mx-auto max-w-2xl text-center flex flex-col items-center">
-          <span className="material-symbols-outlined text-[64px] text-error mb-8">
+      <main className="flex-grow min-h-[calc(100vh-160px)] flex items-center justify-center py-6 px-8">
+        <div className="w-full max-w-xl flex flex-col items-center text-center gap-6">
+          <span className="material-symbols-outlined text-[80px] text-error">
             error
           </span>
-          <div className="font-label-caps text-label-caps text-outline tracking-widest uppercase mb-4">
-            Payment Issue
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-primary uppercase tracking-tight">
+              We couldn&apos;t complete your order
+            </h1>
+            <p className="text-sm text-on-surface-variant">{message}</p>
           </div>
-          <h1 className="font-headline-lg text-headline-lg text-on-background mb-4">
-            We couldn&apos;t complete your order
-          </h1>
-          <p className="font-body-md text-on-surface-variant mb-10">{message}</p>
-          <div className="mt-4 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+          <div className="flex flex-col md:flex-row gap-4 w-full">
             <Link
               href="/checkout"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-inverse-surface transition-colors"
+              className="flex-1 bg-primary text-on-primary text-sm font-bold py-4 rounded-full text-center transition-all hover:opacity-90 uppercase tracking-wide"
             >
               Try again
             </Link>
             <Link
               href="/cart"
-              className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-outline text-on-surface font-label-caps text-label-caps uppercase tracking-widest hover:bg-surface-container transition-colors"
+              className="flex-1 bg-transparent border border-primary text-primary text-sm font-bold py-4 rounded-full text-center transition-all hover:bg-surface-container uppercase tracking-wide"
             >
               Back to cart
             </Link>
@@ -235,61 +241,126 @@ export function OrderConfirmationView() {
   }
 
   const isProcessing = status === "processing";
+  const shipping = snapshot?.shipping;
+  const addressLine = shipping
+    ? `${shipping.address1}, ${shipping.city}`
+    : null;
 
   return (
-    <main className="flex-grow w-full max-w-(--container-container-max) mx-auto px-4 md:px-margin-edge py-section-gap">
-      <div className="mx-auto max-w-2xl text-center flex flex-col items-center">
-        <span className="material-symbols-outlined text-[64px] text-primary mb-8">
-          {isProcessing ? "schedule" : "check_circle"}
-        </span>
-
-        <div className="font-label-caps text-label-caps text-outline tracking-widest uppercase mb-4">
-          {isProcessing ? "Payment Processing" : "Order Confirmed"}
+    <main className="flex-grow min-h-[calc(100vh-160px)] flex items-center justify-center py-6 px-8">
+      <div className="w-full max-w-xl flex flex-col items-center text-center">
+        {/* Icon */}
+        <div className="mb-6">
+          <span className="material-symbols-outlined text-[80px] text-primary">
+            {isProcessing ? "schedule" : "check_circle"}
+          </span>
         </div>
 
-        <h1 className="font-headline-lg text-headline-lg text-on-background mb-4">
-          {isProcessing
-            ? "Your payment is being processed"
-            : "Thank you for your order"}
-        </h1>
+        {/* Heading */}
+        <div className="mb-6 space-y-2">
+          <h1 className="text-2xl font-bold text-primary uppercase tracking-tight">
+            {isProcessing ? "Your payment is being processed" : "Thank you for your order"}
+          </h1>
+          <p className="text-sm text-on-surface-variant">
+            Order Confirmation:{" "}
+            <span className="font-bold text-primary">#{orderId}</span>
+          </p>
+          <p className="text-sm text-outline">
+            {isProcessing
+              ? "We’ll email you once your payment clears."
+              : "A confirmation email has been sent to your inbox."}
+          </p>
+        </div>
 
-        <p className="font-body-md text-on-surface-variant mb-10">
-          {isProcessing ? (
-            <>
-              Order <span className="text-primary font-semibold">#{orderId}</span> is
-              waiting for confirmation. We&apos;ll email you once it clears.
-            </>
-          ) : (
-            <>
-              Your order <span className="text-primary font-semibold">#{orderId}</span>{" "}
-              has been placed successfully.
-            </>
-          )}
-        </p>
-
-        <div className="w-full rounded-2xl border border-outline-variant bg-surface-container-lowest p-8 text-left">
-          <div className="flex items-center justify-between mb-4">
-            <span className="font-body-md text-on-surface-variant">Items</span>
-            <span className="font-body-md text-primary">{items.length}</span>
+        {/* Order Summary Card */}
+        <div className="w-full bg-surface-container-lowest border border-outline-variant rounded-2xl p-6 mb-6 text-left">
+          <div className="flex justify-between items-center pb-4 border-b border-outline-variant mb-4">
+            <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">
+              Shipment Details
+            </span>
+            <span className="text-xs font-medium px-3 py-1 bg-surface-container rounded-full text-primary">
+              Standard Shipping
+            </span>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="font-body-md text-on-surface-variant">Total</span>
-            <span className="font-body-md text-primary">${total.toFixed(2)}</span>
+
+          <div className="space-y-4">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-on-surface-variant">
+                Items ({items.length})
+              </span>
+              <span className="text-sm text-primary font-medium">
+                ${total.toFixed(2)}
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-on-surface-variant">Shipping</span>
+              <span className="text-sm font-medium" style={{ color: "#16A34A" }}>
+                Free
+              </span>
+            </div>
+          </div>
+
+          <div className="mt-6 pt-4 border-t border-outline-variant flex justify-between items-end">
+            <div>
+              <span className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">
+                Order Total
+              </span>
+              <p className="text-xs text-outline mt-1">Paid via Stripe</p>
+            </div>
+            <span className="text-3xl font-bold text-primary leading-none">
+              ${total.toFixed(2)}
+            </span>
           </div>
         </div>
 
-        <div className="mt-12 flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+        {/* Bento grid */}
+        <div className="w-full grid grid-cols-1 md:grid-cols-2 gap-4 mb-6 text-left">
+          <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 flex items-start gap-4">
+            <div className="bg-surface-container p-2 rounded-xl">
+              <span className="material-symbols-outlined text-primary">
+                local_shipping
+              </span>
+            </div>
+            <div>
+              <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">
+                Est. Delivery
+              </p>
+              <p className="text-sm text-primary font-semibold mt-1">
+                {getEstimatedDelivery()}
+              </p>
+            </div>
+          </div>
+
+          <div className="bg-surface-container-lowest border border-outline-variant rounded-2xl p-4 flex items-start gap-4">
+            <div className="bg-surface-container p-2 rounded-xl">
+              <span className="material-symbols-outlined text-primary">
+                location_on
+              </span>
+            </div>
+            <div>
+              <p className="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">
+                Delivery Address
+              </p>
+              <p className="text-sm text-primary font-semibold mt-1">
+                {addressLine ?? "—"}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Actions */}
+        <div className="flex flex-col md:flex-row gap-4 w-full">
           <Link
             href="/store"
-            className="inline-flex items-center justify-center h-12 px-8 rounded-full bg-primary text-on-primary font-label-caps text-label-caps uppercase tracking-widest hover:bg-inverse-surface transition-colors"
+            className="flex-1 bg-primary text-on-primary text-sm font-bold py-4 rounded-full text-center transition-all hover:opacity-90 uppercase tracking-wide"
           >
             Continue Shopping
           </Link>
           <Link
             href="/account/orders"
-            className="inline-flex items-center justify-center h-12 px-8 rounded-full border border-outline text-on-surface font-label-caps text-label-caps uppercase tracking-widest hover:bg-surface-container transition-colors"
+            className="flex-1 bg-transparent border border-primary text-primary text-sm font-bold py-4 rounded-full text-center transition-all hover:bg-surface-container uppercase tracking-wide"
           >
-            Track order
+            Track Order
           </Link>
         </div>
       </div>

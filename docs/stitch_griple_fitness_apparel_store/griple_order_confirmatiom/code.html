@@ -1,0 +1,396 @@
+<!doctype html>
+
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Order Confirmation | Griple</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface-variant": "#444748",
+              "inverse-surface": "#313030",
+              "secondary-fixed": "#e4e2e2",
+              "inverse-primary": "#c8c6c5",
+              "surface-bright": "#fdf8f8",
+              warning: "#D97706",
+              primary: "#000000",
+              secondary: "#5e5e5e",
+              "on-background": "#1c1b1b",
+              info: "#2563EB",
+              "surface-container-highest": "#e5e2e1",
+              surface: "#FFFFFF",
+              "on-primary-fixed": "#1c1b1b",
+              "surface-container": "#f1edec",
+              "on-secondary": "#ffffff",
+              "tertiary-fixed-dim": "#cac6c4",
+              "surface-variant": "#e5e2e1",
+              "on-tertiary-fixed": "#1c1b1a",
+              "on-error-container": "#93000a",
+              success: "#16A34A",
+              "text-muted": "#6B6B6B",
+              "secondary-fixed-dim": "#c7c6c6",
+              error: "#BA1A1A",
+              "surface-dim": "#ddd9d8",
+              "on-primary-fixed-variant": "#474746",
+              "on-error": "#ffffff",
+              "tertiary-container": "#1c1b1a",
+              "on-secondary-container": "#626263",
+              "outline-variant": "#c4c7c7",
+              "on-primary-container": "#858383",
+              "primary-container": "#1c1b1b",
+              "primary-fixed-dim": "#c8c6c5",
+              "inverse-on-surface": "#f4f0ef",
+              "sidebar-bg": "#1A1A1A",
+              "on-primary": "#FFFFFF",
+              border: "#E5E5E5",
+              "error-container": "#ffdad6",
+              outline: "#747878",
+              "surface-container-lowest": "#ffffff",
+              tertiary: "#000000",
+              "on-surface": "#1c1b1b",
+              "surface-tint": "#5f5e5e",
+              "primary-fixed": "#e5e2e1",
+              "text-primary": "#1B1C1C",
+              "on-tertiary-fixed-variant": "#484645",
+              "sidebar-text": "#A0A0A0",
+              background: "#FAFAF8",
+              "surface-container-high": "#ebe7e6",
+              "secondary-container": "#e1dfdf",
+              "tertiary-fixed": "#e6e2df",
+              "sidebar-text-active": "#FFFFFF",
+              "surface-container-low": "#f7f3f2",
+              "on-secondary-fixed-variant": "#464747",
+              "on-secondary-fixed": "#1b1c1c",
+              "on-tertiary": "#ffffff",
+              "on-tertiary-container": "#868382",
+            },
+            borderRadius: {
+              DEFAULT: "0.25rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px",
+            },
+            spacing: {
+              "sidebar-width": "260px",
+              "container-padding": "32px",
+              gutter: "24px",
+              "stack-sm": "8px",
+              "stack-md": "16px",
+              "stack-lg": "24px",
+            },
+            fontFamily: {
+              "label-sm": ["Inter"],
+              "page-title": ["Inter"],
+              body: ["Inter"],
+              "section-label": ["Inter"],
+              "sidebar-nav": ["Inter"],
+            },
+            fontSize: {
+              "label-sm": [
+                "11px",
+                {
+                  lineHeight: "1.0",
+                  letterSpacing: "0.02em",
+                  fontWeight: "500",
+                },
+              ],
+              "page-title": [
+                "24px",
+                {
+                  lineHeight: "1.2",
+                  letterSpacing: "-0.01em",
+                  fontWeight: "700",
+                },
+              ],
+              body: [
+                "14px",
+                { lineHeight: "1.5", letterSpacing: "0em", fontWeight: "400" },
+              ],
+              "section-label": [
+                "12px",
+                {
+                  lineHeight: "1.0",
+                  letterSpacing: "0.08em",
+                  fontWeight: "600",
+                },
+              ],
+              "sidebar-nav": [
+                "13px",
+                { lineHeight: "1.0", letterSpacing: "0em", fontWeight: "500" },
+              ],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 300,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+    </style>
+  </head>
+  <body class="bg-background text-on-background font-body text-body">
+    <!-- TopNavBar -->
+    <header
+      class="w-full top-0 sticky z-50 bg-surface dark:bg-background border-b border-border dark:border-outline-variant flat no shadows"
+    >
+      <div
+        class="flex justify-between items-center h-16 px-container-padding w-full max-w-screen-2xl mx-auto"
+      >
+        <div class="flex items-center gap-stack-lg">
+          <span
+            class="text-page-title font-page-title tracking-tighter text-primary dark:text-on-background"
+            >Griple</span
+          >
+          <nav class="hidden md:flex items-center gap-stack-md ml-stack-lg">
+            <a
+              class="text-secondary dark:text-sidebar-text font-body text-body hover:text-primary dark:hover:text-on-background transition-colors transition-all duration-200 ease-in-out"
+              href="#"
+              >Shop</a
+            >
+            <a
+              class="text-secondary dark:text-sidebar-text font-body text-body hover:text-primary dark:hover:text-on-background transition-colors transition-all duration-200 ease-in-out"
+              href="#"
+              >Collections</a
+            >
+            <a
+              class="text-secondary dark:text-sidebar-text font-body text-body hover:text-primary dark:hover:text-on-background transition-colors transition-all duration-200 ease-in-out"
+              href="#"
+              >About</a
+            >
+            <a
+              class="text-secondary dark:text-sidebar-text font-body text-body hover:text-primary dark:hover:text-on-background transition-colors transition-all duration-200 ease-in-out"
+              href="#"
+              >Support</a
+            >
+          </nav>
+        </div>
+        <div class="flex items-center gap-stack-md">
+          <button
+            class="p-2 transition-all duration-200 ease-in-out hover:text-primary dark:hover:text-on-background"
+          >
+            <span class="material-symbols-outlined" data-icon="shopping_bag"
+              >shopping_bag</span
+            >
+          </button>
+          <button
+            class="p-2 transition-all duration-200 ease-in-out hover:text-primary dark:hover:text-on-background"
+          >
+            <span class="material-symbols-outlined" data-icon="person"
+              >person</span
+            >
+          </button>
+        </div>
+      </div>
+    </header>
+    <main
+      class="min-h-[calc(100vh-160px)] flex items-center justify-center py-stack-lg px-container-padding"
+    >
+      <div class="w-full max-w-xl flex flex-col items-center text-center">
+        <!-- Status Icon -->
+        <div class="mb-stack-lg">
+          <span
+            class="material-symbols-outlined text-[80px] text-primary"
+            data-icon="check_circle"
+            >check_circle</span
+          >
+        </div>
+        <!-- Success Message -->
+        <div class="mb-stack-lg space-y-stack-sm">
+          <h1
+            class="font-page-title text-page-title text-primary uppercase tracking-tight"
+          >
+            Thank you for your order
+          </h1>
+          <p class="font-body text-body text-secondary">
+            Order Confirmation:
+            <span class="font-bold text-primary">#GR-1716789123</span>
+          </p>
+          <p class="font-body text-body text-text-muted">
+            A confirmation email has been sent to your inbox.
+          </p>
+        </div>
+        <!-- Order Summary Card -->
+        <div
+          class="w-full bg-surface border border-border rounded-xl p-stack-lg mb-stack-lg text-left"
+        >
+          <div
+            class="flex justify-between items-center pb-stack-md border-b border-border mb-stack-md"
+          >
+            <span
+              class="font-section-label text-section-label text-secondary uppercase"
+              >Shipment Details</span
+            >
+            <span
+              class="font-label-sm text-label-sm px-3 py-1 bg-surface-container rounded-full text-primary"
+              >Priority Shipping</span
+            >
+          </div>
+          <div class="space-y-stack-md">
+            <div class="flex justify-between items-center">
+              <span class="font-body text-body text-secondary">Items (3)</span>
+              <span class="font-body text-body text-primary font-medium"
+                >$428.00</span
+              >
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-body text-body text-secondary">Shipping</span>
+              <span class="font-body text-body text-success font-medium"
+                >Free</span
+              >
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-body text-body text-secondary">Tax</span>
+              <span class="font-body text-body text-primary font-medium"
+                >$34.24</span
+              >
+            </div>
+          </div>
+          <div
+            class="mt-stack-lg pt-stack-md border-t border-border flex justify-between items-end"
+          >
+            <div>
+              <span
+                class="font-section-label text-section-label text-secondary uppercase"
+                >Order Total</span
+              >
+              <p class="font-body text-body text-text-muted">
+                Paid via Visa ending in 4242
+              </p>
+            </div>
+            <span class="text-[28px] font-bold text-primary leading-none"
+              >$462.24</span
+            >
+          </div>
+        </div>
+        <!-- Estimated Delivery Bento Grid Fragment -->
+        <div
+          class="w-full grid grid-cols-1 md:grid-cols-2 gap-stack-md mb-stack-lg text-left"
+        >
+          <div
+            class="bg-surface border border-border rounded-xl p-stack-md flex items-start gap-stack-md"
+          >
+            <div class="bg-surface-container p-2 rounded-lg">
+              <span
+                class="material-symbols-outlined text-primary"
+                data-icon="local_shipping"
+                >local_shipping</span
+              >
+            </div>
+            <div>
+              <p
+                class="font-section-label text-section-label text-secondary uppercase"
+              >
+                Est. Delivery
+              </p>
+              <p class="font-body text-body text-primary font-semibold">
+                June 14 - June 16
+              </p>
+            </div>
+          </div>
+          <div
+            class="bg-surface border border-border rounded-xl p-stack-md flex items-start gap-stack-md"
+          >
+            <div class="bg-surface-container p-2 rounded-lg">
+              <span
+                class="material-symbols-outlined text-primary"
+                data-icon="location_on"
+                >location_on</span
+              >
+            </div>
+            <div>
+              <p
+                class="font-section-label text-section-label text-secondary uppercase"
+              >
+                Delivery Address
+              </p>
+              <p class="font-body text-body text-primary font-semibold">
+                124 Premium St, NY
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Actions -->
+        <div class="flex flex-col md:flex-row gap-stack-md w-full">
+          <button
+            class="flex-1 bg-primary text-on-primary font-body text-body font-bold py-4 rounded-full transition-all hover:opacity-90 uppercase tracking-wide"
+          >
+            Continue Shopping
+          </button>
+          <button
+            class="flex-1 bg-transparent border border-primary text-primary font-body text-body font-bold py-4 rounded-full transition-all hover:bg-surface-container uppercase tracking-wide"
+          >
+            Track order
+          </button>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer
+      class="w-full bottom-0 bg-surface dark:bg-background border-t border-border dark:border-outline-variant"
+    >
+      <div
+        class="flex flex-col md:flex-row justify-between items-center py-stack-lg px-container-padding w-full max-w-screen-2xl mx-auto"
+      >
+        <div class="mb-stack-md md:mb-0">
+          <span
+            class="text-section-label font-section-label text-primary dark:text-on-background"
+            >Griple Industries</span
+          >
+        </div>
+        <div
+          class="flex flex-wrap justify-center gap-stack-md mb-stack-md md:mb-0"
+        >
+          <a
+            class="font-label-sm text-label-sm text-text-muted dark:text-sidebar-text opacity-80 hover:opacity-100 transition-opacity transition-colors hover:text-primary dark:hover:text-on-background"
+            href="#"
+            >Privacy Policy</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-text-muted dark:text-sidebar-text opacity-80 hover:opacity-100 transition-opacity transition-colors hover:text-primary dark:hover:text-on-background"
+            href="#"
+            >Terms of Service</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-text-muted dark:text-sidebar-text opacity-80 hover:opacity-100 transition-opacity transition-colors hover:text-primary dark:hover:text-on-background"
+            href="#"
+            >Shipping Info</a
+          >
+          <a
+            class="font-label-sm text-label-sm text-text-muted dark:text-sidebar-text opacity-80 hover:opacity-100 transition-opacity transition-colors hover:text-primary dark:hover:text-on-background"
+            href="#"
+            >Returns</a
+          >
+        </div>
+        <div>
+          <p
+            class="font-label-sm text-label-sm text-text-muted dark:text-sidebar-text"
+          >
+            © 2024 Griple Industries. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
