@@ -45,8 +45,19 @@ export function ProductCard({
   const showQuick = Boolean(quickAdd);
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
-      <div className="group relative aspect-[3/4] overflow-hidden rounded-2xl bg-surface-container border border-outline-variant">
+    <div className={cn("flex flex-col gap-4 group/card", className)}>
+      {/* Image container — glassmorphism border + premium lift hover */}
+      <div
+        className={cn(
+          "relative aspect-[3/4] overflow-hidden rounded-[20px] bg-surface-container",
+          "border border-white/[0.08]",
+          // Card hover: subtle lift + neon cyan border glow
+          "transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+          "group-hover/card:-translate-y-1",
+          "group-hover/card:border-primary/30",
+          "group-hover/card:shadow-[0_0_20px_rgba(0,245,255,0.12),0_8px_32px_rgba(0,0,0,0.5)]",
+        )}
+      >
         <Link
           href={href}
           className="block absolute inset-0 z-0"
@@ -58,8 +69,8 @@ export function ProductCard({
             fill
             sizes="(max-width: 768px) 80vw, 320px"
             className={cn(
-              "object-cover object-center transition-transform duration-500 group-hover:scale-[1.03]",
-              hoverImage ? "group-hover:opacity-0" : "",
+              "object-cover object-center transition-transform duration-700 group-hover/card:scale-[1.04]",
+              hoverImage ? "group-hover/card:opacity-0" : "",
             )}
             priority={false}
           />
@@ -70,14 +81,25 @@ export function ProductCard({
               alt={name}
               fill
               sizes="(max-width: 768px) 80vw, 320px"
-              className="object-cover object-center opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+              className="object-cover object-center opacity-0 transition-opacity duration-500 group-hover/card:opacity-100"
               priority={false}
             />
           ) : null}
 
+          {/* Dark vignette overlay for depth */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-60" />
+
           {badge ? (
-            <div className="absolute left-4 top-4 z-[1]">
-              <span className="bg-surface text-on-surface font-label-caps px-3 py-1 rounded-full text-[10px] border border-outline-variant">
+            <div className="absolute left-3 top-3 z-[1]">
+              <span
+                className={cn(
+                  "font-label-caps px-3 py-1 rounded-full text-[10px]",
+                  "backdrop-filter backdrop-blur-md",
+                  badge.toLowerCase() === "sale"
+                    ? "bg-secondary/80 text-white border border-secondary/40"
+                    : "bg-black/50 text-primary border border-primary/30",
+                )}
+              >
                 {badge}
               </span>
             </div>
@@ -85,7 +107,7 @@ export function ProductCard({
         </Link>
 
         {showQuick && quickAdd ? (
-          <div className="absolute bottom-4 right-4 z-10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none group-hover:pointer-events-auto">
+          <div className="absolute bottom-3 right-3 z-10 opacity-0 group-hover/card:opacity-100 transition-opacity duration-300 pointer-events-none group-hover/card:pointer-events-auto">
             <QuickAddButton
               productId={quickAdd.productId}
               slug={slug}
@@ -99,7 +121,8 @@ export function ProductCard({
         ) : null}
       </div>
 
-      <div className="flex flex-col gap-2">
+      {/* Info row */}
+      <div className="flex flex-col gap-2 px-1">
         <div className="flex items-start justify-between gap-4">
           <div className="min-w-0">
             <div className="font-body-md font-semibold text-on-background truncate">
@@ -109,10 +132,10 @@ export function ProductCard({
           <div className="shrink-0 font-body-md font-medium text-on-background">
             {originalPrice ? (
               <span className="flex items-center gap-2">
-                <span className="text-outline line-through">
+                <span className="text-on-surface-variant line-through text-sm">
                   ${originalPrice.toFixed(2)}
                 </span>
-                <span>${price.toFixed(2)}</span>
+                <span className="text-primary">${price.toFixed(2)}</span>
               </span>
             ) : (
               <span>${price.toFixed(2)}</span>
@@ -127,12 +150,12 @@ export function ProductCard({
                 key={c.name}
                 title={c.name}
                 aria-label={c.name}
-                className="inline-block h-3.5 w-3.5 rounded-full border border-outline-variant"
+                className="inline-block h-3.5 w-3.5 rounded-full border border-white/20"
                 style={{ backgroundColor: c.hex }}
               />
             ))}
             {overflow > 0 ? (
-              <span className="font-label-caps text-[10px] text-outline">
+              <span className="font-label-caps text-[10px] text-on-surface-variant">
                 +{overflow}
               </span>
             ) : null}

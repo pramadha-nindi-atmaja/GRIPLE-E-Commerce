@@ -5,52 +5,70 @@
   --font-sans: var(--font-inter), ui-sans-serif, system-ui, -apple-system,
     BlinkMacSystemFont, "Segoe UI", sans-serif;
 
-  /* Colors — sourced from docs/.../premium_athletic_editorial/DESIGN.md */
-  --color-background: #fbf9f8;
-  --color-on-background: #1b1c1c;
-  --color-surface: #ffffff;
-  --color-surface-dim: #dbdad9;
-  --color-surface-bright: #fbf9f8;
-  --color-surface-container-lowest: #ffffff;
-  --color-surface-container-low: #f5f3f3;
-  --color-surface-container: #efeded;
-  --color-surface-container-high: #e9e8e7;
-  --color-surface-container-highest: #e4e2e2;
-  --color-on-surface: #1b1c1c;
-  --color-on-surface-variant: #444748;
-  --color-outline: #747878;
-  --color-outline-variant: #c4c7c7;
-  --color-primary: #000000;
-  --color-on-primary: #ffffff;
-  --color-primary-container: #1c1b1b;
-  --color-on-primary-container: #858383;
-  --color-inverse-primary: #c8c6c5;
-  --color-inverse-surface: #303031;
-  --color-inverse-on-surface: #f2f0f0;
-  --color-secondary: #5d5f5d;
-  --color-on-secondary: #ffffff;
-  --color-secondary-fixed-dim: #c7c6c6;
-  --color-secondary-container: #e2e3e1;
-  --color-on-secondary-container: #636563;
-  --color-tertiary: #000000;
-  --color-on-tertiary: #ffffff;
-  --color-error: #ba1a1a;
-  --color-on-error: #ffffff;
-  --color-error-container: #ffdad6;
-  --color-on-error-container: #93000a;
+  /* ================================================================
+     DARK PREMIUM COLOR SYSTEM
+     Primary accent  : Neon Cyan  #00F5FF
+     Secondary accent: Violet     #8B5CF6
+     Background base : #0B0F19   (deep dark navy)
+  ================================================================ */
 
-  /* Admin dashboard — docs/admin_dashboard/griple_admin/DESIGN.md */
-  --color-admin-bg: #fafaf8;
-  --color-sidebar-bg: #1a1a1a;
-  --color-sidebar-text: #a0a0a0;
-  --color-sidebar-text-active: #ffffff;
-  --color-text-muted: #6b6b6b;
-  --color-text-primary: #1b1c1c;
-  --color-admin-border: #e5e5e5;
-  --color-success: #16a34a;
-  --color-warning: #d97706;
-  --color-info: #2563eb;
+  /* Background & Surfaces */
+  --color-background: #0B0F19;
+  --color-on-background: #E8ECF4;
+  --color-surface: #111827;
+  --color-surface-dim: #090C14;
+  --color-surface-bright: #1A2035;
+  --color-surface-container-lowest: #0F1420;
+  --color-surface-container-low: #141826;
+  --color-surface-container: #1C2338;
+  --color-surface-container-high: #232B42;
+  --color-surface-container-highest: #2A3350;
+  --color-on-surface: #E8ECF4;
+  --color-on-surface-variant: #9AA3B8;
+  --color-outline: rgba(255, 255, 255, 0.18);
+  --color-outline-variant: rgba(255, 255, 255, 0.08);
 
+  /* Primary — Neon Cyan */
+  --color-primary: #00F5FF;
+  --color-on-primary: #001A1B;
+  --color-primary-container: rgba(0, 245, 255, 0.12);
+  --color-on-primary-container: #00F5FF;
+  --color-inverse-primary: #00A8B3;
+
+  /* Secondary — Violet */
+  --color-secondary: #8B5CF6;
+  --color-on-secondary: #FFFFFF;
+  --color-secondary-fixed-dim: #6D3FD1;
+  --color-secondary-container: rgba(139, 92, 246, 0.15);
+  --color-on-secondary-container: #C4B5FD;
+
+  /* Tertiary */
+  --color-tertiary: #A78BFA;
+  --color-on-tertiary: #1A0050;
+
+  /* Inverse / Contrast */
+  --color-inverse-surface: #E8ECF4;
+  --color-inverse-on-surface: #0B0F19;
+
+  /* Status Colors */
+  --color-error: #FF6B6B;
+  --color-on-error: #1A0000;
+  --color-error-container: rgba(255, 107, 107, 0.15);
+  --color-on-error-container: #FF9999;
+  --color-success: #00D68F;
+  --color-warning: #FFAA00;
+  --color-info: #00F5FF;
+
+  /* Admin Dashboard */
+  --color-admin-bg: #0F1420;
+  --color-sidebar-bg: #090C14;
+  --color-sidebar-text: #6B7494;
+  --color-sidebar-text-active: #E8ECF4;
+  --color-text-muted: #6B7494;
+  --color-text-primary: #E8ECF4;
+  --color-admin-border: rgba(255, 255, 255, 0.08);
+
+  /* Spacing */
   --spacing-sidebar-width: 260px;
   --spacing-container-padding: 32px;
   --spacing-stack-sm: 8px;
@@ -58,6 +76,7 @@
   --spacing-stack-lg: 24px;
   --spacing-gutter: 24px;
 
+  /* Admin Typography */
   --text-sidebar-nav: 13px;
   --text-sidebar-nav--line-height: 1;
   --text-sidebar-nav--font-weight: 500;
@@ -81,7 +100,7 @@
   --text-admin-page-title--letter-spacing: -0.01em;
   --text-admin-page-title--font-weight: 700;
 
-  /* Typography scale */
+  /* Typography Scale */
   --text-display: 64px;
   --text-display--line-height: 1.1;
   --text-display--letter-spacing: -0.02em;
@@ -112,13 +131,13 @@
   --text-label-caps--letter-spacing: 0.08em;
   --text-label-caps--font-weight: 600;
 
-  /* Spacing tokens — 8px base, brand-specific */
+  /* Spacing Tokens */
   --spacing-base: 8px;
   --spacing-gutter: 24px;
   --spacing-margin-edge: 48px;
   --spacing-section-gap: 120px;
 
-  /* Container max width */
+  /* Container Max Width */
   --container-container-max: 1440px;
 }
 
@@ -132,6 +151,19 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  /* Ambient mesh gradient — makes glassmorphism visible against dark bg */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 15% 40%, rgba(0, 245, 255, 0.055) 0%, transparent 55%),
+      radial-gradient(ellipse 70% 50% at 85% 15%, rgba(139, 92, 246, 0.055) 0%, transparent 55%),
+      radial-gradient(ellipse 60% 40% at 50% 95%, rgba(139, 92, 246, 0.035) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
   /* Aliases referenced in design HTML files for the editorial caps style */
   .font-label-caps {
     text-transform: uppercase;
@@ -139,7 +171,7 @@
     font-weight: 600;
   }
 
-  /* Admin section headings — mirrors docs/admin_dashboard mockups */
+  /* Admin section headings */
   .font-section-label {
     font-size: var(--text-admin-section-label);
     line-height: var(--text-admin-section-label--line-height);
@@ -171,4 +203,145 @@
     -ms-overflow-style: none;
     scrollbar-width: none;
   }
+}
+
+@layer utilities {
+  /* ================================================================
+     GLASSMORPHISM CARDS
+  ================================================================ */
+  .glass-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+  }
+
+  .glass-card-md {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    border-radius: 20px;
+  }
+
+  /* ================================================================
+     NEON GLOW UTILITIES
+  ================================================================ */
+  .glow-cyan {
+    box-shadow:
+      0 0 16px rgba(0, 245, 255, 0.4),
+      0 0 40px rgba(0, 245, 255, 0.15),
+      0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .glow-cyan-sm {
+    box-shadow:
+      0 0 8px rgba(0, 245, 255, 0.3),
+      0 0 20px rgba(0, 245, 255, 0.12);
+  }
+
+  .glow-violet {
+    box-shadow:
+      0 0 16px rgba(139, 92, 246, 0.45),
+      0 0 40px rgba(139, 92, 246, 0.18),
+      0 4px 24px rgba(0, 0, 0, 0.5);
+  }
+
+  .glow-violet-sm {
+    box-shadow:
+      0 0 8px rgba(139, 92, 246, 0.35),
+      0 0 20px rgba(139, 92, 246, 0.14);
+  }
+
+  /* ================================================================
+     PREMIUM BUTTON TRANSITION
+  ================================================================ */
+  .btn-transition {
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+}
+
+/* ================================================================
+   LIGHT THEME OVERRIDES
+   Applied when <html data-theme="light"> is set by ThemeProvider.
+   All Tailwind utilities using var(--color-*) will automatically
+   pick up these overridden values via CSS cascade.
+================================================================ */
+html[data-theme="light"] {
+  /* Surfaces — warm white */
+  --color-background: #fbf9f8;
+  --color-on-background: #1b1c1c;
+  --color-surface: #ffffff;
+  --color-surface-dim: #dbdad9;
+  --color-surface-bright: #fbf9f8;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f5f3f3;
+  --color-surface-container: #efeded;
+  --color-surface-container-high: #e9e8e7;
+  --color-surface-container-highest: #e4e2e2;
+  --color-on-surface: #1b1c1c;
+  --color-on-surface-variant: #444748;
+  --color-outline: rgba(0, 0, 0, 0.3);
+  --color-outline-variant: #c4c7c7;
+
+  /* Primary — solid black (original editorial theme) */
+  --color-primary: #000000;
+  --color-on-primary: #ffffff;
+  --color-primary-container: #1c1b1b;
+  --color-on-primary-container: #858383;
+  --color-inverse-primary: #c8c6c5;
+
+  /* Secondary — muted charcoal */
+  --color-secondary: #5d5f5d;
+  --color-on-secondary: #ffffff;
+  --color-secondary-fixed-dim: #c7c6c6;
+  --color-secondary-container: #e2e3e1;
+  --color-on-secondary-container: #636563;
+
+  /* Tertiary */
+  --color-tertiary: #000000;
+  --color-on-tertiary: #ffffff;
+
+  /* Inverse */
+  --color-inverse-surface: #303031;
+  --color-inverse-on-surface: #f2f0f0;
+
+  /* Status */
+  --color-error: #ba1a1a;
+  --color-on-error: #ffffff;
+  --color-error-container: #ffdad6;
+  --color-on-error-container: #93000a;
+  --color-success: #16a34a;
+  --color-warning: #d97706;
+  --color-info: #2563eb;
+
+  /* Admin */
+  --color-admin-bg: #fafaf8;
+  --color-sidebar-bg: #1a1a1a;
+  --color-sidebar-text: #a0a0a0;
+  --color-sidebar-text-active: #ffffff;
+  --color-text-muted: #6b6b6b;
+  --color-text-primary: #1b1c1c;
+  --color-admin-border: #e5e5e5;
+}
+
+/* Hide ambient mesh gradient in light mode */
+html[data-theme="light"] body::before {
+  display: none;
+}
+
+/* Adapt glass-card to warm frosted glass in light mode */
+html[data-theme="light"] .glass-card {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+html[data-theme="light"] .glass-card-md {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }

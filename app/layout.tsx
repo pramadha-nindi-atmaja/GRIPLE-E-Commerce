@@ -5,6 +5,7 @@ import "./globals.css";
 
 import { inter } from "@/app/fonts";
 import { AppSessionProvider } from "@/components/providers/AppSessionProvider";
+import { ThemeProvider } from "@/components/providers/ThemeProvider";
 
 export const metadata: Metadata = {
   title: {
@@ -30,7 +31,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col bg-background text-on-background font-body-md">
-        <AppSessionProvider>{children}</AppSessionProvider>
+        <ThemeProvider>
+          <AppSessionProvider>{children}</AppSessionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -94,7 +94,16 @@ export function ProductPurchasePanel({
             qty,
           });
         }}
-        className="w-full h-12 rounded-full bg-primary text-on-primary font-label-caps uppercase hover:bg-inverse-surface transition-colors disabled:opacity-50 disabled:pointer-events-none"
+        className={[
+          "w-full h-12 rounded-full bg-primary text-on-primary font-label-caps uppercase",
+          // Premium cubic-bezier transition
+          "transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+          // Hover: lift + neon cyan glow
+          "hover:-translate-y-0.5 hover:scale-[1.01]",
+          "hover:shadow-[0_0_20px_rgba(0,245,255,0.5),0_0_40px_rgba(0,245,255,0.2),0_4px_24px_rgba(0,0,0,0.4)]",
+          // Disabled
+          "disabled:opacity-40 disabled:pointer-events-none",
+        ].join(" ")}
       >
         Add to Cart
       </button>
