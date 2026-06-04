@@ -33,7 +33,17 @@ export function QuickAddButton({
     <button
       type="button"
       aria-label="Quick add"
-      className="h-10 w-10 bg-surface rounded-full flex items-center justify-center text-primary border border-outline-variant hover:bg-primary hover:text-on-primary hover:border-primary transition-colors"
+      className={[
+        // Glass dark base
+        "h-10 w-10 rounded-full flex items-center justify-center",
+        "bg-background/80 backdrop-blur-md text-primary",
+        "border border-primary/40",
+        // Premium cubic-bezier transition
+        "transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+        // Hover: fill neon + glow
+        "hover:bg-primary hover:text-on-primary hover:scale-[1.08]",
+        "hover:shadow-[0_0_16px_rgba(0,245,255,0.5),0_0_32px_rgba(0,245,255,0.2)]",
+      ].join(" ")}
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();

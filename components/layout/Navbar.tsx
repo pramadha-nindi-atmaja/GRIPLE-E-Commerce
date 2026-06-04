@@ -10,19 +10,20 @@ import { cn } from "@/lib/utils/cn";
 import type { Category } from "@/lib/types";
 import { UserProfileDropdown } from "@/components/layout/UserProfileDropdown";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
+import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 type Props = {
   className?: string;
 };
 
-function LogoMark() {
+function LogoMark({ className }: { className?: string }) {
   return (
-    <div className="size-6" aria-hidden="true">
+    <div className={cn("size-6", className)} aria-hidden="true">
       <svg
         fill="none"
         viewBox="0 0 48 48"
         xmlns="http://www.w3.org/2000/svg"
-        className="text-on-surface"
+        className="text-current"
       >
         <path
           clipRule="evenodd"
@@ -95,9 +96,9 @@ export function Navbar({ className }: Props) {
   return (
     <div
       className={cn(
-        "sticky top-0 z-40 w-full border-b transition-colors duration-300",
+        "sticky top-0 z-40 w-full border-b transition-all duration-300",
         barSolid
-          ? "bg-surface/95 backdrop-blur-md border-outline-variant"
+          ? "bg-background/85 backdrop-blur-xl border-outline-variant"
           : "bg-transparent border-transparent",
         className,
       )}
@@ -107,7 +108,12 @@ export function Navbar({ className }: Props) {
           <div className="flex items-center gap-4 md:gap-8 min-w-0">
             <button
               type="button"
-              className="md:hidden flex items-center justify-center rounded-full h-10 w-10 text-on-surface hover:bg-surface-container shrink-0"
+              className={cn(
+                "md:hidden flex items-center justify-center rounded-full h-10 w-10 shrink-0 transition-colors",
+                barSolid
+                  ? "text-on-surface hover:bg-surface-container"
+                  : "text-white hover:bg-white/10"
+              )}
               aria-label="Open menu"
               aria-expanded={mobileOpen}
               onClick={() => setMobileOpen(true)}
@@ -117,10 +123,13 @@ export function Navbar({ className }: Props) {
 
             <Link
               href="/"
-              className="flex items-center gap-4 text-on-surface hover:opacity-80 transition-opacity shrink-0"
+              className={cn(
+                "flex items-center gap-4 hover:opacity-80 transition-colors shrink-0",
+                barSolid ? "text-on-surface" : "text-white"
+              )}
             >
               <LogoMark />
-              <div className="text-on-surface text-lg font-bold leading-tight tracking-[-0.015em]">
+              <div className="text-lg font-bold leading-tight tracking-[-0.015em]">
                 Griple
               </div>
             </Link>
@@ -130,7 +139,12 @@ export function Navbar({ className }: Props) {
                 <span className="inline-flex">
                   <Link
                     href="/store?gender=men"
-                    className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors py-2"
+                    className={cn(
+                      "font-label-caps text-label-caps transition-colors py-2",
+                      barSolid
+                        ? "text-on-surface-variant hover:text-primary"
+                        : "text-white/80 hover:text-[#00F5FF]"
+                    )}
                   >
                     Men
                   </Link>
@@ -139,7 +153,7 @@ export function Navbar({ className }: Props) {
                   className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
                   role="menu"
                 >
-                  <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
+                  <div className="min-w-[220px] rounded-[20px] border border-outline-variant bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-3 px-2 flex flex-col gap-1">
                     {loading ? (
                       <div className="flex flex-col gap-1 px-3 py-1">
                         {Array.from({ length: 6 }).map((_, i) => (
@@ -175,7 +189,12 @@ export function Navbar({ className }: Props) {
                 <span className="inline-flex">
                   <Link
                     href="/store?gender=women"
-                    className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors py-2"
+                    className={cn(
+                      "font-label-caps text-label-caps transition-colors py-2",
+                      barSolid
+                        ? "text-on-surface-variant hover:text-primary"
+                        : "text-white/80 hover:text-[#00F5FF]"
+                    )}
                   >
                     Women
                   </Link>
@@ -184,7 +203,7 @@ export function Navbar({ className }: Props) {
                   className="absolute left-0 top-full pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50"
                   role="menu"
                 >
-                  <div className="min-w-[220px] rounded-2xl border border-outline-variant bg-surface-container-lowest shadow-lg py-3 px-2 flex flex-col gap-1">
+                  <div className="min-w-[220px] rounded-[20px] border border-outline-variant bg-surface-container-lowest/80 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.6)] py-3 px-2 flex flex-col gap-1">
                     {loading ? (
                       <div className="flex flex-col gap-1 px-3 py-1">
                         {Array.from({ length: 6 }).map((_, i) => (
@@ -218,13 +237,23 @@ export function Navbar({ className }: Props) {
 
               <Link
                 href="/store"
-                className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
+                className={cn(
+                  "font-label-caps text-label-caps transition-colors",
+                  barSolid
+                    ? "text-on-surface-variant hover:text-primary"
+                    : "text-white/80 hover:text-[#00F5FF]"
+                )}
               >
                 Collections
               </Link>
               <Link
                 href="/store?badge=sale"
-                className="text-on-surface-variant font-label-caps text-label-caps hover:text-primary transition-colors"
+                className={cn(
+                  "font-label-caps text-label-caps transition-colors",
+                  barSolid
+                    ? "text-on-surface-variant hover:text-primary"
+                    : "text-white/80 hover:text-[#00F5FF]"
+                )}
               >
                 Sale
               </Link>
@@ -233,36 +262,66 @@ export function Navbar({ className }: Props) {
 
           <div className="flex items-center gap-2 md:gap-4">
             <label className="hidden lg:flex flex-col min-w-40 h-10 max-w-64">
-              <div className="flex w-full h-full items-stretch rounded-xl border border-outline-variant bg-surface-container-lowest focus-within:border-primary focus-within:ring-1 focus-within:ring-primary transition-shadow">
-                <div className="text-outline flex items-center justify-center pl-4 pr-2">
+              <div
+                className={cn(
+                  "flex w-full h-full items-stretch rounded-xl border backdrop-blur-sm transition-all duration-300",
+                  barSolid
+                    ? "border-outline-variant bg-surface-container-lowest/60 focus-within:border-primary/50 focus-within:ring-1 focus-within:ring-primary/30"
+                    : "border-white/15 bg-black/35 focus-within:border-[#00F5FF]/50 focus-within:ring-1 focus-within:ring-[#00F5FF]/30"
+                )}
+              >
+                <div
+                  className={cn(
+                    "flex items-center justify-center pl-4 pr-2 transition-colors",
+                    barSolid ? "text-on-surface-variant" : "text-white/60"
+                  )}
+                >
                   <span className="material-symbols-outlined text-[20px]">
                     search
                   </span>
                 </div>
                 <input
-                  className="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl bg-transparent border-none focus:outline-none focus:ring-0 placeholder:text-outline px-0 text-sm font-normal leading-normal"
+                  className={cn(
+                    "form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-xl bg-transparent border-none focus:outline-none focus:ring-0 px-0 text-sm font-normal leading-normal transition-colors",
+                    barSolid
+                      ? "text-on-surface placeholder:text-on-surface-variant"
+                      : "text-white placeholder:text-white/50"
+                  )}
                   placeholder="Search"
                 />
               </div>
             </label>
 
-            <div className="flex gap-2">
+            <div className="flex items-center gap-2">
+              <ThemeToggle transparent={!barSolid} />
               <Link
                 aria-label="Cart"
                 href="/cart"
-                className="relative flex items-center justify-center rounded-full h-10 w-10 bg-transparent text-on-surface hover:bg-surface-container transition-colors"
+                className={cn(
+                  "relative flex items-center justify-center rounded-full h-10 w-10 bg-transparent transition-colors",
+                  barSolid
+                    ? "text-on-surface hover:bg-surface-container"
+                    : "text-white hover:bg-white/10"
+                )}
               >
                 <span className="material-symbols-outlined text-[24px]">
                   shopping_cart
                 </span>
                 {mounted && itemCount > 0 ? (
-                  <span className="absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full bg-primary text-on-primary text-[11px] leading-5 text-center">
+                  <span
+                    className={cn(
+                      "absolute -top-1 -right-1 min-w-5 h-5 px-1 rounded-full text-[11px] leading-5 text-center transition-all",
+                      barSolid
+                        ? "bg-primary text-on-primary"
+                        : "bg-[#00F5FF] text-[#001A1B] shadow-[0_0_8px_rgba(0,245,255,0.6)]"
+                    )}
+                  >
                     {itemCount}
                   </span>
                 ) : null}
               </Link>
               <div className="hidden sm:flex">
-                <UserProfileDropdown />
+                <UserProfileDropdown transparent={!barSolid} />
               </div>
             </div>
           </div>
@@ -273,11 +332,11 @@ export function Navbar({ className }: Props) {
         <div className="fixed inset-0 z-[60] md:hidden">
           <button
             type="button"
-            className="absolute inset-0 bg-black/50"
+            className="absolute inset-0 bg-black/70 backdrop-blur-sm"
             aria-label="Close menu"
             onClick={() => setMobileOpen(false)}
           />
-          <div className="absolute left-0 top-0 bottom-0 w-[min(100%,320px)] bg-surface shadow-xl flex flex-col">
+          <div className="absolute left-0 top-0 bottom-0 w-[min(100%,320px)] bg-surface-container-lowest border-r border-white/[0.08] shadow-[4px_0_40px_rgba(0,0,0,0.7)] flex flex-col">
             <div className="flex items-center justify-between px-4 py-4 border-b border-outline-variant">
               <span className="font-headline-md text-headline-md">Menu</span>
               <button

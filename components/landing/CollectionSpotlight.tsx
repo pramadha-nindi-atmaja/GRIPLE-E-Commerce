@@ -26,7 +26,12 @@ export function CollectionSpotlight() {
         </p>
         <Link
           href="/store"
-          className="bg-white text-primary px-8 py-4 rounded-full font-bold tracking-wide hover:bg-surface transition-colors"
+          className={[
+            "bg-primary text-on-primary px-8 py-4 rounded-full font-bold tracking-wide",
+            "transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+            "hover:-translate-y-0.5 hover:scale-[1.02]",
+            "hover:shadow-[0_0_20px_rgba(0,245,255,0.55),0_0_40px_rgba(0,245,255,0.2),0_4px_24px_rgba(0,0,0,0.4)]",
+          ].join(" ")}
         >
           Shop the Collection
         </Link>

@@ -42,7 +42,13 @@ export function GenderHero({
           <div className="mt-4">
             <Link
               href={ctaHref}
-              className="inline-flex h-12 px-8 items-center justify-center rounded-full bg-white text-primary text-base font-bold tracking-wide hover:bg-white/90 transition-colors"
+              className={[
+                "inline-flex h-12 px-8 items-center justify-center rounded-full",
+                "bg-primary text-on-primary text-base font-bold tracking-wide",
+                "transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
+                "hover:-translate-y-0.5 hover:scale-[1.02]",
+                "hover:shadow-[0_0_20px_rgba(0,245,255,0.55),0_0_40px_rgba(0,245,255,0.2),0_4px_24px_rgba(0,0,0,0.4)]",
+              ].join(" ")}
             >
               {ctaLabel}
             </Link>
