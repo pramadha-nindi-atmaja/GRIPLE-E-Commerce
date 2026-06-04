@@ -3,7 +3,7 @@
 import { useTheme } from "@/components/providers/ThemeProvider";
 import { useHasMounted } from "@/lib/hooks/useHasMounted";
 
-export function ThemeToggle() {
+export function ThemeToggle({ transparent }: { transparent?: boolean }) {
   const { theme, toggle } = useTheme();
   const mounted = useHasMounted();
 
@@ -27,20 +27,26 @@ export function ThemeToggle() {
         "relative flex h-10 w-10 items-center justify-center rounded-full shrink-0",
         // Glass base style
         "border transition-all duration-[400ms] [transition-timing-function:cubic-bezier(0.16,1,0.3,1)]",
-        // Dark mode styling
-        isDark
+        // Transparent overlay styling (over dark hero)
+        transparent
           ? [
-              "bg-surface-container border-white/[0.10] text-primary",
-              "hover:border-primary/50 hover:bg-primary/10",
-              "hover:shadow-[0_0_12px_rgba(0,245,255,0.35),0_0_24px_rgba(0,245,255,0.15)]",
+              "bg-white/10 border-white/15 text-white",
+              "hover:bg-white/20 hover:border-white/40",
               "hover:scale-[1.08]",
             ].join(" ")
-          : [
-              // Light mode: warm amber/yellow styling
-              "bg-surface-container border-outline-variant text-on-surface",
-              "hover:bg-surface-container-high hover:border-outline",
-              "hover:scale-[1.08]",
-            ].join(" "),
+          : isDark
+            ? [
+                "bg-surface-container border-white/[0.10] text-primary",
+                "hover:border-primary/50 hover:bg-primary/10",
+                "hover:shadow-[0_0_12px_rgba(0,245,255,0.35),0_0_24px_rgba(0,245,255,0.15)]",
+                "hover:scale-[1.08]",
+              ].join(" ")
+            : [
+                // Light mode: warm amber/yellow styling
+                "bg-surface-container border-outline-variant text-on-surface",
+                "hover:bg-surface-container-high hover:border-outline",
+                "hover:scale-[1.08]",
+              ].join(" "),
       ].join(" ")}
     >
       {/* Icon swap with smooth rotate+fade */}

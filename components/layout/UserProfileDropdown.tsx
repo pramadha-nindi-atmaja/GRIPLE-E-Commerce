@@ -26,7 +26,7 @@ function Avatar({ name, size = "sm" }: { name: string; size?: "sm" | "md" }) {
   );
 }
 
-export function UserProfileDropdown() {
+export function UserProfileDropdown({ transparent }: { transparent?: boolean }) {
   const { data: session, status } = useSession();
   const router = useRouter();
   const [open, setOpen] = useState(false);
@@ -46,9 +46,14 @@ export function UserProfileDropdown() {
         type="button"
         aria-label="Sign in"
         onClick={() => router.push("/account/login")}
-        className="p-2 rounded-full hover:bg-surface-container transition-colors"
+        className={cn(
+          "p-2 rounded-full transition-colors",
+          transparent
+            ? "text-white hover:bg-white/10"
+            : "text-on-surface hover:bg-surface-container"
+        )}
       >
-        <span className="material-symbols-outlined text-[22px] text-on-surface">person</span>
+        <span className="material-symbols-outlined text-[22px]">person</span>
       </button>
     );
   }
@@ -64,7 +69,12 @@ export function UserProfileDropdown() {
         onClick={() => setOpen((v) => !v)}
         className={cn(
           "rounded-full transition-all ring-2",
-          open ? "ring-primary ring-offset-2" : "ring-transparent hover:ring-outline-variant",
+          open
+            ? "ring-primary ring-offset-2"
+            : cn(
+                "ring-transparent",
+                transparent ? "hover:ring-white/40" : "hover:ring-outline-variant"
+              ),
         )}
       >
         <Avatar name={name} />
