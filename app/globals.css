@@ -345,3 +345,13 @@ html[data-theme="light"] .glass-card-md {
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+/* ── Footer light-mode adaptations ──────────────────────
+   In light mode the footer neon glow looks out of place —
+   suppress the ambient glow overlay entirely.
+   The footer bg token (surface-dim) is already warm in
+   light mode (#dbdad9), so no bg change needed.
+───────────────────────────────────────────────────────── */
+html[data-theme="light"] footer .pointer-events-none[aria-hidden] {
+  display: none;
+}
